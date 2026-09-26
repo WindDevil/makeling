@@ -9,6 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # The exercises ship files whose names look like build output -- report.d,
+      # blah.o, f1.out -- so a broad *.d / *.o / *.out ignore rule would drop
+      # them from the repository.  They would still be there locally, which is
+      # how this went unnoticed until a clone failed: the test ran against a
+      # tree that had them.  Fail loudly instead.
+      - name: Check no exercise file is gitignored
+        run: make check-tracked
+
       - name: Show toolchain
         run: |
           make --version

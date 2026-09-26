@@ -42,7 +42,13 @@ python3 tools/generate_exercises.py
 ./makeling verify
 ./makeling selftest
 python3 tools/generate_exercises.py --check
+make check-tracked
 ```
+
+`make check-tracked` 确认 `exercises/`、`solutions/`、`templates/` 下的每个文件都
+真的进了仓库。练习会故意携带 `report.d`、`blah.o` 这类看起来像构建产物的文件，
+一旦 `.gitignore` 里出现宽泛的 `*.d` / `*.o` 规则，它们就会只在本地存在、不在
+clone 里存在——本地全绿，CI 全红。CI 也会跑这一步。
 
 ## 规格的写法
 

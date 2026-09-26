@@ -9,7 +9,7 @@ MAKELING ?= ./makeling
 
 .DEFAULT_GOAL := help
 
-.PHONY: help list run next verify selftest generate check-generated doctor clean format lint
+.PHONY: help list run next verify selftest generate check-generated check-tracked doctor clean format lint
 
 help: ## Show this help
 	@printf '%s\n' 'makeling targets:'
@@ -39,6 +39,23 @@ check-generated: ## Fail if the generated files are stale
 
 doctor: ## Print the detected toolchain
 	$(MAKELING) doctor
+
+check-tracked: ## Fail if an exercise file would be missing from a clone
+	@ignored=$$(git ls-files --others --ignored --exclude-standard \
+		exercises solutions templates); \
+	if [ -n "$$ignored" ]; then \
+		echo 'these files are ignored by .gitignore, so a clone would not have them:'; \
+		echo "$$ignored"; \
+		exit 1; \
+	fi; \
+	untracked=$$(git ls-files --others --exclude-standard \
+		exercises solutions templates); \
+	if [ -n "$$untracked" ]; then \
+		echo 'these files exist but are not committed:'; \
+		echo "$$untracked"; \
+		exit 1; \
+	fi; \
+	echo 'every file under exercises/, solutions/ and templates/ is committed'
 
 clean: ## Remove staged working copies
 	$(MAKELING) clean

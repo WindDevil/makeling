@@ -1,10 +1,14 @@
+# Everything make produces goes under build/, because the runner stages each
+# exercise there rather than running it in place.  There is deliberately no
+# *.o / *.d / *.out rule: the exercises ship files with exactly those names
+# (report.d, blah.o, f1.out) and an ignore rule for them silently drops those
+# files from the repository -- they then exist locally but not in a clone.
+# ci.yml checks that no exercise file is ignored, so the rule cannot come back
+# by accident.
 /build/
 /.makeling/
 /.ref/
 compile_commands.json
-*.o
-*.d
-*.out
 __pycache__/
 *.py[cod]
 *.dSYM/
