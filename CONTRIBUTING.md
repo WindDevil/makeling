@@ -101,9 +101,42 @@ file_breaks=[("sub/Makefile", "正确片段", "初始片段")],
 
 - 不使用 `date`、`$$RANDOM`、`$$PPID` 之类会变化的输入。
 - 不使用绝对路径；工作目录会被规范化成 `<stage>`。
-- 不 `sleep`，不依赖时序；需要「文件更新了」时用 `touch`。
+- 不 `sleep`，不依赖时序。
 - 不访问网络。
 - 只操作编排目录内的文件。
+
+### 时间戳必须显式指定
+
+运行器会把 staging 出来的文件统一改成很久以前的固定时间（见
+[docs/architecture.md](docs/architecture.md)），所以「配方刚写出的文件比练习
+自带的文件新」是自动成立的，不需要你操心。
+
+但**不要用裸 `touch` 去制造「某个文件更新了」**。上一条 recipe 刚把目标写出
+来，而有些文件系统（CI runner 就是）把时间戳量化到整秒，`touch` 和目标可能落
+在同一刻度里，make 就会认为无事可做，断言随机失败。要显式指定两个时间：
+
+```python
+step("touch", "-t", "202001010000", "out.txt",
+     description="age the built file"),
+step("touch", "-t", "202101010000", "b.txt",
+     description="make the second prerequisite newer"),
+```
+
+先把目标调旧，再把需要变新的文件调到更晚，两者相差一年，任何时间戳粒度下都
+不会含糊。`touch -t` 的格式是 `[[CC]YY]MMDDhhmm`；时间要落在过去，否则 make
+会报 clock skew。
+
+自查有没有漏网的：
+
+```sh
+python3 -c "
+import json, glob
+bad = [(d['exercise'], i) for f in glob.glob('exercises/*/*/checks.json')
+       for d in [json.load(open(f))]
+       for i, s in enumerate(d['steps'], 1)
+       if s['args'] and s['args'][0] == 'touch' and '-t' not in s['args']]
+print(bad)"
+```
 
 ## 只重新生成一个专题
 

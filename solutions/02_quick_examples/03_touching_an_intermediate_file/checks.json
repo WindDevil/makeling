@@ -22,9 +22,29 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "blah.o",
+        "blah"
+      ],
+      "description": "age the object and the program",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "blah.c"
       ],
-      "description": "pretend the source was edited",
+      "description": "pretend the source was edited, newer than both",
       "exit_code": 0,
       "stdout": null,
       "stdout_mode": "contains_lines",
@@ -51,9 +71,28 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "blah"
+      ],
+      "description": "age the program",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "blah.o"
       ],
-      "description": "pretend only the object was touched",
+      "description": "pretend only the object was touched, newer than the program",
       "exit_code": 0,
       "stdout": null,
       "stdout_mode": "contains_lines",

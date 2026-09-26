@@ -141,12 +141,43 @@ blah.o: blah.c
                 stdout="cc -c blah.c -o blah.o\ncc blah.o -o blah",
                 description="the object is compiled before the program is linked",
             ),
-            step("touch", "blah.c", description="pretend the source was edited"),
+            # Explicit timestamps rather than a plain touch: the recipes above
+            # wrote these files moments ago, and where the filesystem quantises
+            # timestamps to a whole second a touch can share their tick and
+            # leave make reporting "up to date".
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "blah.o",
+                "blah",
+                description="age the object and the program",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "blah.c",
+                description="pretend the source was edited, newer than both",
+            ),
             mk(
                 stdout="cc -c blah.c -o blah.o\ncc blah.o -o blah",
                 description="a newer source recompiles and the fresh object relinks",
             ),
-            step("touch", "blah.o", description="pretend only the object was touched"),
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "blah",
+                description="age the program",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "blah.o",
+                description="pretend only the object was touched, newer than the program",
+            ),
             mk(
                 stdout="cc blah.o -o blah",
                 stdout_mode="exact",

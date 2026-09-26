@@ -38,6 +38,25 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "out.txt"
+      ],
+      "description": "age the built file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "b.txt"
       ],
       "description": "make the second prerequisite newer",

@@ -39,6 +39,25 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "combined.txt"
+      ],
+      "description": "age the built file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "one.txt"
       ],
       "description": "make the first source newer",

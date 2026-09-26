@@ -22,6 +22,26 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "hey",
+        "two"
+      ],
+      "description": "age the target and the other prerequisite",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "one"
       ],
       "description": "make one of the two prerequisites newer",

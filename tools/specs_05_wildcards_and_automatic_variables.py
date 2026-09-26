@@ -409,7 +409,24 @@ two:
                 stdout="all prerequisites = one two\nnewer prerequisites = one two",
                 description="hey does not exist yet, so everything is newer",
             ),
-            step("touch", "one", description="make one newer than hey"),
+            # hey, one and two were all written by the recipe above, one of
+            # them in the same instant as another.  Dating them explicitly keeps
+            # the comparison meaningful on any filesystem.
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "hey",
+                "two",
+                description="age the target and the other prerequisite",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "one",
+                description="make one newer than hey",
+            ),
             mk(
                 stdout="all prerequisites = one two\nnewer prerequisites = one",
                 description="only the touched prerequisite is out of date",

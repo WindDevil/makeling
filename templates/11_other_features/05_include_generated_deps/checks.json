@@ -53,9 +53,28 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "report"
+      ],
+      "description": "age the built report",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "notes.txt"
       ],
-      "description": "make the source newer",
+      "description": "make the source newer than the report",
       "exit_code": 0,
       "stdout": null,
       "stdout_mode": "contains_lines",

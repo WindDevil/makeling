@@ -52,9 +52,28 @@
     {
       "args": [
         "touch",
+        "-t",
+        "202001010000",
+        "blah"
+      ],
+      "description": "age the compiled program",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "blah.c"
       ],
-      "description": "make blah.c newer than blah",
+      "description": "make the source newer than the program",
       "exit_code": 0,
       "stdout": null,
       "stdout_mode": "contains_lines",

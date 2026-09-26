@@ -98,7 +98,32 @@
     },
     {
       "args": [
+        "find",
+        "build",
+        "-type",
+        "f",
+        "-exec",
         "touch",
+        "-t",
+        "202001010000",
+        "{}",
+        "+"
+      ],
+      "description": "age every object and the program",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
         "src/moduleA/detail.h"
       ],
       "description": "make a header newer than the objects",

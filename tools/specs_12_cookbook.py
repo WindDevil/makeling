@@ -628,8 +628,28 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
                 stdout_mode="contains",
                 description="a second make has nothing to do",
             ),
+            # Age everything the build produced before putting the header
+            # ahead of it.  The objects were written moments ago, and on a
+            # filesystem whose timestamps are quantised to a whole second a
+            # plain touch can share their tick and leave make reporting that
+            # nothing needs recompiling.
+            step(
+                "find",
+                "build",
+                "-type",
+                "f",
+                "-exec",
+                "touch",
+                "-t",
+                "202001010000",
+                "{}",
+                "+",
+                description="age every object and the program",
+            ),
             step(
                 "touch",
+                "-t",
+                "202101010000",
                 "src/moduleA/detail.h",
                 description="make the header that only thing.c includes newer",
             ),
@@ -767,7 +787,22 @@ clean:
                 description="a clean tree builds again from nothing",
             ),
             step(
+                "find",
+                "build",
+                "-type",
+                "f",
+                "-exec",
                 "touch",
+                "-t",
+                "202001010000",
+                "{}",
+                "+",
+                description="age every object and the program",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
                 "src/moduleA/detail.h",
                 description="make a header newer than the objects",
             ),

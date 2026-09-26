@@ -464,8 +464,21 @@ two:
                 ),
                 description="with no target file every prerequisite counts",
             ),
+            # The recipe above wrote hey, one and two moments ago, two of them
+            # in the same instant as each other.  Dating them explicitly keeps
+            # the comparison meaningful on any filesystem.
             step(
                 "touch",
+                "-t",
+                "202001010000",
+                "hey",
+                "two",
+                description="age the target and the other prerequisite",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
                 "one",
                 description="make one of the two prerequisites newer",
             ),
@@ -651,6 +664,15 @@ out.txt: a.txt b.txt
             ),
             step(
                 "touch",
+                "-t",
+                "202001010000",
+                "out.txt",
+                description="age the built file",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
                 "b.txt",
                 description="make the second prerequisite newer",
             ),

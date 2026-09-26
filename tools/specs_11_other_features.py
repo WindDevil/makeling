@@ -222,7 +222,23 @@ report:
                 stdout="line one\nline two",
                 description="the report holds both lines of notes.txt",
             ),
-            step("touch", "notes.txt", description="make the source newer"),
+            # The report was built a moment ago.  Dating both files explicitly
+            # keeps this a real comparison even where the filesystem stamps
+            # them a whole second apart at best.
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "report",
+                description="age the built report",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "notes.txt",
+                description="make the source newer than the report",
+            ),
             mk(
                 "report",
                 stdout="cat notes.txt > report",
@@ -426,7 +442,20 @@ show:
                 stdout="[one.txt two.txt]",
                 description="the backslash, the newline and the indent became one space",
             ),
-            step("touch", "one.txt", description="make the first source newer"),
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "combined.txt",
+                description="age the built file",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "one.txt",
+                description="make the first source newer",
+            ),
             mk(
                 stdout="cat one.txt two.txt > combined.txt",
                 description="both words really are prerequisites",

@@ -139,7 +139,25 @@ blah: blah.c
                 stdout_mode="contains",
                 description="nothing changed, so nothing is rebuilt",
             ),
-            step("touch", "blah.c", description="make blah.c newer than blah"),
+            # The two timestamps are set explicitly rather than left to the
+            # wall clock: the target was written moments ago, and on a
+            # filesystem whose timestamps are quantised to a whole second a
+            # plain `touch` can land in the same tick and leave make convinced
+            # there is nothing to do.
+            step(
+                "touch",
+                "-t",
+                "202001010000",
+                "blah",
+                description="age the compiled program",
+            ),
+            step(
+                "touch",
+                "-t",
+                "202101010000",
+                "blah.c",
+                description="make the source newer than the program",
+            ),
             mk(
                 stdout="cc blah.c -o blah",
                 description="the newer source triggers a rebuild",
