@@ -1,0 +1,16 @@
+/build/
+/.makeling/
+/.ref/
+compile_commands.json
+*.o
+*.d
+*.out
+__pycache__/
+*.py[cod]
+*.dSYM/
+.DS_Store
+*.swp
+*.swo
+
+# Claude Code local settings
+.claude/

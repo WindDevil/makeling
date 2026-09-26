@@ -1,0 +1,110 @@
+{
+  "exercise": "12_cookbook/08_include_deps",
+  "title": "-include the generated dependency files",
+  "objective": "Pull the .d files into the Makefile with -include, so that touching a header recompiles only the objects that include it.",
+  "reference": "Makefile Cookbook",
+  "hint": "The leading dash matters: on the very first build not one .d file exists yet, and a plain include would stop make with \"No rule to make target\" before it compiles anything.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first build compiles everything from nothing",
+      "exit_code": 0,
+      "stdout": "-c src/main.c -o build/./src/main.c.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second make has nothing to do",
+      "exit_code": 0,
+      "stdout": "'build/final_program' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "src/moduleA/detail.h"
+      ],
+      "description": "make the header that only thing.c includes newer",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "main.c does not include detail.h, so it is not recompiled",
+      "exit_code": 0,
+      "stdout": "-c src/main.c -o",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "the .d file says thing.c does include detail.h",
+      "exit_code": 0,
+      "stdout": "-c src/moduleA/thing.c -o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the rebuild recompiles exactly that one object",
+      "exit_code": 0,
+      "stdout": "-c src/moduleA/thing.c -o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "and then everything is up to date again",
+      "exit_code": 0,
+      "stdout": "'build/final_program' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

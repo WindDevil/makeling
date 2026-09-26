@@ -1,0 +1,23 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/06_percent_in_patsubst",
+  "title": "% matches a stem, and the stem is substituted back",
+  "objective": "Turn a list of .c names into .o names with $(patsubst %.c,%.o,...) and with the $(list:%.c=%.o) shorthand.",
+  "reference": "% Wildcard",
+  "hint": "The % in the pattern matches any run of characters, and whatever it matched is called the stem. The % in the replacement is replaced by that stem. A word that does not match is copied through untouched.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the stem replaces % in the replacement text",
+      "exit_code": 0,
+      "stdout": "patsubst: a.o b.o l.a c.o\nshorthand: a.o b.o l.a c.o\ninto a directory: obj/a.o obj/b.o l.a obj/c.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

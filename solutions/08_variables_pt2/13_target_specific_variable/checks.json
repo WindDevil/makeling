@@ -1,0 +1,54 @@
+{
+  "exercise": "08_variables_pt2/13_target_specific_variable",
+  "title": "A variable that belongs to one target",
+  "objective": "Give the all target its own flavour without letting the other target see it.",
+  "reference": "Target-specific variables",
+  "hint": "Write target: variable = value before the rule. Making the assignment global instead would let every target see it.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the all target sees its own variable",
+      "exit_code": 0,
+      "stdout": "echo the all target uses vanilla\nthe all target uses vanilla",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "other"
+      ],
+      "description": "the sibling target does not",
+      "exit_code": 0,
+      "stdout": "echo the other target sees []\nthe other target sees []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "all",
+        "other"
+      ],
+      "description": "asking for both in one run does not blur the two",
+      "exit_code": 0,
+      "stdout": "echo the all target uses vanilla\nthe all target uses vanilla\necho the other target sees []\nthe other target sees []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

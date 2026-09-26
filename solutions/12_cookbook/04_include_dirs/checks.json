@@ -1,0 +1,56 @@
+{
+  "exercise": "12_cookbook/04_include_dirs",
+  "title": "Every folder in src is an include directory",
+  "objective": "Collect ./src and its subdirectories with $(shell find ... -type d) and prefix each one with -I.",
+  "reference": "Makefile Cookbook",
+  "hint": "$(addprefix -I,$(INC_DIRS)) puts -I in front of every word of the list. Without it the compiler is handed bare directory names, and main.c can no longer find greet.h and thing.h.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "flags"
+      ],
+      "description": "src and both of its subdirectories are collected",
+      "exit_code": 0,
+      "stdout": "include dir: ./src\ninclude dir: ./src/moduleA\ninclude dir: ./src/util",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "flags"
+      ],
+      "description": "the -I flags are what let main.c compile at all",
+      "exit_code": 0,
+      "stdout": "main.c compiled with -I",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "flags"
+      ],
+      "description": "the probe cleans up after itself",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "main.o"
+      ]
+    }
+  ]
+}

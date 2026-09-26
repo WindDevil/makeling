@@ -1,0 +1,52 @@
+{
+  "exercise": "01_syntax_and_essence/07_existing_file_is_skipped",
+  "title": "A target that is already a file",
+  "objective": "Name the target after the file that is already there, so that make skips the recipe instead of running it.",
+  "reference": "The essence of Make",
+  "hint": "make looks for a file whose name is exactly the target's name. When that file exists the target counts as up to date and no command runs.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the file with the target's name already exists",
+      "exit_code": 0,
+      "stdout": "make: 'existing.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "so make never runs the recipe",
+      "exit_code": 0,
+      "stdout": "echo \"do not touch\"",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "existing.txt"
+      ],
+      "description": "and the file keeps the contents it had",
+      "exit_code": 0,
+      "stdout": "do not touch",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

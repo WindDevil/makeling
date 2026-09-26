@@ -1,0 +1,39 @@
+{
+  "exercise": "11_other_features/07_vpath_clear",
+  "title": "Clearing a stale search path",
+  "objective": "Forget the old headers directory before adding the new one, so that blah.h resolves to the file in new/.",
+  "reference": "The vpath Directive",
+  "hint": "A vpath directive with no pattern clears every search path added so far. Without it the earlier directory is still searched first and its stale header wins.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "some_binary"
+      ],
+      "description": "the stale directory is no longer searched",
+      "exit_code": 0,
+      "stdout": "cat new/blah.h > some_binary",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "some_binary"
+      ],
+      "description": "the new header is the one that was copied",
+      "exit_code": 0,
+      "stdout": "fresh header",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

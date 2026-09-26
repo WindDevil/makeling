@@ -1,0 +1,69 @@
+{
+  "exercise": "06_fancy_rules/01_implicit_link_rule",
+  "title": "make compiles and links without a recipe",
+  "objective": "Ask for an executable called blah without writing a single recipe, and let make's built-in C rules do the compiling and the linking.",
+  "reference": "Implicit Rules",
+  "hint": "Naming blah.o as a prerequisite is enough: make links blah from blah.o with one built-in rule and compiles blah.o from blah.c with another. Write the dependency, not the commands.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the compile rule runs, then the linker rule",
+      "exit_code": 0,
+      "stdout": "cc\\s+-c -o blah\\.o blah\\.c\\ncc\\s+blah\\.o\\s+-o blah",
+      "stdout_mode": "regex",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "blah.o"
+      ],
+      "description": "the implicit compile rule produced blah.o",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "blah"
+      ],
+      "description": "the implicit linker rule produced the program",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second run has nothing left to do",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

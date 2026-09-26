@@ -1,0 +1,23 @@
+{
+  "exercise": "03_variables/07_addprefix_and_addsuffix",
+  "title": "Adding a prefix and a suffix to every word",
+  "objective": "Use $(addprefix) and $(addsuffix) to build an object list and a backup list out of one source list.",
+  "reference": "Makefile Cookbook",
+  "hint": "$(addprefix prefix,list) and $(addsuffix suffix,list) touch every word of the list. The prefix or the suffix comes first in the call; the list comes last.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both functions walk the whole list",
+      "exit_code": 0,
+      "stdout": "objs: build/main.c build/util.c\nbackups: main.c.bak util.c.bak",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

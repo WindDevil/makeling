@@ -1,0 +1,82 @@
+{
+  "exercise": "00_getting_started/04_essence_prerequisites",
+  "title": "Prerequisites decide whether to rebuild",
+  "objective": "Declare blah.c as a prerequisite of blah so that touching the source recompiles the program.",
+  "reference": "The essence of Make",
+  "hint": "Without a prerequisite make only checks whether the target exists. A prerequisite makes it compare timestamps instead.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first build compiles",
+      "exit_code": 0,
+      "stdout": "cc blah.c -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "blah"
+      ],
+      "description": "an executable named blah exists",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "nothing changed, so nothing is rebuilt",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "blah.c"
+      ],
+      "description": "make blah.c newer than blah",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the newer source triggers a rebuild",
+      "exit_code": 0,
+      "stdout": "cc blah.c -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

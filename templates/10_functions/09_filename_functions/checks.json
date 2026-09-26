@@ -1,0 +1,79 @@
+{
+  "exercise": "10_functions/09_filename_functions",
+  "title": "Splitting file names apart",
+  "objective": "Take src/a.c src/b.h apart into directories, file names, suffixes and stems.",
+  "reference": "First Functions",
+  "hint": "$(dir) keeps everything up to and including the last slash, $(notdir) drops it, $(suffix) and $(basename) split at the last dot. $(basename) keeps the directory part of the path.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the directory keeps its trailing slash",
+      "exit_code": 0,
+      "stdout": "dirs=[src/ src/]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "notdir drops the directory",
+      "exit_code": 0,
+      "stdout": "names=[a.c b.h]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the suffix includes the dot",
+      "exit_code": 0,
+      "stdout": "suffixes=[.c .h]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "basename keeps the directory, drops the suffix",
+      "exit_code": 0,
+      "stdout": "stems=[src/a src/b]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a name without a dot has no suffix",
+      "exit_code": 0,
+      "stdout": "bare=[noext][]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

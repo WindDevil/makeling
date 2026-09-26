@@ -1,0 +1,39 @@
+{
+  "exercise": "12_cookbook/01_find_sources",
+  "title": "Discovering the sources with find",
+  "objective": "Let make collect every C and C++ file under ./src with $(shell find ...), leaving the patterns quoted.",
+  "reference": "Makefile Cookbook",
+  "hint": "SRCS is $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c'). Keep the single quotes: an unquoted *.c is expanded by the shell against the current directory before find ever sees it.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "sources"
+      ],
+      "description": "find reports the three sources, in any directory order",
+      "exit_code": 0,
+      "stdout": "found: ./src/main.c\nfound: ./src/moduleA/thing.c\nfound: ./src/util/greet.cpp\ncount: 3",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "sources"
+      ],
+      "description": "the scratch file in the project root is not a source",
+      "exit_code": 0,
+      "stdout": "scratch",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

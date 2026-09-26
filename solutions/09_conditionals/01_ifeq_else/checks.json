@@ -1,0 +1,38 @@
+{
+  "exercise": "09_conditionals/01_ifeq_else",
+  "title": "Pick a recipe line with ifeq/else",
+  "objective": "Branch on the value of foo so that make prints the matching message for both the file's value and an override on the command line.",
+  "reference": "Conditional if/else",
+  "hint": "The else directive separates the two branches and endif closes the conditional. A make with an override needs the recipe that runs when the comparison fails, and that recipe is missing.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "foo is ok, so the first branch runs",
+      "exit_code": 0,
+      "stdout": "echo \"foo equals ok\"\nfoo equals ok",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "foo=nope"
+      ],
+      "description": "a command line override selects the else branch",
+      "exit_code": 0,
+      "stdout": "echo \"foo is not ok\"\nfoo is not ok",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

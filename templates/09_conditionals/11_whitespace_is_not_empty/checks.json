@@ -1,0 +1,37 @@
+{
+  "exercise": "09_conditionals/11_whitespace_is_not_empty",
+  "title": "A value of only whitespace is not empty",
+  "objective": "Show that ifdef is true for a variable whose value is one space, while ifeq only sees it as empty once it is stripped.",
+  "reference": "Check if a variable is defined",
+  "hint": "padded holds one space, and a space is a non-empty value, so ifdef padded is true and ifeq ($(padded),) is false. Only the stripped comparison is true.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "all three conditionals are true",
+      "exit_code": 0,
+      "stdout": "ifdef sees a non-empty value\nifeq says padded is not empty\nonly strip says it is empty",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the whitespace is never mistaken for emptiness",
+      "exit_code": 0,
+      "stdout": "ifdef sees nothing\nifeq says padded is empty",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

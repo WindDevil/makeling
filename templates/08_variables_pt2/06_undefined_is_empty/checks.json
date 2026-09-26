@@ -1,0 +1,38 @@
+{
+  "exercise": "08_variables_pt2/06_undefined_is_empty",
+  "title": "An undefined variable is an empty string",
+  "objective": "Append a variable that nothing defines to a flag list, and confirm it contributes nothing until a value is supplied.",
+  "reference": "Flavors and modification",
+  "hint": "$(NAME) of a variable nobody set expands to nothing at all, so appending it is harmless. Writing the name without $() makes it literal text instead.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the undefined variable added nothing",
+      "exit_code": 0,
+      "stdout": "echo \"cflags: -Wall\"\ncflags: -Wall",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "EXTRA_CFLAGS=-Wextra"
+      ],
+      "description": "supplying the variable on the command line fills the hole",
+      "exit_code": 0,
+      "stdout": "echo \"cflags: -Wall -Wextra\"\ncflags: -Wall -Wextra",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

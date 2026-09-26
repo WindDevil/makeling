@@ -1,0 +1,23 @@
+{
+  "exercise": "08_variables_pt2/07_substitution_references",
+  "title": "Substitution references",
+  "objective": "Turn a list of object files into the matching source files with the suffix shorthand and with the explicit pattern form.",
+  "reference": "Flavors and modification",
+  "hint": "$(objects:.o=.c) swaps the suffix of every word that has it. $(objects:%.o=%.c) is the same idea written as a pattern, where the % carries the part of the word in front of .o.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "all three spellings produce the same list",
+      "exit_code": 0,
+      "stdout": "echo sources: a.c b.c l.a c.c\nsources: a.c b.c l.a c.c\necho via_pattern: a.c b.c l.a c.c\nvia_pattern: a.c b.c l.a c.c\necho via_patsubst: a.c b.c l.a c.c\nvia_patsubst: a.c b.c l.a c.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

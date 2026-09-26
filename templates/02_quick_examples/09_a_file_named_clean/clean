@@ -1,0 +1,3 @@
+# A stray file that happens to be called clean.
+# Nothing in the build uses it; it is here so that the clean
+# target has to fight the filesystem.

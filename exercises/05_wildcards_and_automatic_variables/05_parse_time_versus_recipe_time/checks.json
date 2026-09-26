@@ -1,0 +1,39 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/05_parse_time_versus_recipe_time",
+  "title": "make globs at parse time, the shell globs at recipe time",
+  "objective": "Have one rule create a .c file and another report both the parse-time $(wildcard *.c) and the recipe-time shell glob.",
+  "reference": "* Wildcard",
+  "hint": "make reads the whole file before it runs a single recipe, so $(wildcard) cannot see a file that a prerequisite creates later. The shell, by contrast, expands *.c only when the recipe line runs.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "only the shell sees the file gen just created",
+      "exit_code": 0,
+      "stdout": "parse-time wildcard:\nrecipe-time shell: new.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "on the next run make finds new.c while reading the file",
+      "exit_code": 0,
+      "stdout": "parse-time wildcard: new.c\nrecipe-time shell: new.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

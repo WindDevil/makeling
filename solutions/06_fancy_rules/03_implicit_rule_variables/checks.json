@@ -1,0 +1,58 @@
+{
+  "exercise": "06_fancy_rules/03_implicit_rule_variables",
+  "title": "The variables behind the built-in rule",
+  "objective": "Set CC, CFLAGS and CPPFLAGS so the built-in compile rule builds blah.o with exactly those flags, and read the command with make -n.",
+  "reference": "Implicit Rules",
+  "hint": "The built-in rule for n.o expands to $(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<.  Run make -n blah.o to see that line without executing it, then run it for real.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-n",
+        "blah.o"
+      ],
+      "description": "make -n prints the implicit recipe without running it",
+      "exit_code": 0,
+      "stdout": "cc -Wall -g -DNDEBUG\\s+-c -o blah\\.o blah\\.c",
+      "stdout_mode": "regex",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "blah.o"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "blah.o"
+      ],
+      "description": "the real build expands the same three variables",
+      "exit_code": 0,
+      "stdout": "cc -Wall -g -DNDEBUG\\s+-c -o blah\\.o blah\\.c",
+      "stdout_mode": "regex",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "blah.o"
+      ],
+      "description": "the object file was produced",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

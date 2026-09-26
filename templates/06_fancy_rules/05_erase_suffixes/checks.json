@@ -1,0 +1,54 @@
+{
+  "exercise": "06_fancy_rules/05_erase_suffixes",
+  "title": "Erasing make's built-in suffix rules",
+  "objective": "Empty the suffix list so make forgets how to compile and link C sources, and see that only explicit recipes are left.",
+  "reference": "Implicit Rules",
+  "hint": "A .SUFFIXES line with no prerequisites erases the suffix list, and with it the built-in rules that hang off it.  After that make has no recipe for blah.o or for linking blah.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the explicit recipe builds blah.o",
+      "exit_code": 0,
+      "stdout": "-c blah.c -o blah.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "blah"
+      ],
+      "description": "the built-in linker rule is gone as well",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "No rule to make target 'blah'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "blah.o"
+      ],
+      "description": "blah.o is still there",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

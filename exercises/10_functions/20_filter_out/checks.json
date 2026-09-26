@@ -1,0 +1,65 @@
+{
+  "exercise": "10_functions/20_filter_out",
+  "title": "Removing words with $(filter-out)",
+  "objective": "Drop the headers from files, drop everything starting with test from objects, and nest the two ideas to keep only the objects that are left.",
+  "reference": "The filter function",
+  "hint": "$(filter-out pattern,list) is $(filter) with the sense reversed: it keeps the words that do not match. Filters can be nested, so $(filter %.o,$(filter-out test%,$(objects))) removes the test objects first and then keeps the .o ones.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "everything that is not a header is kept",
+      "exit_code": 0,
+      "stdout": "without_headers=[a.c c.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the test% pattern removes two objects",
+      "exit_code": 0,
+      "stdout": "candidates=[a.o b.o notes.txt]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the nested filter drops the notes file too",
+      "exit_code": 0,
+      "stdout": "kept=[a.o b.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the doubly filtered list",
+      "exit_code": 0,
+      "stdout": "final: a.o b.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

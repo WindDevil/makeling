@@ -1,0 +1,54 @@
+{
+  "exercise": "06_fancy_rules/04_cancel_pattern_rule",
+  "title": "Cancelling the built-in compile rule",
+  "objective": "Cancel make's built-in %.o: %.c rule with an empty pattern rule, so that only the object files you build by hand can exist.",
+  "reference": "Implicit Rules",
+  "hint": "An empty pattern rule with the same target and prerequisite patterns cancels the built-in one.  Afterwards make can only build an object file that has an explicit rule of its own.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the explicit recipe still builds blah.o",
+      "exit_code": 0,
+      "stdout": "-c blah.c -o blah.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "blah.o"
+      ],
+      "description": "blah.o was produced",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "other.o"
+      ],
+      "description": "no rule is left for any other object file",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "No rule to make target 'other.o'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

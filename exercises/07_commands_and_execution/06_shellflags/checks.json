@@ -1,0 +1,43 @@
+{
+  "exercise": "07_commands_and_execution/06_shellflags",
+  "title": ".SHELLFLAGS decides how the shell is called",
+  "objective": "Make a recipe line stop at its first failing command by adding -e to .SHELLFLAGS, and see what the default -c does instead.",
+  "reference": "Default Shell",
+  "hint": "make calls $(SHELL) with $(.SHELLFLAGS), which is just -c by default. Add -e to it and a line like 'false; touch marker' stops after the failure instead of reaching the touch.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "with -e the shell gives up at the failing command",
+      "exit_code": 2,
+      "stdout": "shell flags: -ec",
+      "stdout_mode": "ordered_lines",
+      "stderr": "make: *** [Makefile:11: all] Error 1",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "carried_on.marker"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "-f",
+        "default.mk"
+      ],
+      "description": "without -e the same line carries on to the touch",
+      "exit_code": 0,
+      "stdout": "shell flags: -c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "default_carried_on.marker": ""
+      },
+      "missing": []
+    }
+  ]
+}

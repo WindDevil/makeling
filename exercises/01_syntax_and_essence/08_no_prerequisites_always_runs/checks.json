@@ -1,0 +1,69 @@
+{
+  "exercise": "01_syntax_and_essence/08_no_prerequisites_always_runs",
+  "title": "A target with no file always runs",
+  "objective": "Write a target that has no prerequisites and creates no file, and confirm that make runs it every time.",
+  "reference": "The essence of Make",
+  "hint": "make skips a recipe only when a file with the target's name exists. A target such as stamp, whose recipe never creates stamp, is run again on every invocation.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "stamp"
+      ],
+      "description": "the first run executes the recipe",
+      "exit_code": 0,
+      "stdout": "the stamp target ran",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "stamp"
+      ],
+      "description": "there is no file called stamp, so it runs again",
+      "exit_code": 0,
+      "stdout": "the stamp target ran",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report.txt"
+      ],
+      "description": "a target that does create its file behaves differently",
+      "exit_code": 0,
+      "stdout": "echo \"report built\" > report.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report.txt"
+      ],
+      "description": "make has a file to compare against here",
+      "exit_code": 0,
+      "stdout": "make: 'report.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

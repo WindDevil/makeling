@@ -1,0 +1,52 @@
+{
+  "exercise": "07_commands_and_execution/12_ignore_errors_flag",
+  "title": "make -i ignores every error",
+  "objective": "Compare a plain make, which stops at the failing line, with make -i, which ignores it and carries on.",
+  "reference": "Error handling with -k, -i, and -",
+  "hint": "make -i is the command line version of a - on every line. The recipe needs a command that really fails: 'false' exits non-zero, while a command that merely prints the word false does not.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "without -i the run dies at the failing line",
+      "exit_code": 2,
+      "stdout": "make flags: []",
+      "stdout_mode": "ordered_lines",
+      "stderr": "make: *** [Makefile:9: all] Error 1",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "so the last line of the recipe never runs",
+      "exit_code": 2,
+      "stdout": "make carried on regardless",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-i"
+      ],
+      "description": "-i records the failure and keeps going",
+      "exit_code": 0,
+      "stdout": "make flags: [i]\nmake carried on regardless",
+      "stdout_mode": "ordered_lines",
+      "stderr": "make: [Makefile:9: all] Error 1 (ignored)",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

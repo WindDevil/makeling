@@ -1,0 +1,53 @@
+{
+  "exercise": "08_variables_pt2/14_target_specific_reaches_prerequisites",
+  "title": "The variable reaches the prerequisites too",
+  "objective": "Declare the variable on all so that the target it depends on inherits it, while the same target built on its own does not.",
+  "reference": "Target-specific variables",
+  "hint": "A target-specific variable is inherited by everything all depends on, but only while all is being built. Naming the prerequisite directly on the command line skips all.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the prerequisite inherited the value from all",
+      "exit_code": 0,
+      "stdout": "echo cake is baked with [vanilla]\ncake is baked with [vanilla]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "cake"
+      ],
+      "description": "built directly, cake has no flavour of its own",
+      "exit_code": 0,
+      "stdout": "echo cake is baked with []\ncake is baked with []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "other"
+      ],
+      "description": "an unrelated target is untouched",
+      "exit_code": 0,
+      "stdout": "echo other is baked with []\nother is baked with []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "exercise": "07_commands_and_execution/21_command_line_variables",
+  "title": "Variables on the command line, and several goals",
+  "objective": "Give MODE a default in the Makefile, override it with make MODE=..., and ask for several goals in one run.",
+  "reference": "Arguments to make",
+  "hint": "A value written on the command line wins over the Makefile's own assignment and is passed into the environment of every recipe. Several goals on one command line are run left to right.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the Makefile's own value is used by default",
+      "exit_code": 0,
+      "stdout": "mode: debug\nmode in the shell: []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "MODE=release"
+      ],
+      "description": "the command line wins, and the shell sees it too",
+      "exit_code": 0,
+      "stdout": "mode: release\nmode in the shell: [release]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean",
+        "run",
+        "test"
+      ],
+      "description": "several goals run in the order they were given",
+      "exit_code": 0,
+      "stdout": "cleaning\nrunning\ntesting",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "MODE=release",
+        "run"
+      ],
+      "description": "a goal and a variable can be mixed freely",
+      "exit_code": 0,
+      "stdout": "running",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

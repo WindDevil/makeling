@@ -1,0 +1,69 @@
+{
+  "exercise": "04_targets/02_target_need_not_exist",
+  "title": "A target need not exist on disk",
+  "objective": "Make report depend on data.txt so that the data file is generated first, even though report itself is never created.",
+  "reference": "Targets",
+  "hint": "A prerequisite is built before the target's own recipe runs. A target whose name never appears on disk is out of date every time.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the prerequisite is built, then report prints it",
+      "exit_code": 0,
+      "stdout": "echo \"42\" > data.txt\ncat data.txt\n42",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "data.txt is up to date and is not regenerated",
+      "exit_code": 0,
+      "stdout": "> data.txt",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "report is still out of date, so it prints again",
+      "exit_code": 0,
+      "stdout": "42",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "data.txt"
+      ],
+      "description": "the prerequisite really is on disk",
+      "exit_code": 0,
+      "stdout": "42",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

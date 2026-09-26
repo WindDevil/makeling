@@ -1,0 +1,56 @@
+{
+  "exercise": "02_quick_examples/09_a_file_named_clean",
+  "title": "A file called clean stops the recipe",
+  "objective": "Make clean run even though the directory contains a stray file with the same name as the target.",
+  "reference": "Make clean",
+  "hint": "clean is not a special word in make: the target is matched against the filesystem like any other. Declare it .PHONY so make always runs the recipe.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make creates the file",
+      "exit_code": 0,
+      "stdout": "touch some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "some_file"
+      ],
+      "description": "the file is there to delete",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "the recipe runs even though a file called clean exists",
+      "exit_code": 0,
+      "stdout": "rm -f some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "some_file"
+      ]
+    }
+  ]
+}

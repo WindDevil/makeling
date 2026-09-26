@@ -1,0 +1,93 @@
+{
+  "exercise": "06_fancy_rules/06_static_pattern_objects",
+  "title": "One static pattern rule for a list of objects",
+  "objective": "Replace three hand-written object rules with a single static pattern rule over $(objects), and link them into a program.",
+  "reference": "Static Pattern Rules",
+  "hint": "The syntax is targets...: target-pattern: prereq-patterns; the stem matched by %.o is put back where %.c says.  Give all.c real content, because the %.c pattern rule below only touches an empty file.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "one rule compiled all three objects, then the link ran",
+      "exit_code": 0,
+      "stdout": "cc -c foo.c -o foo.o\ncc -c bar.c -o bar.o\ncc -c all.c -o all.o\ncc foo.o bar.o all.o -o all",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "all"
+      ],
+      "description": "all.c holds real code and all is an executable",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "all.c": "int main() { return 0; }"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "!",
+        "-s",
+        "foo.c"
+      ],
+      "description": "foo.c came from the %.c rule, so it is empty",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "bar.o"
+      ],
+      "description": "bar.o was compiled",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes every generated file",
+      "exit_code": 0,
+      "stdout": "rm -f *.c *.o all",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "all",
+        "foo.c",
+        "all.c"
+      ]
+    }
+  ]
+}

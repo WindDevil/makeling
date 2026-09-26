@@ -1,0 +1,55 @@
+{
+  "exercise": "00_getting_started/05_which_makefile",
+  "title": "Which file does make read?",
+  "objective": "Give GNUmakefile and Makefile different default goals and confirm which one a bare make picks up.",
+  "reference": "Running the Examples",
+  "hint": "make looks for GNUmakefile first, then makefile, then Makefile. Use make -f <name> to read a specific one.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make prefers GNUmakefile",
+      "exit_code": 0,
+      "stdout": "from GNUmakefile",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-f",
+        "Makefile"
+      ],
+      "description": "make -f reads the named file",
+      "exit_code": 0,
+      "stdout": "from Makefile",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-f",
+        "GNUmakefile"
+      ],
+      "description": "the GNUmakefile can still be named explicitly",
+      "exit_code": 0,
+      "stdout": "from GNUmakefile",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

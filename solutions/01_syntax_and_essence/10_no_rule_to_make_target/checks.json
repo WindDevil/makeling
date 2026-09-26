@@ -1,0 +1,53 @@
+{
+  "exercise": "01_syntax_and_essence/10_no_rule_to_make_target",
+  "title": "No rule to make target",
+  "objective": "Give broken a prerequisite that nothing creates, and watch make refuse to build it.",
+  "reference": "The essence of Make",
+  "hint": "A prerequisite must either exist as a file or be the target of another rule. Declare missing.txt as the prerequisite of broken to see what make says about it.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the default target builds its prerequisite first",
+      "exit_code": 0,
+      "stdout": "echo \"written by the notes target\" > notes.txt\ncat notes.txt\nwritten by the notes target",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "broken"
+      ],
+      "description": "make stops before running the recipe",
+      "exit_code": 2,
+      "stdout": "cat missing.txt",
+      "stdout_mode": "not_contains",
+      "stderr": "No rule to make target 'missing.txt', needed by 'broken'.",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "nosuch"
+      ],
+      "description": "a goal that no rule defines is refused the same way",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "No rule to make target 'nosuch'.",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "exercise": "01_syntax_and_essence/01_rule_anatomy",
+  "title": "The anatomy of a rule",
+  "objective": "Write a rule whose target is report.txt, whose prerequisite is notes.txt, and whose recipe builds the report in two commands.",
+  "reference": "Makefile Syntax",
+  "hint": "A rule is the line 'targets: prerequisites' followed by the recipe. Every recipe line must begin with a real TAB character; four spaces are rejected with 'missing separator'.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both commands of the recipe run, in order",
+      "exit_code": 0,
+      "stdout": "echo \"Report\" > report.txt\ncat notes.txt >> report.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "report.txt"
+      ],
+      "description": "the first command wrote the header, the second appended the notes",
+      "exit_code": 0,
+      "stdout": "Report\nalpha\nbeta",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the prerequisite is not newer, so nothing is rebuilt",
+      "exit_code": 0,
+      "stdout": "make: 'report.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "199001010000",
+        "report.txt"
+      ],
+      "description": "put the target in the past, so the prerequisite is the newer file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a newer prerequisite brings the rule back to life",
+      "exit_code": 0,
+      "stdout": "echo \"Report\" > report.txt",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

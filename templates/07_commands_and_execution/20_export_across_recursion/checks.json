@@ -1,0 +1,39 @@
+{
+  "exercise": "07_commands_and_execution/20_export_across_recursion",
+  "title": "Exporting a variable to a sub-make",
+  "objective": "Let the Makefile in sub/ see a variable that only the top-level Makefile defines, by exporting it before the recursive call.",
+  "reference": "Export, environments, and recursive make",
+  "hint": "A sub-make is a child process: it only inherits what make put in the environment, so the top-level variable has to be exported for sub/Makefile to read it as $(cooly) or $$cooly. Add the export.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the sub-make reads the exported variable",
+      "exit_code": 0,
+      "stdout": "make -C sub\nmake[1]: Entering directory '<stage>/sub'\nsub make variable: [The subdirectory can see me!]\nsub shell variable: [The subdirectory can see me!]\nmake[1]: Leaving directory '<stage>/sub'",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-C",
+        "sub"
+      ],
+      "description": "reading sub/Makefile directly has no such variable",
+      "exit_code": 0,
+      "stdout": "sub make variable: []\nsub shell variable: []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

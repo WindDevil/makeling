@@ -1,0 +1,54 @@
+{
+  "exercise": "11_other_features/03_include_optional",
+  "title": "An include that may not exist yet",
+  "objective": "Read deps.mk when it is there and carry on when it is not, so a fresh checkout still builds.",
+  "reference": "Include Makefiles",
+  "hint": "A leading dash on the include line tells make that a missing file is not an error. Without it make tries to build the missing file and stops when no rule can.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the build runs even though deps.mk does not exist",
+      "exit_code": 0,
+      "stdout": "cat notes.txt > report",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the report is built, nothing is left to do",
+      "exit_code": 0,
+      "stdout": "make: 'report' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "!",
+        "-f",
+        "deps.mk"
+      ],
+      "description": "make did not invent the optional file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

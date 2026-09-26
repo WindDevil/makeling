@@ -1,0 +1,40 @@
+{
+  "exercise": "04_targets/07_shared_recipe_per_target",
+  "title": "One recipe writes each target",
+  "objective": "Let a single recipe build both red.txt and blue.txt by writing to $@, so each target gets its own file.",
+  "reference": "Multiple targets",
+  "hint": "$@ is the target being built right now. A hard-coded file name would be written twice and neither target would exist.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both targets are created, each with its own name",
+      "exit_code": 0,
+      "stdout": "echo \"red.txt created\" > red.txt\necho \"blue.txt created\" > blue.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "red.txt": "red.txt created\n",
+        "blue.txt": "blue.txt created\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both files are up to date on the next run",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

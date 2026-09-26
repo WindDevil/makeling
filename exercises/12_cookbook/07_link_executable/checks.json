@@ -1,0 +1,55 @@
+{
+  "exercise": "12_cookbook/07_link_executable",
+  "title": "The final build step",
+  "objective": "Link the objects into $(BUILD_DIR)/$(TARGET_EXEC) with $(CXX) $(OBJS) -o $@.",
+  "reference": "Makefile Cookbook",
+  "hint": "$@ is the target of the rule, so -o $@ puts the program in the build directory instead of the default a.out. $(OBJS) as the prerequisite is what makes the compiles happen first.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "bare make builds the program into the build directory",
+      "exit_code": 0,
+      "stdout": "-o build/final_program",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "a.out"
+      ]
+    },
+    {
+      "args": [
+        "sh",
+        "-c",
+        "./build/final_program"
+      ],
+      "description": "the linked program runs and prints its line",
+      "exit_code": 0,
+      "stdout": "hello from C++: value=7",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second make has nothing left to link",
+      "exit_code": 0,
+      "stdout": "'build/final_program' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

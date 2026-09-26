@@ -1,0 +1,53 @@
+{
+  "exercise": "02_quick_examples/01_three_step_chain",
+  "title": "Generate, compile, link",
+  "objective": "Build blah in three steps: blah from blah.o, blah.o from blah.c, and a rule that creates blah.c itself.",
+  "reference": "More quick examples",
+  "hint": "Work backwards from the goal: blah needs blah.o, blah.o needs blah.c, and the rule for blah.c has no prerequisites at all, so its recipe is the first one make runs.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make starts at the deepest prerequisite and links last",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > blah.c # Runs first\ncc -c blah.c -o blah.o # Runs second\ncc blah.o -o blah # Runs third",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "blah"
+      ],
+      "description": "the build produced an executable",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "with every file in place there is nothing left to do",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

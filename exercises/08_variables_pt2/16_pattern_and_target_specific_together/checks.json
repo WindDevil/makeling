@@ -1,0 +1,54 @@
+{
+  "exercise": "08_variables_pt2/16_pattern_and_target_specific_together",
+  "title": "Target-specific beats pattern-specific",
+  "objective": "Let a pattern give every .o file a mode, then give one of them its own value, and leave a third target with neither.",
+  "reference": "Pattern-specific variables",
+  "hint": "Both forms can be in the file at once; the one naming the exact target takes precedence over the one matching the pattern.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "foo.o"
+      ],
+      "description": "the exact target wins over the pattern",
+      "exit_code": 0,
+      "stdout": "echo foo.o uses target\nfoo.o uses target",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "bar.o"
+      ],
+      "description": "a target that only matches the pattern uses it",
+      "exit_code": 0,
+      "stdout": "echo bar.o uses pattern\nbar.o uses pattern",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "plain"
+      ],
+      "description": "a target that does neither gets nothing",
+      "exit_code": 0,
+      "stdout": "echo plain uses []\nplain uses []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

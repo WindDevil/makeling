@@ -1,0 +1,69 @@
+{
+  "exercise": "12_cookbook/02_object_paths",
+  "title": "Prepending the build directory",
+  "objective": "Turn the source list into the object list the cookbook uses: $(BUILD_DIR)/./src/hello.cpp.o.",
+  "reference": "Makefile Cookbook",
+  "hint": "$(SRCS:%=$(BUILD_DIR)/%.o) is the substitution-reference spelling; $(patsubst %,$(BUILD_DIR)/%.o,$(SRCS)) says the same thing. The suffix-only $(SRCS:.cpp=.o) cannot add a directory.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "objs"
+      ],
+      "description": "both spellings of the object list agree",
+      "exit_code": 0,
+      "stdout": "patsubst agrees with the % substitution",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "objs"
+      ],
+      "description": "every object lives under $(BUILD_DIR), in any order",
+      "exit_code": 0,
+      "stdout": "object: ./build/./src/main.c.o\nobject: ./build/./src/moduleA/thing.c.o\nobject: ./build/./src/util/greet.cpp.o",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "objs"
+      ],
+      "description": "matching the ./src prefix drops it from the result",
+      "exit_code": 0,
+      "stdout": "short: ./build/main.c.o\nshort: ./build/moduleA/thing.c.o\nshort: ./build/util/greet.cpp.o",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "objs"
+      ],
+      "description": "the suffix-only form substitutes in place",
+      "exit_code": 0,
+      "stdout": "in place: ./src/util/greet.o\nin place: ./src/moduleA/thing.c\nin place: ./src/main.c",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

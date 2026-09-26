@@ -1,0 +1,38 @@
+{
+  "exercise": "09_conditionals/07_ifneq",
+  "title": "ifneq runs when the values differ",
+  "objective": "Use ifneq to choose the architecture message, for both the file's value of arch and an override on the command line.",
+  "reference": "Conditional if/else",
+  "hint": "ifneq is the negation of ifeq: its text-if-true is read when the two arguments are not equal. The else branch covers the equal case.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "linux is not windows, and arch equals x86",
+      "exit_code": 0,
+      "stdout": "using unix paths\n32 bit build",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "arch=arm64"
+      ],
+      "description": "the command line value makes ifneq true",
+      "exit_code": 0,
+      "stdout": "using unix paths\n64 bit build",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "exercise": "07_commands_and_execution/15_plan_with_dry_run",
+  "title": "make -n prints the plan without running it",
+  "objective": "Read every command a target would run with make -n, and check that the dry run really does not touch the filesystem.",
+  "reference": "Arguments to make",
+  "hint": "make -n (or --dry-run) prints the whole recipe, including the lines hidden by @, and runs none of them. Note that the plan only contains the commands make would reach, so a missing prerequisite never shows up in it.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "the plan lists every command, and creates nothing",
+      "exit_code": 0,
+      "stdout": "echo \"writing report\" > report.txt\necho \"report written\"\ncat report.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "report.txt"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "-n",
+        "report.txt"
+      ],
+      "description": "a single target can be dry run on its own",
+      "exit_code": 0,
+      "stdout": "echo \"writing report\" > report.txt\necho \"report written\"",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "report.txt"
+      ]
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the real run finally writes the file",
+      "exit_code": 0,
+      "stdout": "writing report",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "report.txt": "writing report"
+      },
+      "missing": []
+    }
+  ]
+}

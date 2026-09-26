@@ -1,0 +1,54 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/03_star_in_a_variable_stays_literal",
+  "title": "A bare * in a variable is not a wildcard",
+  "objective": "Contrast thing_wrong := *.o with thing_right := $(wildcard *.o) and observe what make does with each one as a prerequisite.",
+  "reference": "* Wildcard",
+  "hint": "Assigning *.o to a variable copies the two characters, it does not look at the filesystem. A prerequisite that is literally *.o has to be built, and make does not know how.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the variable holds the literal text, the function is empty",
+      "exit_code": 0,
+      "stdout": "wrong: [*.o]\nright: []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one"
+      ],
+      "description": "the literal *.o prerequisite cannot be satisfied",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "No rule to make target '*.o', needed by 'one'.",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "three"
+      ],
+      "description": "the empty wildcard leaves three with no prerequisites",
+      "exit_code": 0,
+      "stdout": "three ran",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

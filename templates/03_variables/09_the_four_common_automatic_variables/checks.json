@@ -1,0 +1,56 @@
+{
+  "exercise": "03_variables/09_the_four_common_automatic_variables",
+  "title": "$@, $?, $^ and $<",
+  "objective": "Print the target name, the out-of-date prerequisites, every prerequisite, and the first prerequisite from one recipe.",
+  "reference": "Automatic Variables",
+  "hint": "$@ is the target being built, $^ is every prerequisite, $< is just the first of them, and $? is the ones that are newer than the target.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "hey does not exist yet, so nothing is up to date",
+      "exit_code": 0,
+      "stdout": "touch one\ntouch two\ntarget: hey\nnewer: one two\nall: one two\nfirst: one\ntouch hey",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe is skipped on the second run",
+      "exit_code": 0,
+      "stdout": "make: 'hey' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes the target and its prerequisites",
+      "exit_code": 0,
+      "stdout": "rm -f hey one two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "hey",
+        "one",
+        "two"
+      ]
+    }
+  ]
+}

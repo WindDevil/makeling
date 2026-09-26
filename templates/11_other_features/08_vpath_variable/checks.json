@@ -1,0 +1,38 @@
+{
+  "exercise": "11_other_features/08_vpath_variable",
+  "title": "VPATH searches for every prerequisite",
+  "objective": "Point VPATH at both directories that hold prerequisites, so blah.h and extra.txt are found without a vpath pattern.",
+  "reference": "The vpath Directive",
+  "hint": "VPATH is a variable listing directories, separated by spaces or colons, and it applies to every prerequisite. Naming only the first directory leaves the second file unfindable.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both prerequisites were found through VPATH",
+      "exit_code": 0,
+      "stdout": "cat headers/blah.h libs/extra.txt > some_binary",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "some_binary"
+      ],
+      "description": "the recipe copied each file from its own directory",
+      "exit_code": 0,
+      "stdout": "hello from the header\nplus extra",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

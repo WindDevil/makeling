@@ -1,0 +1,69 @@
+{
+  "exercise": "11_other_features/10_multiline_variable",
+  "title": "A variable that spans lines",
+  "objective": "Continue the SOURCES variable onto a second line, so the list works both as prerequisites and as a value.",
+  "reference": "Multiline",
+  "hint": "A continued assignment also needs the trailing backslash, but here make joins the lines itself, collapsing the backslash, the newline and the following spaces into a single space. Indent the continuation with spaces, never a tab.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the joined value is a two word prerequisite list",
+      "exit_code": 0,
+      "stdout": "cat one.txt two.txt > combined.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "combined.txt": "one\ntwo\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "show"
+      ],
+      "description": "the backslash, the newline and the indent became one space",
+      "exit_code": 0,
+      "stdout": "[one.txt two.txt]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "one.txt"
+      ],
+      "description": "make the first source newer",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both words really are prerequisites",
+      "exit_code": 0,
+      "stdout": "cat one.txt two.txt > combined.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

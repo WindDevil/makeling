@@ -1,0 +1,72 @@
+{
+  "exercise": "02_quick_examples/05_several_goals_on_one_line",
+  "title": "Several goals on one command line",
+  "objective": "Ask make for two targets at once and see that it builds them left to right, while a bare make still builds only the first.",
+  "reference": "More quick examples",
+  "hint": "Goals on the command line are handled in the order you type them. Each one is finished before the next begins, unless one target is a prerequisite of the other.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "two.txt",
+        "one.txt"
+      ],
+      "description": "the goals run in the order they were named",
+      "exit_code": 0,
+      "stdout": "echo \"two\" > two.txt\necho \"one\" > one.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "rm",
+        "-f",
+        "one.txt",
+        "two.txt"
+      ],
+      "description": "start again with no files in the directory",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one.txt",
+        "two.txt"
+      ],
+      "description": "reversing the goals reverses the order",
+      "exit_code": 0,
+      "stdout": "echo \"one\" > one.txt\necho \"two\" > two.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make only considers the first target",
+      "exit_code": 0,
+      "stdout": "make: 'one.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

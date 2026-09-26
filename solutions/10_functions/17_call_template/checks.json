@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/17_call_template",
+  "title": "A template that builds a list",
+  "objective": "Use $(call) to turn the names main util into the object files src/main.o src/util.o, and let a pattern rule build them.",
+  "reference": "The call function",
+  "hint": "Define the template with = first, then expand it with $(call objects_for,src,$(names)): $(1) becomes src and $(2) the list. Inside the template a $(foreach) visits every word of $(2).",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the template produced one object file per name",
+      "exit_code": 0,
+      "stdout": "objects=[src/main.o src/util.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make builds the first object through the pattern rule",
+      "exit_code": 0,
+      "stdout": "compile src/main.c -o src/main.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both objects are prerequisites of app",
+      "exit_code": 0,
+      "stdout": "linking src/main.o src/util.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

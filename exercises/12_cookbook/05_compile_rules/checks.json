@@ -1,0 +1,94 @@
+{
+  "exercise": "12_cookbook/05_compile_rules",
+  "title": "The compile rules for C and C++",
+  "objective": "Write the two pattern rules that compile every source into $(BUILD_DIR), creating the object's directory first.",
+  "reference": "Makefile Cookbook",
+  "hint": "The target pattern is $(BUILD_DIR)/%.c.o with %.c as the prerequisite, and the C++ rule is the same with .cpp. Every recipe starts with mkdir -p $(dir $@): on a first build there is no build/ tree at all.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-B",
+        "objects"
+      ],
+      "description": "the C rule compiles main.c into the build directory",
+      "exit_code": 0,
+      "stdout": "-c src/main.c -o build/./src/main.c.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-B",
+        "objects"
+      ],
+      "description": "the C++ rule compiles greet.cpp the same way",
+      "exit_code": 0,
+      "stdout": "-c src/util/greet.cpp -o build/./src/util/greet.cpp.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-B",
+        "objects"
+      ],
+      "description": "the rule creates the object's directory first",
+      "exit_code": 0,
+      "stdout": "mkdir -p build/./src/moduleA/",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "build/src/main.c.o",
+        "-a",
+        "-f",
+        "build/src/moduleA/thing.c.o",
+        "-a",
+        "-f",
+        "build/src/util/greet.cpp.o"
+      ],
+      "description": "all three objects exist under build/",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "objects"
+      ],
+      "description": "a second make has nothing left to compile",
+      "exit_code": 0,
+      "stdout": "Nothing to be done for 'objects'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "exercise": "08_variables_pt2/02_simply_expanded_appending",
+  "title": "A variable cannot be extended from itself with =",
+  "objective": "Extend one variable with its own old value plus a suffix, so that make prints the combined value instead of refusing to run.",
+  "reference": "Flavors and modification",
+  "hint": ":= expands the right-hand side before assigning, so ${one} is the old value. With = the reference is stored unevaluated and the variable ends up referring to itself.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the variable holds the old value plus the suffix",
+      "exit_code": 0,
+      "stdout": "echo hello there\nhello there",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make did not complain about a self reference",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "Recursive variable",
+      "stderr_mode": "not_contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

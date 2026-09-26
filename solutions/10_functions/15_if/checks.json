@@ -1,0 +1,79 @@
+{
+  "exercise": "10_functions/15_if",
+  "title": "Choosing with $(if)",
+  "objective": "Produce then! for a condition that expands to something, else! for one that expands to nothing, and use the two-argument form too.",
+  "reference": "The if function",
+  "hint": "$(if condition,then-part,else-part) tests whether the condition expands to a non-empty string. The else-part is optional, and an empty condition makes the whole $(if) expand to nothing when it is left out.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a literal word is non-empty, so the then-part runs",
+      "exit_code": 0,
+      "stdout": "one=[then!]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "an empty variable takes the else branch",
+      "exit_code": 0,
+      "stdout": "two=[else!]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "with no else-part the result is empty",
+      "exit_code": 0,
+      "stdout": "three=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a non-empty variable is true",
+      "exit_code": 0,
+      "stdout": "four=[yes]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "an empty variable is false",
+      "exit_code": 0,
+      "stdout": "five=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

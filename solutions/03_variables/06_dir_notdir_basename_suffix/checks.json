@@ -1,0 +1,23 @@
+{
+  "exercise": "03_variables/06_dir_notdir_basename_suffix",
+  "title": "Taking a file name apart",
+  "objective": "Apply $(dir), $(notdir), $(basename) and $(suffix) to one variable holding a list of paths.",
+  "reference": "Variables",
+  "hint": "$(dir) keeps everything up to and including the last slash, $(notdir) keeps what follows it, $(basename) drops the suffix and $(suffix) keeps only the suffix.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "each function works word by word",
+      "exit_code": 0,
+      "stdout": "dir: src/ src/\nnotdir: foo.c bar.c\nbasename: src/foo src/bar\nsuffix: .c .c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

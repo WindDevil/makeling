@@ -1,0 +1,79 @@
+{
+  "exercise": "10_functions/07_word_functions",
+  "title": "Counting and picking words",
+  "objective": "Report how many words names holds, then pick out its first, last, second and middle words.",
+  "reference": "First Functions",
+  "hint": "$(words list) counts the words, $(firstword list) and $(lastword list) take the ends, $(word n,list) takes the nth, and $(wordlist start,end,list) takes a range. Asking for a word that is past the end returns nothing.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the list has four words",
+      "exit_code": 0,
+      "stdout": "count=[4]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the ends of the list",
+      "exit_code": 0,
+      "stdout": "first=[ada]\nlast=[barbara]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "n is one-based",
+      "exit_code": 0,
+      "stdout": "second=[grace]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "wordlist takes an inclusive range",
+      "exit_code": 0,
+      "stdout": "middle=[grace edsger]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "there is no ninth word",
+      "exit_code": 0,
+      "stdout": "past=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

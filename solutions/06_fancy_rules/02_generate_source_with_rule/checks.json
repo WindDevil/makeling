@@ -1,0 +1,87 @@
+{
+  "exercise": "06_fancy_rules/02_generate_source_with_rule",
+  "title": "A rule that writes the C source",
+  "objective": "Let make create blah.c with a rule of your own, then watch the built-in rules compile and link it using CFLAGS.",
+  "reference": "Implicit Rules",
+  "hint": "blah.c does not exist yet, so it needs a rule that writes it; make still contributes the compile and link recipes itself.  CFLAGS is handed straight to the built-in compile rule.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the source is written, compiled and linked",
+      "exit_code": 0,
+      "stdout": "blah\\.c\\ncc -g\\s+-c -o blah\\.o blah\\.c\\ncc\\s+blah\\.o\\s+-o blah",
+      "stdout_mode": "regex",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "blah.c"
+      ],
+      "description": "the explicit rule wrote real source code",
+      "exit_code": 0,
+      "stdout": "int main() { return 0; }",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "blah"
+      ],
+      "description": "the linked program exists",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "nothing is rebuilt on a second run",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes the program and its source",
+      "exit_code": 0,
+      "stdout": "rm -f blah*",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "blah",
+        "blah.o",
+        "blah.c"
+      ]
+    }
+  ]
+}

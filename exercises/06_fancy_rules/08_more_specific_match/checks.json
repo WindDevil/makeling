@@ -1,0 +1,55 @@
+{
+  "exercise": "06_fancy_rules/08_more_specific_match",
+  "title": "explicit rules win over pattern rules",
+  "objective": "Keep the explicit rule for all.c so that it is written by hand, while the %.c pattern rule touches an empty file for the rest.",
+  "reference": "Static Pattern Rules",
+  "hint": "make prefers the more specific match: a rule that names all.c exactly beats a pattern rule that could also match it.  Touch $@ creates an empty file, so all.c needs its own rule.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both prerequisites were dealt with",
+      "exit_code": 0,
+      "stdout": "built: all.c foo.c",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "all.c"
+      ],
+      "description": "the explicit rule beat the pattern rule for all.c",
+      "exit_code": 0,
+      "stdout": "int main() { return 0; }",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "!",
+        "-s",
+        "foo.c"
+      ],
+      "description": "foo.c fell through to the pattern rule",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "exercise": "07_commands_and_execution/04_continuation_keeps_one_shell",
+  "title": "Shell state survives across a line continuation",
+  "objective": "Show that a shell variable set on one line is gone by the next, and keep it alive by continuing the recipe line with a backslash.",
+  "reference": "Command Execution",
+  "hint": "A make variable reaches every line, but a shell variable only lives inside the one shell that set it. Ending a line with backslash-newline keeps the next line in that same shell.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the shell variable only survives inside one shell",
+      "exit_code": 0,
+      "stdout": "message=\"set in line one\"\necho \"next line sees: [$message]\"\nnext line sees: []\nmessage=\"set again\"; \\\necho \"continuation sees: [$message]\"\ncontinuation sees: [set again]\nthe make variable survives anyway: [set in the Makefile]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

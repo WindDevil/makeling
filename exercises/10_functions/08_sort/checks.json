@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/08_sort",
+  "title": "$(sort) sorts and removes duplicates",
+  "objective": "Merge the two lists of sources into one alphabetical list without repeating a.c, and count the result.",
+  "reference": "First Functions",
+  "hint": "$(sort list) returns the words sorted, and drops every duplicate. It is the shortest way to merge two lists into a set.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "sorted, and the duplicate a.c is gone",
+      "exit_code": 0,
+      "stdout": "combined=[a.c b.c c.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "four words in, three distinct words out",
+      "exit_code": 0,
+      "stdout": "count=[3]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the merged list",
+      "exit_code": 0,
+      "stdout": "a.c b.c c.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

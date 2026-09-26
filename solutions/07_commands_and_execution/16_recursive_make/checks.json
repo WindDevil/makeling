@@ -1,0 +1,25 @@
+{
+  "exercise": "07_commands_and_execution/16_recursive_make",
+  "title": "Calling the Makefile in a subdirectory",
+  "objective": "Have the top-level Makefile build the project in sub/ by asking $(MAKE) to read that directory's Makefile.",
+  "reference": "Recursive use of make",
+  "hint": "A recipe line that runs $(MAKE) -C sub starts a second make in sub/; it announces itself with make[1]: Entering directory and bumps MAKELEVEL to 1. Add that line to the all recipe.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the second make runs in sub/ and does its work",
+      "exit_code": 0,
+      "stdout": "top level, MAKELEVEL=0\nmake -C sub\nmake[1]: Entering directory '<stage>/sub'\nsub make, MAKELEVEL=1\nmake[1]: Leaving directory '<stage>/sub'",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "sub/built.txt": ""
+      },
+      "missing": []
+    }
+  ]
+}

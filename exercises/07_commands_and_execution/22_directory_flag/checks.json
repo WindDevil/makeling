@@ -1,0 +1,107 @@
+{
+  "exercise": "07_commands_and_execution/22_directory_flag",
+  "title": "Running make somewhere else: -C",
+  "objective": "Run the Makefile in sub/ from the top of the tree with -C, keep the directory chatter down with --no-print-directory, and rebuild an up-to-date target with -B.",
+  "reference": "Arguments to make",
+  "hint": "make -C sub changes directory before reading the Makefile, so it prints Entering/Leaving directory lines; --no-print-directory removes them. -B throws away make's timestamps and runs the recipe even when out.txt is up to date.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first run copies the source",
+      "exit_code": 0,
+      "stdout": "copied source.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "out.txt": "hello"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the second run has nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'out.txt' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-B"
+      ],
+      "description": "-B rebuilds it anyway",
+      "exit_code": 0,
+      "stdout": "copied source.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-C",
+        "sub",
+        "all"
+      ],
+      "description": "make -C names the directory it is entering",
+      "exit_code": 0,
+      "stdout": "make: Entering directory '<stage>/sub'\ninside sub\nmake: Leaving directory '<stage>/sub'",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-C",
+        "sub",
+        "all",
+        "--no-print-directory"
+      ],
+      "description": "--no-print-directory drops those lines",
+      "exit_code": 0,
+      "stdout": "inside sub",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-C",
+        "sub",
+        "all",
+        "--no-print-directory"
+      ],
+      "description": "and nothing is printed about the directory",
+      "exit_code": 0,
+      "stdout": "Entering directory",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

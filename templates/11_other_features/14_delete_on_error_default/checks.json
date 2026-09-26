@@ -1,0 +1,43 @@
+{
+  "exercise": "11_other_features/14_delete_on_error_default",
+  "title": "Without DELETE_ON_ERROR the target stays",
+  "objective": "Turn the declaration off to see make's default: a rule that fails leaves its half written target on disk.",
+  "reference": ".delete_on_error",
+  "hint": "Historical default: make only reports the error. Remove the .DELETE_ON_ERROR line and the half written file survives, which is why the next build may think the target is up to date.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "halfway.txt"
+      ],
+      "description": "the failing rule leaves its half written file behind",
+      "exit_code": 2,
+      "stdout": "echo \"half written\" > halfway.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": "Error 1",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "halfway.txt": "half written\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "halfway.txt"
+      ],
+      "description": "the leftover file even looks up to date on the next run",
+      "exit_code": 0,
+      "stdout": "make: 'halfway.txt' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "halfway.txt": "half written\n"
+      },
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "exercise": "08_variables_pt2/11_define_holds_several_commands",
+  "title": "define and endef hold a list of commands",
+  "objective": "Put three commands into a single define variable and run them all from the recipe with one $(name) reference.",
+  "reference": "List of commands and define",
+  "hint": "define name and endef wrap as many lines as you like; the variable is the whole block. Using it as a recipe line runs each of those lines in turn.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "one $(report) reference ran all three commands",
+      "exit_code": 0,
+      "stdout": "echo \"name: makeling\"\nname: makeling\necho \"version: 1.0\"\nversion: 1.0\necho \"parts: core runner\"\nparts: core runner",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

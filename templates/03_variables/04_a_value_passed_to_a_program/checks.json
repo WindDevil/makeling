@@ -1,0 +1,37 @@
+{
+  "exercise": "03_variables/04_a_value_passed_to_a_program",
+  "title": "Passing $(files) to a program",
+  "objective": "Feed the value of a variable to printf and see that make splits it into words unless the expansion is quoted.",
+  "reference": "Variables",
+  "hint": "The value of $(files) is the string \"file1 file2\". Unquoted it reaches printf as two arguments; put the expansion in double quotes to pass it as one.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "one unquoted expansion, two arguments",
+      "exit_code": 0,
+      "stdout": "list: file1 file2\n[file1]\n[file2]\nprintf '[%s]\\n' \"file1 file2\"\n[file1 file2]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the quoted expansion arrives as a single word",
+      "exit_code": 0,
+      "stdout": "printf '[%s]\\n' \"file1 file2\"",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

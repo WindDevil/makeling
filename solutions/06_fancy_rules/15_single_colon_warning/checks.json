@@ -1,0 +1,65 @@
+{
+  "exercise": "06_fancy_rules/15_single_colon_warning",
+  "title": "What a single colon does instead",
+  "objective": "Repeat the target with single colons and confirm what make says: it warns and keeps only the last recipe.",
+  "reference": "Double-Colon Rules",
+  "hint": "Written with one colon, the second rule overrides the first and make prints a warning on stderr.  Compare that with the double-colon version, where both recipes run.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the last recipe is the one make keeps",
+      "exit_code": 0,
+      "stdout": "second",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the overridden recipe never runs",
+      "exit_code": 0,
+      "stdout": "first",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make warns about the override",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "warning: overriding recipe for target 'blah'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "and says which recipe it dropped",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "warning: ignoring old recipe for target 'blah'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "exercise": "07_commands_and_execution/05_the_default_shell_is_sh",
+  "title": "The shell is the SHELL variable",
+  "objective": "Look at which program runs your recipe lines, and change it by giving make a different SHELL.",
+  "reference": "Default Shell",
+  "hint": "make runs recipes with /bin/sh unless the variable SHELL says otherwise. The shell's own $0 is the name of the program running the line; SHELL can be set in the Makefile or on the command line.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the default shell is /bin/sh",
+      "exit_code": 0,
+      "stdout": "SHELL is: /bin/sh\nthis line was run by: /bin/sh",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "SHELL=/bin/bash"
+      ],
+      "description": "SHELL on the command line switches the shell",
+      "exit_code": 0,
+      "stdout": "SHELL is: /bin/bash\nthis line was run by: /bin/bash",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-f",
+        "bash.mk"
+      ],
+      "description": "SHELL := /bin/bash in the Makefile does the same",
+      "exit_code": 0,
+      "stdout": "SHELL is: /bin/bash\nthis line was run by: /bin/bash",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "exercise": "04_targets/01_target_is_a_name",
+  "title": "A target is just a name",
+  "objective": "Give the first rule the target name notes and the second the name real_file, so that make notes prints the note while real_file creates a file.",
+  "reference": "Targets",
+  "hint": "A rule's name is the target it defines: make asks for that exact name. A target with no file behind it is rebuilt every time.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the default goal runs the first rule",
+      "exit_code": 0,
+      "stdout": "echo \"a target is only a name\"\na target is only a name",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "no file called notes exists, so the recipe is never skipped",
+      "exit_code": 0,
+      "stdout": "up to date",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "notes"
+      ],
+      "description": "naming the target explicitly runs the same rule",
+      "exit_code": 0,
+      "stdout": "a target is only a name",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "real_file"
+      ],
+      "description": "the second rule really does create its target",
+      "exit_code": 0,
+      "stdout": "touch real_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "real_file"
+      ],
+      "description": "that file now exists, so the recipe is skipped",
+      "exit_code": 0,
+      "stdout": "make: 'real_file' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "real_file"
+      ],
+      "description": "the file is on disk",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

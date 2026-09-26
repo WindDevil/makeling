@@ -1,0 +1,65 @@
+{
+  "exercise": "10_functions/19_filter",
+  "title": "Selecting words with $(filter)",
+  "objective": "Keep only the .o files from obj_files, then keep the .o and .result files, then keep every C source and header.",
+  "reference": "The filter function",
+  "hint": "$(filter pattern,list) returns the words of list that match the pattern, in their original order, and drops the rest. Write as many patterns as you like, separated by spaces, and remember the % in front of the suffix.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the object files survive",
+      "exit_code": 0,
+      "stdout": "filtered=[bar.o lose.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "several patterns can be given at once",
+      "exit_code": 0,
+      "stdout": "both=[foo.result bar.o lose.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the original order is kept",
+      "exit_code": 0,
+      "stdout": "keep=[a.c b.h c.c d.h]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the filtered list",
+      "exit_code": 0,
+      "stdout": "bar.o lose.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

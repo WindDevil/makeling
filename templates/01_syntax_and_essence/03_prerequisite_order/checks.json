@@ -1,0 +1,56 @@
+{
+  "exercise": "01_syntax_and_essence/03_prerequisite_order",
+  "title": "Prerequisites are built left to right",
+  "objective": "Order the prerequisites of the all target so that make builds one, then two, then three.",
+  "reference": "Makefile Syntax",
+  "hint": "Every prerequisite has to be finished before the commands of the target run, and make works through the list from left to right.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the prerequisites run in the order they are listed",
+      "exit_code": 0,
+      "stdout": "echo \"one\" >> order.txt\necho \"two\" >> order.txt\necho \"three\" >> order.txt\ncat order.txt\none\ntwo\nthree",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "order.txt"
+      ],
+      "description": "the file records that same order",
+      "exit_code": 0,
+      "stdout": "one\ntwo\nthree",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "order.txt"
+      ],
+      "description": "the target's own command ran last",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "order.txt": "one\ntwo\nthree\n"
+      },
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "exercise": "01_syntax_and_essence/05_timestamps_decide",
+  "title": "Timestamps decide whether to rebuild",
+  "objective": "Give blah a prerequisite so that touching blah.c rebuilds it, while an older blah.c is ignored.",
+  "reference": "The essence of Make",
+  "hint": "Without a prerequisite make only asks whether blah exists. Add blah.c after the colon and make starts comparing timestamps.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first run builds blah from blah.c",
+      "exit_code": 0,
+      "stdout": "cp blah.c blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "blah"
+      ],
+      "description": "the recipe created the file blah",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "200001010000",
+        "blah.c"
+      ],
+      "description": "give the source a fixed timestamp",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "201001010000",
+        "blah"
+      ],
+      "description": "and the target a newer one",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "an older prerequisite does not force a rebuild",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "199001010000",
+        "blah"
+      ],
+      "description": "now put the target in the past",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a newer prerequisite forces a rebuild",
+      "exit_code": 0,
+      "stdout": "cp blah.c blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

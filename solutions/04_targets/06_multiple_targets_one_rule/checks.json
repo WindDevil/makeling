@@ -1,0 +1,54 @@
+{
+  "exercise": "04_targets/06_multiple_targets_one_rule",
+  "title": "Several targets on one rule line",
+  "objective": "Put f1.o and f2.o on a single rule line and confirm that the recipe runs once for each target.",
+  "reference": "Multiple targets",
+  "hint": "f1.o f2.o: is shorthand for two rules with the same recipe. $@ expands to whichever target is being built.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe is run twice, once per target",
+      "exit_code": 0,
+      "stdout": "echo f1.o\nf1.o\necho f2.o\nf2.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "the dry run shows the recipe printed once per target",
+      "exit_code": 0,
+      "stdout": "echo f1.o\necho f2.o",
+      "stdout_mode": "exact",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-f",
+        "expanded.mk"
+      ],
+      "description": "writing the two rules out is exactly equivalent",
+      "exit_code": 0,
+      "stdout": "echo f1.o\nf1.o\necho f2.o\nf2.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

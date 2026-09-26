@@ -1,0 +1,56 @@
+{
+  "exercise": "03_variables/01_a_list_in_a_variable",
+  "title": "A list stored in a variable",
+  "objective": "Keep the file names in a variable and use the same variable as the prerequisite list and inside the recipe.",
+  "reference": "Variables",
+  "hint": "A variable is just a string. Everywhere make meets $(files) it substitutes that string, in the prerequisite list of the target line exactly as in the recipe.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the variable supplies prerequisites and message",
+      "exit_code": 0,
+      "stdout": "touch file1\ntouch file2\necho \"Look at this variable: \" file1 file2\nLook at this variable:  file1 file2\ntouch some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second run finds the file already built",
+      "exit_code": 0,
+      "stdout": "make: 'some_file' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes everything the variable named",
+      "exit_code": 0,
+      "stdout": "rm -f file1 file2 some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "file1",
+        "file2",
+        "some_file"
+      ]
+    }
+  ]
+}

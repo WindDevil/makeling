@@ -1,0 +1,68 @@
+{
+  "exercise": "04_targets/05_all_from_a_variable",
+  "title": "Build the all rule from a variable",
+  "objective": "Keep the list of targets in a variable and let all expand it instead of writing the names out.",
+  "reference": "The all target",
+  "hint": "A variable is expanded with $(NAME). Writing the bare word NAME makes make look for a file of that name instead.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "all expands the variable and builds each name",
+      "exit_code": 0,
+      "stdout": "building one\nbuilding two\nbuilding three",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "list"
+      ],
+      "description": "the variable really holds the three names",
+      "exit_code": 0,
+      "stdout": "all depends on: one two three",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "two"
+      ],
+      "description": "one name from the list can be built on its own",
+      "exit_code": 0,
+      "stdout": "building two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "two"
+      ],
+      "description": "naming one goal does not build the others",
+      "exit_code": 0,
+      "stdout": "building one",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exercise": "11_other_features/05_include_generated_deps",
+  "title": "The generated dependency file",
+  "objective": "Include report.d, the file a compiler writes with -M, so that make learns which sources the report is built from.",
+  "reference": "Include Makefiles",
+  "hint": "report.d holds one rule that adds prerequisites to report. Point the include at the file that is actually in the directory: the leading dash hides a misspelled name.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the rule in the Makefile builds the report",
+      "exit_code": 0,
+      "stdout": "cat notes.txt > report",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the report is now up to date",
+      "exit_code": 0,
+      "stdout": "make: 'report' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "report"
+      ],
+      "description": "the report holds both lines of notes.txt",
+      "exit_code": 0,
+      "stdout": "line one\nline two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "notes.txt"
+      ],
+      "description": "make the source newer",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the prerequisite from report.d triggers a rebuild",
+      "exit_code": 0,
+      "stdout": "cat notes.txt > report",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

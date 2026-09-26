@@ -1,0 +1,39 @@
+{
+  "exercise": "08_variables_pt2/15_pattern_specific_variable",
+  "title": "A variable that belongs to a pattern",
+  "objective": "Attach a variable to every target ending in .c, so that blah.c sees it and other targets do not.",
+  "reference": "Pattern-specific variables",
+  "hint": "Write %.c: variable = value. The target has to match the pattern for the variable to apply, so a pattern of %.o would leave blah.c without it.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "blah.c"
+      ],
+      "description": "blah.c matches the pattern and sees the value",
+      "exit_code": 0,
+      "stdout": "echo blah.c is built by clang\nblah.c is built by clang",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "other"
+      ],
+      "description": "a target that does not match the pattern sees nothing",
+      "exit_code": 0,
+      "stdout": "echo other is built by []\nother is built by []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/12_realpath_and_abspath",
+  "title": "$(realpath) needs the file, $(abspath) does not",
+  "objective": "Show that realpath resolves a name that exists on disk while abspath gives an absolute path for any name at all.",
+  "reference": "First Functions",
+  "hint": "$(realpath names) resolves names that exist, following symlinks, and returns nothing for a name that is not there. $(abspath names) turns any name into an absolute path, whether or not the file exists.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "realpath returns nothing for a name that is not there",
+      "exit_code": 0,
+      "stdout": "real_missing=[missing]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "abspath resolves a name that does not exist",
+      "exit_code": 0,
+      "stdout": "abs_missing=[found]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "realpath resolves the file that does exist",
+      "exit_code": 0,
+      "stdout": "real_here=[found]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

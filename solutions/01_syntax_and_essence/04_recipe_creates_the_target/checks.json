@@ -1,0 +1,52 @@
+{
+  "exercise": "01_syntax_and_essence/04_recipe_creates_the_target",
+  "title": "The recipe creates the file the target names",
+  "objective": "Make the hello target write its two lines into a file called hello, so that a second make finds nothing to do.",
+  "reference": "The essence of Make",
+  "hint": "A target and a file with the same name are tied together. Redirect the first command into hello and append the second one to the same file.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both commands of the recipe run on the first make",
+      "exit_code": 0,
+      "stdout": "echo \"Hello, World\" > hello\necho \"This line will print if the file hello does not exist.\" >> hello",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "hello"
+      ],
+      "description": "the file holds both lines",
+      "exit_code": 0,
+      "stdout": "Hello, World\nThis line will print if the file hello does not exist.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the target now exists as a file, so make stops",
+      "exit_code": 0,
+      "stdout": "make: 'hello' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

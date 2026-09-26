@@ -1,0 +1,38 @@
+{
+  "exercise": "11_other_features/01_include_variables",
+  "title": "Include another file's variables",
+  "objective": "Move the project settings out of the Makefile into config.mk and include that file, so the recipes can still see the variables.",
+  "reference": "Include Makefiles",
+  "hint": "The directive is a line of its own: include config.mk. make reads that file while it parses the Makefile, so everything it defines is available from that point on.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipes use variables that live in config.mk",
+      "exit_code": 0,
+      "stdout": "starting makeling\nbuild makeling",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "settings"
+      ],
+      "description": "both included variables are defined",
+      "exit_code": 0,
+      "stdout": "hello, makeling",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

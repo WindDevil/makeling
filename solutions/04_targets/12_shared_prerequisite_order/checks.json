@@ -1,0 +1,53 @@
+{
+  "exercise": "04_targets/12_shared_prerequisite_order",
+  "title": "all builds a shared prerequisite once",
+  "objective": "Give one and two the same prerequisite base so that make builds base first and only once.",
+  "reference": "The all target",
+  "hint": "make walks all's prerequisites left to right and depth first, and it never builds the same target twice in one run.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "the dry run shows the planned order",
+      "exit_code": 0,
+      "stdout": "echo \"base first\"\necho \"one after base\"\necho \"two after base\"",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "base is built once, before either dependent",
+      "exit_code": 0,
+      "stdout": "echo \"base first\"\nbase first\necho \"one after base\"\none after base\necho \"two after base\"\ntwo after base",
+      "stdout_mode": "exact",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "base"
+      ],
+      "description": "the shared prerequisite can be built on its own",
+      "exit_code": 0,
+      "stdout": "echo \"base first\"\nbase first",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

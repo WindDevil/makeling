@@ -1,0 +1,55 @@
+{
+  "exercise": "04_targets/08_one_recipe_many_files",
+  "title": "One recipe that produces several files",
+  "objective": "Make a single recipe create both first.part and second.part for the bundle target.",
+  "reference": "Multiple targets",
+  "hint": "The rule still runs its recipe once per target, but make skips a target whose file already exists and which has no prerequisites.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe produces both files in one go",
+      "exit_code": 0,
+      "stdout": "echo \"shared payload\" > first.part\ncp first.part second.part",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "first.part": "shared payload\n",
+        "second.part": "shared payload\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "second.part already exists, so the recipe is not repeated",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'bundle'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "second.part"
+      ],
+      "description": "the copied file holds the same payload",
+      "exit_code": 0,
+      "stdout": "shared payload",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/09_dollar_caret_and_dollar_question",
+  "title": "$^ lists every prerequisite, $? only the newer ones",
+  "objective": "Build a target from two prerequisites and show that $^ names both while $? names only the one that has been touched since.",
+  "reference": "Automatic Variables",
+  "hint": "$^ is the whole prerequisite list, in the order it was written. $? is the subset of those prerequisites whose modification time is newer than the target's.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "hey does not exist yet, so everything is newer",
+      "exit_code": 0,
+      "stdout": "all prerequisites = one two\nnewer prerequisites = one two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "one"
+      ],
+      "description": "make one newer than hey",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the touched prerequisite is out of date",
+      "exit_code": 0,
+      "stdout": "all prerequisites = one two\nnewer prerequisites = one",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

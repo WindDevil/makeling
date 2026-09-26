@@ -1,0 +1,53 @@
+{
+  "exercise": "07_commands_and_execution/02_silencing_a_whole_target",
+  "title": "Silencing a target, or the whole run",
+  "objective": "Keep one target's commands out of the output with .SILENT, and compare that with make -s, which silences everything.",
+  "reference": "Command Echoing/Silencing",
+  "hint": ".SILENT: quiet silences just that target. With no prerequisites at all, .SILENT: silences every target; make -s (or --silent) does the same for one run without touching the Makefile.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the quiet target hides its command",
+      "exit_code": 0,
+      "stdout": "quiet target ran\necho \"loud target ran\"\nloud target ran",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-s"
+      ],
+      "description": "make -s runs both targets silently",
+      "exit_code": 0,
+      "stdout": "quiet target ran\nloud target ran",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "--silent"
+      ],
+      "description": "--silent prints no command at all",
+      "exit_code": 0,
+      "stdout": "echo",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

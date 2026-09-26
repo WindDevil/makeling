@@ -1,0 +1,52 @@
+{
+  "exercise": "00_getting_started/02_default_goal",
+  "title": "The first target is the default goal",
+  "objective": "Order the rules so that a bare make runs the greeting, while make goodbye still runs the farewell.",
+  "reference": "Running the Examples",
+  "hint": "With no goal on the command line, make runs the first target it sees in the file.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "bare make runs hello",
+      "exit_code": 0,
+      "stdout": "Hello, World",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "goodbye"
+      ],
+      "description": "make goodbye runs the second rule",
+      "exit_code": 0,
+      "stdout": "Goodbye, World",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the default goal does not run the farewell too",
+      "exit_code": 0,
+      "stdout": "not_contains:Goodbye",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

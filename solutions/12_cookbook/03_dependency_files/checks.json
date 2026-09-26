@@ -1,0 +1,39 @@
+{
+  "exercise": "12_cookbook/03_dependency_files",
+  "title": "One dependency file per object",
+  "objective": "Derive the .d files from the object list with the suffix-only substitution $(OBJS:.o=.d).",
+  "reference": "Makefile Cookbook",
+  "hint": "$(OBJS:.o=.d) swaps the ending of every word in the list: ./build/hello.cpp.o becomes ./build/hello.cpp.d.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "deps"
+      ],
+      "description": "the two spellings of the dependency list agree",
+      "exit_code": 0,
+      "stdout": "the suffix form matches patsubst %.o -> %.d",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "deps"
+      ],
+      "description": "every object has a matching .d file, in any order",
+      "exit_code": 0,
+      "stdout": "dependency file: ./build/./src/main.c.d\ndependency file: ./build/./src/moduleA/thing.c.d\ndependency file: ./build/./src/util/greet.cpp.d",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

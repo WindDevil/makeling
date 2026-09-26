@@ -1,0 +1,42 @@
+{
+  "exercise": "11_other_features/13_delete_on_error",
+  "title": "Delete the target of a failed rule",
+  "objective": "Switch on DELETE_ON_ERROR so that a rule which fails halfway leaves no half written target behind.",
+  "reference": ".delete_on_error",
+  "hint": "The declaration is a target line with no recipe: .DELETE_ON_ERROR:, starting in column one. It applies to every rule in the makefile, not only to the rule beneath it.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the file written by the failing rule is removed",
+      "exit_code": 2,
+      "stdout": "touch one\nfalse",
+      "stdout_mode": "ordered_lines",
+      "stderr": "Deleting file 'one'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "one"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "two"
+      ],
+      "description": "the declaration is not tied to the target that follows it",
+      "exit_code": 2,
+      "stdout": "touch two\nfalse",
+      "stdout_mode": "ordered_lines",
+      "stderr": "Deleting file 'two'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "two"
+      ]
+    }
+  ]
+}

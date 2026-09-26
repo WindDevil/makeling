@@ -1,0 +1,69 @@
+{
+  "exercise": "00_getting_started/06_beyond_compilation",
+  "title": "Make is not only for compilers",
+  "objective": "Chain two non-compilation targets so that make builds a report file before printing it.",
+  "reference": "Why do Makefiles exist?",
+  "hint": "Any target can carry any shell command. Let the report target depend on the file it prints, so the file is produced first.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "the count is printed after the report is built",
+      "exit_code": 0,
+      "stdout": "3",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "summary.txt"
+      ],
+      "description": "the intermediate file holds the line count",
+      "exit_code": 0,
+      "stdout": "3",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "re-running still prints the report",
+      "exit_code": 0,
+      "stdout": "3",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "report"
+      ],
+      "description": "summary.txt is up to date, so it is not regenerated",
+      "exit_code": 0,
+      "stdout": "grep -c",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

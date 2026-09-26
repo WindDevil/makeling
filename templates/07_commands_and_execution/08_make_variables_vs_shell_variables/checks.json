@@ -1,0 +1,37 @@
+{
+  "exercise": "07_commands_and_execution/08_make_variables_vs_shell_variables",
+  "title": "A make variable is not a shell variable",
+  "objective": "Give the shell a variable of its own in a recipe line, and see why $(...) and $$... are not interchangeable.",
+  "reference": "Double dollar sign",
+  "hint": "make expands $(name) itself before the shell ever sees the line. Write $$name when the shell - not make - is supposed to read the variable; with a single $ make eats the name and the shell gets the leftovers.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "$$ reaches the shell, $( ) is expanded by make",
+      "exit_code": 0,
+      "stdout": "sh_var='I am a shell variable'; echo $sh_var\nI am a shell variable\necho I am a make variable\nI am a make variable",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a single $ leaves the shell with the wrong text",
+      "exit_code": 0,
+      "stdout": "echo h_var",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

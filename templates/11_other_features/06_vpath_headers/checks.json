@@ -1,0 +1,54 @@
+{
+  "exercise": "11_other_features/06_vpath_headers",
+  "title": "Finding a prerequisite in another directory",
+  "objective": "Use vpath so that blah.h, which only exists in headers/, is found as a prerequisite of some_binary.",
+  "reference": "The vpath Directive",
+  "hint": "vpath takes a pattern and the directories to search: vpath %.h headers. The recipe must still copy the file make found, so use the automatic variable $< rather than the bare file name.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "some_binary"
+      ],
+      "description": "make found the header through the vpath directive",
+      "exit_code": 0,
+      "stdout": "cat headers/blah.h > some_binary",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "some_binary"
+      ],
+      "description": "the recipe copied the header make handed it",
+      "exit_code": 0,
+      "stdout": "hello from the header",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "some_binary"
+      ],
+      "description": "the header was found, so there is nothing left to do",
+      "exit_code": 0,
+      "stdout": "make: 'some_binary' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

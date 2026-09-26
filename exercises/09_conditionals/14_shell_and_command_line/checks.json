@@ -1,0 +1,38 @@
+{
+  "exercise": "09_conditionals/14_shell_and_command_line",
+  "title": "A conditional fed by $(shell)",
+  "objective": "Probe the filesystem with $(shell) and pick the value with ifeq, letting the probed file name come from the command line.",
+  "reference": "Conditional if/else",
+  "hint": "$(shell ...) runs while make parses the file and its output is compared as text, so the conditional decides the branch before any target is built. A variable set on the command line overrides the file's assignment, so PROBE=absent.mk probes a different file.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "local.mk exists, so the shell prints yes",
+      "exit_code": 0,
+      "stdout": "result: found",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "PROBE=absent.mk"
+      ],
+      "description": "the command line probes a file that is not there",
+      "exit_code": 0,
+      "stdout": "result: missing",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

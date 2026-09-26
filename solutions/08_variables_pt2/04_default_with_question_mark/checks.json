@@ -1,0 +1,38 @@
+{
+  "exercise": "08_variables_pt2/04_default_with_question_mark",
+  "title": "?= sets a default only when the variable is undefined",
+  "objective": "Give one variable a default without clobbering the value it already has, and let a brand new variable take the default.",
+  "reference": "Flavors and modification",
+  "hint": "?= assigns only if the variable has no value yet. A plain = always assigns, which would overwrite the earlier definition.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the existing value survived and the new one got its default",
+      "exit_code": 0,
+      "stdout": "echo one is hello\none is hello\necho two is will be set\ntwo is will be set",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "two=from the command line"
+      ],
+      "description": "a variable given on the command line counts as defined, so ?= leaves it alone",
+      "exit_code": 0,
+      "stdout": "two is from the command line",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

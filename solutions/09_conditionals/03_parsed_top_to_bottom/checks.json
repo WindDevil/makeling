@@ -1,0 +1,38 @@
+{
+  "exercise": "09_conditionals/03_parsed_top_to_bottom",
+  "title": "The conditional is decided while the file is read",
+  "objective": "Assign MODE before the conditional that tests it, so that a bare make reports the debug build.",
+  "reference": "Conditional if/else",
+  "hint": "make reads the file from the first line to the last and resolves each conditional the moment it reaches it. An assignment further down the file has not happened yet.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the assignment is above the conditional",
+      "exit_code": 0,
+      "stdout": "echo \"debug build\"\ndebug build",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "MODE=release"
+      ],
+      "description": "a command line value is known before parsing starts",
+      "exit_code": 0,
+      "stdout": "echo \"release build\"\nrelease build",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

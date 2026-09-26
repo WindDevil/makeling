@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/03_strip",
+  "title": "Cleaning up whitespace with $(strip)",
+  "objective": "Normalise the messy variable into a b c: no leading, trailing or repeated whitespace left.",
+  "reference": "First Functions",
+  "hint": "$(strip text) removes leading and trailing whitespace and reduces every run of spaces inside the text to a single space. Whitespace-only text strips down to the empty string.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the runs of spaces are collapsed",
+      "exit_code": 0,
+      "stdout": "clean=[a b c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a whitespace-only value strips to nothing",
+      "exit_code": 0,
+      "stdout": "blank=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the cleaned value is a three word list",
+      "exit_code": 0,
+      "stdout": "words=[3]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

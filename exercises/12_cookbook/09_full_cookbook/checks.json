@@ -1,0 +1,143 @@
+{
+  "exercise": "12_cookbook/09_full_cookbook",
+  "title": "The whole cookbook Makefile",
+  "objective": "Assemble the complete cookbook Makefile: sources, objects, dependency files, include flags, both compile rules, the link step and clean.",
+  "reference": "Makefile Cookbook",
+  "hint": "Read your Makefile next to the tutorial's, top to bottom. Every source is compiled by a pattern rule of its own language, so a missing C++ rule leaves greet.cpp without a way to become an object.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the C source is compiled into the build directory",
+      "exit_code": 0,
+      "stdout": "-c src/main.c -o build/./src/main.c.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-B"
+      ],
+      "description": "the C++ source gets its own rule",
+      "exit_code": 0,
+      "stdout": "-c src/util/greet.cpp -o build/./src/util/greet.cpp.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-B"
+      ],
+      "description": "both kinds of object are linked into the program",
+      "exit_code": 0,
+      "stdout": "-o build/final_program",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "sh",
+        "-c",
+        "./build/final_program"
+      ],
+      "description": "the program actually runs",
+      "exit_code": 0,
+      "stdout": "hello from C++: value=7",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes the whole build directory",
+      "exit_code": 0,
+      "stdout": "rm -r ./build",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "build"
+      ]
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a clean tree builds again from nothing",
+      "exit_code": 0,
+      "stdout": "-o build/final_program",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "src/moduleA/detail.h"
+      ],
+      "description": "make a header newer than the objects",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the object that includes it is recompiled",
+      "exit_code": 0,
+      "stdout": "-c src/moduleA/thing.c -o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "and the build settles",
+      "exit_code": 0,
+      "stdout": "'build/final_program' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

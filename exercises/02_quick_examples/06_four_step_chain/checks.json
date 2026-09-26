@@ -1,0 +1,67 @@
+{
+  "exercise": "02_quick_examples/06_four_step_chain",
+  "title": "A four-step chain",
+  "objective": "Extend the build with a fourth rule, so that blah.c is copied from source.txt, which is itself written by a recipe.",
+  "reference": "More quick examples",
+  "hint": "Every step needs a rule and a prerequisite that points at the step before it. source.txt comes first, then blah.c, blah.o and blah.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "all four recipes run, deepest first",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > source.txt\ncp source.txt blah.c\ncc -c blah.c -o blah.o\ncc blah.o -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second run has nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "rm",
+        "-f",
+        "blah.c"
+      ],
+      "description": "delete a middle file of the chain",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the three steps below the deleted file run again",
+      "exit_code": 0,
+      "stdout": "cp source.txt blah.c\ncc -c blah.c -o blah.o\ncc blah.o -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "exercise": "07_commands_and_execution/07_parallel_jobs",
+  "title": "make -j runs the goals as parallel jobs",
+  "objective": "Ask make for two jobs at once with -j2 and read the flags it hands to the recipe: the -j2 and the jobserver behind it.",
+  "reference": "Arguments to make",
+  "hint": "make -j2 runs the goal's prerequisites as separate jobs, so their output may arrive in any order. $(MAKEFLAGS) inside a recipe shows the -j2 and the jobserver make shares with nested makes.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-j2"
+      ],
+      "description": "both jobs run, in whichever order they finish",
+      "exit_code": 0,
+      "stdout": "job one finished\njob two finished",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-j2"
+      ],
+      "description": "the recipe sees -j2 and the jobserver",
+      "exit_code": 0,
+      "stdout": "jobs make handed the recipe: \\[ -j2 --jobserver-auth=[0-9]+,[0-9]+\\]",
+      "stdout_mode": "regex",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-j1"
+      ],
+      "description": "one job at a time needs no jobserver",
+      "exit_code": 0,
+      "stdout": "jobs make handed the recipe: [ -j1]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "without -j there is nothing to hand over",
+      "exit_code": 0,
+      "stdout": "jobs make handed the recipe: []",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

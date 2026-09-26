@@ -1,0 +1,39 @@
+{
+  "exercise": "08_variables_pt2/09_override_wins",
+  "title": "override beats the command line",
+  "objective": "Force one variable to keep the Makefile's own value no matter what the command line says, while the variable next to it is still replaceable.",
+  "reference": "Command line arguments and override",
+  "hint": "Put override in front of the assignment. Assignments without it keep losing to the command line, which is exactly what the second variable should do.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "without extra arguments both assignments are in charge",
+      "exit_code": 0,
+      "stdout": "echo mode is release\nmode is release\necho plain is from the Makefile\nplain is from the Makefile",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "mode=debug",
+        "plain=from the command line"
+      ],
+      "description": "override held its ground, the plain assignment did not",
+      "exit_code": 0,
+      "stdout": "echo mode is release\nmode is release\necho plain is from the command line\nplain is from the command line",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

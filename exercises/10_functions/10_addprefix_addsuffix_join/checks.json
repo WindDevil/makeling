@@ -1,0 +1,65 @@
+{
+  "exercise": "10_functions/10_addprefix_addsuffix_join",
+  "title": "Building new names with $(addprefix), $(addsuffix) and $(join)",
+  "objective": "Turn the two names main util into object files, then put them under src/, and pair the prefixes src/ and build/ with two files.",
+  "reference": "First Functions",
+  "hint": "$(addsuffix x,list) appends to every word, $(addprefix x,list) prepends to every word, and you can nest them. $(join list1,list2) glues the words together pairwise.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a suffix on every word",
+      "exit_code": 0,
+      "stdout": "objects=[main.o util.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a prefix wrapped around the suffixed words",
+      "exit_code": 0,
+      "stdout": "paths=[src/main.o src/util.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "join pairs the words off one by one",
+      "exit_code": 0,
+      "stdout": "joined=[src/a.c build/b.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a longer list simply keeps its extra words",
+      "exit_code": 0,
+      "stdout": "short=[a1 b2 c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

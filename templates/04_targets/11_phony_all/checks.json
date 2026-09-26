@@ -1,0 +1,67 @@
+{
+  "exercise": "04_targets/11_phony_all",
+  "title": "Stray files that shadow the aggregate",
+  "objective": "Declare all, one and two phony so that files of those names do not stop make from running the recipes.",
+  "reference": ".phony",
+  "hint": "Without .PHONY the file one is newer than nothing and make treats it as up to date. Declare every name in the aggregate that is not a real output.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make runs both recipes",
+      "exit_code": 0,
+      "stdout": "building one\nbuilding two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "phony targets are rebuilt every time",
+      "exit_code": 0,
+      "stdout": "building one\nbuilding two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one"
+      ],
+      "description": "one can still be built on its own",
+      "exit_code": 0,
+      "stdout": "building one",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one"
+      ],
+      "description": "asking for one does not build two",
+      "exit_code": 0,
+      "stdout": "building two",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

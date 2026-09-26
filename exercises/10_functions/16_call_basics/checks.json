@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/16_call_basics",
+  "title": "Writing a function with $(call)",
+  "objective": "Report the name of the called variable and its parameters with $(0), $(1) and $(2), and make a template that repeats its first parameter three times.",
+  "reference": "The call function",
+  "hint": "A variable holding $(1), $(2), ... is a function you invoke with $(call variable,param1,param2). $(0) is the name of the variable being called, and parameters you do not pass are empty.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "$(0) is the variable name, $(3) was never passed",
+      "exit_code": 0,
+      "stdout": "call=[Variable Name: sweet_new_fn First:  go Second:  tigers Empty Variable: ]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first parameter can be used more than once",
+      "exit_code": 0,
+      "stdout": "triple=[ha ha ha]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe calls the same template",
+      "exit_code": 0,
+      "stdout": "ha ha ha",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

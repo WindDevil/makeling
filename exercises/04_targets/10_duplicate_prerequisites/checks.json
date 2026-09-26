@@ -1,0 +1,56 @@
+{
+  "exercise": "04_targets/10_duplicate_prerequisites",
+  "title": "The same prerequisite twice",
+  "objective": "Make the inspect recipe print the deduplicated list with $^ and every mention of the repeated prerequisite with $+.",
+  "reference": "Automatic Variables",
+  "hint": "Both variables list the prerequisites; $^ drops duplicates and $+ keeps them. app.conf is named twice on purpose here.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "inspect"
+      ],
+      "description": "$^ collapses the duplicate, $+ keeps both mentions",
+      "exit_code": 0,
+      "stdout": "unique prerequisites: app.conf\nevery prerequisite: app.conf app.conf",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "app.conf": "setting=1\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "inspect"
+      ],
+      "description": "the prerequisite was built once and stays up to date",
+      "exit_code": 0,
+      "stdout": "unique prerequisites: app.conf\nevery prerequisite: app.conf app.conf",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "all"
+      ],
+      "description": "listing app.conf twice in all still builds it once",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

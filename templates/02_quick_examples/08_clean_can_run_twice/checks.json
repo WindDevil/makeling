@@ -1,0 +1,73 @@
+{
+  "exercise": "02_quick_examples/08_clean_can_run_twice",
+  "title": "clean removes what make built",
+  "objective": "Add a clean target that deletes some_file and can be run again when there is nothing left to delete.",
+  "reference": "Make clean",
+  "hint": "clean is an ordinary target: it is not first, and nothing depends on it, so it only runs when you ask for it. Give rm the -f flag so that a second clean is not an error.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make creates the file",
+      "exit_code": 0,
+      "stdout": "touch some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "some_file"
+      ],
+      "description": "the file is there to delete",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "make clean deletes it",
+      "exit_code": 0,
+      "stdout": "rm -f some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "some_file"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "a second clean is harmless",
+      "exit_code": 0,
+      "stdout": "rm -f some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "some_file"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "exercise": "06_fancy_rules/09_static_pattern_filter",
+  "title": "Picking targets with $(filter ...)",
+  "objective": "Use $(filter) to give .o files and .result files their own static pattern rules, so that each kind is built from the right source.",
+  "reference": "Static Pattern Rules and Filter",
+  "hint": "$(filter %.o,$(obj_files)) keeps only the .o names, so the rule after the colon only applies to those.  .PHONY matters here: without it make tries to link the program all from its prereqs.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "each target was matched by the rule for its kind",
+      "exit_code": 0,
+      "stdout": "target: foo.result prereq: foo.raw\ntarget: bar.o prereq: bar.c\ntarget: lose.o prereq: lose.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes the generated sources",
+      "exit_code": 0,
+      "stdout": "rm -f foo.raw bar.c lose.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "foo.raw",
+        "bar.c",
+        "lose.c"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "exercise": "11_other_features/02_include_rules",
+  "title": "Rules from the included file are part of the build",
+  "objective": "Keep the build rules in tools.mk and include it: the rules must work and the included file's first target becomes the default goal.",
+  "reference": "Include Makefiles",
+  "hint": "include is textual: the rules in tools.mk behave as if they were written in the Makefile, including the rule that decides the default goal.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make runs the goal found in tools.mk",
+      "exit_code": 0,
+      "stdout": "building with the included rule\nall done",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "build"
+      ],
+      "description": "the included rule can still be named directly",
+      "exit_code": 0,
+      "stdout": "building with the included rule",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "the included clean rule is there too",
+      "exit_code": 0,
+      "stdout": "cleaning up",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

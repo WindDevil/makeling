@@ -1,0 +1,58 @@
+{
+  "exercise": "11_other_features/11_phony_file_conflict",
+  "title": "A phony target is never up to date",
+  "objective": "Declare clean phony so that the file named clean, created by some_file, cannot stop the clean rule from running.",
+  "reference": ".phony",
+  "hint": ".PHONY: clean tells make to ignore any file with that name. Without the declaration make sees the file clean, decides the target is up to date and skips the recipe.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "some_file"
+      ],
+      "description": "building some_file also creates a file called clean",
+      "exit_code": 0,
+      "stdout": "touch some_file\ntouch clean",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "clean"
+      ],
+      "description": "the decoy file is really there",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean runs anyway and removes both files",
+      "exit_code": 0,
+      "stdout": "rm -f some_file\nrm -f clean",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "some_file",
+        "clean"
+      ]
+    }
+  ]
+}

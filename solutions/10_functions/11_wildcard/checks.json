@@ -1,0 +1,65 @@
+{
+  "exercise": "10_functions/11_wildcard",
+  "title": "Finding files with $(wildcard)",
+  "objective": "Collect the C sources in the current directory and in the sub/ directory, and confirm that a pattern with no matches gives an empty list.",
+  "reference": "First Functions",
+  "hint": "$(wildcard pattern) expands to the sorted list of files matching the glob, and to nothing at all when nothing matches. Unlike the * in a rule, it runs as soon as the variable is expanded.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both C files are found, sorted",
+      "exit_code": 0,
+      "stdout": "sources=[a.c b.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the header is not a .c file",
+      "exit_code": 0,
+      "stdout": "count=[2]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a pattern that matches nothing yields no words",
+      "exit_code": 0,
+      "stdout": "none=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the glob can look into a subdirectory",
+      "exit_code": 0,
+      "stdout": "nested=[sub/e.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

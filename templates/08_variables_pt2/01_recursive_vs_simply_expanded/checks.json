@@ -1,0 +1,23 @@
+{
+  "exercise": "08_variables_pt2/01_recursive_vs_simply_expanded",
+  "title": "Recursive and simply expanded variables",
+  "objective": "Assign one variable from another before that other variable exists, then define it: = picks up the new value, := keeps the one it saw at assignment time.",
+  "reference": "Flavors and modification",
+  "hint": "A recursive variable (=) stores the text and expands it every time it is used. A simply expanded variable (:=) expands its right-hand side once, immediately, and stores the result.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recursive variable grew with later_variable, the simply expanded one did not",
+      "exit_code": 0,
+      "stdout": "echo one later\none later\necho two\ntwo",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

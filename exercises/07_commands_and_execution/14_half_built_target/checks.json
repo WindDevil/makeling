@@ -1,0 +1,54 @@
+{
+  "exercise": "07_commands_and_execution/14_half_built_target",
+  "title": "A failed recipe leaves a half-built target",
+  "objective": "Fail a recipe after it has written part of its output, and see that make keeps the partial file and treats it as finished.",
+  "reference": "Interrupting or killing make",
+  "hint": "make never rolls a target back when a recipe fails, so report.txt is left with only the first write - and the next make finds the file and reports it up to date. The recipe has to fail between its two writes. (Interrupting make with ctrl-c is different: then make removes the targets it has just made.)",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the failed run leaves only the first write",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "make: *** [Makefile:9: report.txt] Error 1",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "report.txt": "partial line"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the next make trusts the half-built file",
+      "exit_code": 0,
+      "stdout": "make: 'report.txt' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "report.txt"
+      ],
+      "description": "and the truncated file is still what is on disk",
+      "exit_code": 0,
+      "stdout": "partial line",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

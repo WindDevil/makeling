@@ -1,0 +1,37 @@
+{
+  "exercise": "08_variables_pt2/05_spaces_and_the_null_string",
+  "title": "Spaces at the ends of an assignment",
+  "objective": "Build a value that ends in three spaces and a variable holding exactly one space, using the empty variable as the trick.",
+  "reference": "Flavors and modification",
+  "hint": "Spaces before the = are stripped but spaces at the end of the line are kept, comment or not. Set an empty variable and put a space before the # when you need one space.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the trailing spaces survived and the leading space did not",
+      "exit_code": 0,
+      "stdout": "echo \"hello   there\"\nhello   there",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the single space variable puts one space between start and end",
+      "exit_code": 0,
+      "stdout": "echo start\" \"end\nstart end",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

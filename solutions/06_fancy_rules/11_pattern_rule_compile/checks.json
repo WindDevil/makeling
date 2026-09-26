@@ -1,0 +1,113 @@
+{
+  "exercise": "06_fancy_rules/11_pattern_rule_compile",
+  "title": "A pattern rule of your own",
+  "objective": "Write a %.o: %.c pattern rule whose recipe uses $< and $@, and see it applied to every matching target.",
+  "reference": "Pattern Rules",
+  "hint": "A pattern rule is an implicit rule you define yourself: % in the target matches any non-empty stem and the same % in the prerequisite stands for it.  $< is that prerequisite and $@ the target.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the one rule was used for both objects",
+      "exit_code": 0,
+      "stdout": "compile foo.c -> foo.o\ncompile bar.c -> bar.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "foo.o"
+      ],
+      "description": "foo.o exists",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "bar.o"
+      ],
+      "description": "bar.o exists",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both objects are up to date",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "rm",
+        "-f",
+        "foo.o"
+      ],
+      "description": "throw foo.o away again",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the missing object is rebuilt",
+      "exit_code": 0,
+      "stdout": "compile foo.c -> foo.o",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "bar.o is untouched, so bar.c is not needed",
+      "exit_code": 0,
+      "stdout": "bar.c",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

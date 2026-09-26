@@ -1,0 +1,62 @@
+{
+  "exercise": "07_commands_and_execution/13_keep_going_flag",
+  "title": "make -k keeps going but still fails",
+  "objective": "Build three targets where the first one fails, and tell make -k and make -i apart.",
+  "reference": "Error handling with -k, -i, and -",
+  "hint": "-k continues with the goals that can still be built and then exits non-zero because the build was not completed; -i ignores the errors entirely and exits 0. Make the first target fail for real.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a plain make never reaches the other two targets",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "make: *** [Makefile:10: first] Error 1",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "second.made",
+        "third.made"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "-k"
+      ],
+      "description": "-k builds what it can, then reports the failure",
+      "exit_code": 2,
+      "stdout": "touch second.made\ntouch third.made",
+      "stdout_mode": "contains_lines",
+      "stderr": "make: Target 'all' not remade because of errors.",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "second.made": "",
+        "third.made": ""
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-i"
+      ],
+      "description": "-i ignores the failure and exits 0",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "make: [Makefile:10: first] Error 1 (ignored)",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "second.made": "",
+        "third.made": ""
+      },
+      "missing": []
+    }
+  ]
+}

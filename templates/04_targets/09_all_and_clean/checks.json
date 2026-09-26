@@ -1,0 +1,64 @@
+{
+  "exercise": "04_targets/09_all_and_clean",
+  "title": "all first, clean last",
+  "objective": "Keep all as the first rule and clean at the bottom, so that a bare make builds and make all clean builds then removes.",
+  "reference": "The all target",
+  "hint": "The first rule in the file is the default goal. clean is not a prerequisite of anything, so it only runs when it is named.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make builds and does not clean",
+      "exit_code": 0,
+      "stdout": "echo \"one\" > one\necho \"two\" > two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "one": "one\n",
+        "two": "two\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "all",
+        "clean"
+      ],
+      "description": "goals run left to right: all, then clean",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.\nrm -f one two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "one",
+        "two"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "clean",
+        "all"
+      ],
+      "description": "swapping the goals swaps the order of the work",
+      "exit_code": 0,
+      "stdout": "rm -f one two\necho \"one\" > one\necho \"two\" > two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "one": "one\n",
+        "two": "two\n"
+      },
+      "missing": []
+    }
+  ]
+}

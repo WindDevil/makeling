@@ -1,0 +1,65 @@
+{
+  "exercise": "10_functions/18_shell",
+  "title": "$(shell) runs at expansion time",
+  "objective": "Make snapshot capture the value of who as it is when the variable is defined, so it stays first even though who becomes second afterwards.",
+  "reference": "The shell function",
+  "hint": "$(shell command) runs the command while make expands the text and returns its output with every newline turned into a space. A recursive variable (=) re-runs the shell on every expansion; a simply expanded variable (:=) runs it once, at that line.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the shell ran while who still held first",
+      "exit_code": 0,
+      "stdout": "snapshot=[first]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recursive variable runs the shell again, later",
+      "exit_code": 0,
+      "stdout": "live=[second]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "two lines of output arrive as two words",
+      "exit_code": 0,
+      "stdout": "two_lines=[alpha beta]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the shell runs once more when the recipe is expanded",
+      "exit_code": 0,
+      "stdout": "in recipe: second",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

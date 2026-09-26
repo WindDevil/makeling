@@ -1,0 +1,37 @@
+{
+  "exercise": "10_functions/14_foreach_paths",
+  "title": "Building a list of paths with $(foreach)",
+  "objective": "Map the module names auth cart order to build/auth.o build/cart.o build/order.o using a single foreach.",
+  "reference": "The foreach function",
+  "hint": "Write the path around the loop variable: $(foreach m,$(modules),build/$(m).o). The text is re-expanded for every word, so $(m) takes a different value each time.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "one path per module, directory included",
+      "exit_code": 0,
+      "stdout": "objects=[build/auth.o build/cart.o build/order.o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the generated paths",
+      "exit_code": 0,
+      "stdout": "build/auth.o build/cart.o build/order.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

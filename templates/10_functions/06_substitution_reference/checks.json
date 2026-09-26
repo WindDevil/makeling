@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/06_substitution_reference",
+  "title": "The $(text:pattern=replacement) shorthand",
+  "objective": "Express the same rewrite twice: once with the % shorthand and once with the suffix-only shorthand.",
+  "reference": "String Substitution",
+  "hint": "$(foo:%.o=%.c) is shorthand for $(patsubst %.o,%.c,$(foo)), and $(foo:.o=.c) is the suffix-only form of the same thing. Do not pad the shorthand with spaces; they would become part of the search or the replacement.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the % shorthand rewrites every match",
+      "exit_code": 0,
+      "stdout": "one=[a.c b.c l.a c.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the suffix shorthand gives the same answer",
+      "exit_code": 0,
+      "stdout": "two=[a.c b.c l.a c.c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the rewritten list",
+      "exit_code": 0,
+      "stdout": "a.c b.c l.a c.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

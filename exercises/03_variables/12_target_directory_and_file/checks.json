@@ -1,0 +1,39 @@
+{
+  "exercise": "03_variables/12_target_directory_and_file",
+  "title": "$(@D) and $(@F)",
+  "objective": "Build a file inside a directory that does not exist yet, using $(@D) for the directory and $(@F) for the file name.",
+  "reference": "Automatic Variables",
+  "hint": "$(@D) is the directory part of the target and $(@F) the file part. Create $(@D) first, then write into $@.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the directory is made before the file is written",
+      "exit_code": 0,
+      "stdout": "mkdir -p out/nested\necho report.txt > out/nested/report.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "out/nested/report.txt": "report.txt\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the second run has nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'out/nested/report.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

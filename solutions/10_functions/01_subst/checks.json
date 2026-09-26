@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/01_subst",
+  "title": "Replace text with $(subst)",
+  "objective": "Use $(subst from,to,text) to turn the sentence \"I am not superman\" into '\"I am \"totally\" superman\"'.",
+  "reference": "First Functions",
+  "hint": "$(subst from,to,text) replaces every occurrence of the literal string from with to. The quotes in the example are ordinary characters: they are part of the third argument, not syntax.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "every 'not' is replaced, quotes and all",
+      "exit_code": 0,
+      "stdout": "bar=[ \"I am \"totally\" superman\"]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a plainer substitution at the top level",
+      "exit_code": 0,
+      "stdout": "plain=[hello there]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the substituted sentence",
+      "exit_code": 0,
+      "stdout": "hello there",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "exercise": "00_getting_started/01_first_rule",
+  "title": "The simplest Makefile",
+  "objective": "Write a rule that prints Hello, World when make runs.",
+  "reference": "Running the Examples",
+  "hint": "A rule is a target line followed by its recipe. Every recipe line must begin with a real TAB character; four spaces will be rejected with \"missing separator\".",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make runs the only target",
+      "exit_code": 0,
+      "stdout": "echo \"Hello, World\"\nHello, World",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "hello"
+      ],
+      "description": "naming the target explicitly does the same thing",
+      "exit_code": 0,
+      "stdout": "echo \"Hello, World\"\nHello, World",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

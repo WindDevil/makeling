@@ -1,0 +1,39 @@
+{
+  "exercise": "11_other_features/09_multiline_recipe",
+  "title": "A recipe line that continues",
+  "objective": "Break one long shell command over two lines with a backslash so that the shell still receives it as a single command.",
+  "reference": "Multiline",
+  "hint": "End the first line with a backslash: make hands the continuation to the shell, which removes the backslash and the newline. Without it the second line becomes a command of its own.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "one echo wrote one line into the file",
+      "exit_code": 0,
+      "stdout": "echo one two three \\",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "greeting.txt": "one two three four five six\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the file was written, so make has nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'greeting.txt' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

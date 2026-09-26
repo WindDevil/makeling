@@ -1,0 +1,68 @@
+{
+  "exercise": "03_variables/14_first_prerequisite_only",
+  "title": "$< is the first prerequisite",
+  "objective": "Copy the first of two prerequisites into the target while still reporting all of them.",
+  "reference": "Automatic Variables",
+  "hint": "With several prerequisites $< is the first one on the target line, not all of them; $^ is the whole list. Two arguments to cp would be a mistake.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the copy came from a.txt, the report lists both",
+      "exit_code": 0,
+      "stdout": "cp a.txt out.txt\necho \"inputs: a.txt b.txt\" >> out.txt\nfrom a\ninputs: a.txt b.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "out.txt": "from a\ninputs: a.txt b.txt\n"
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "nothing changed, so nothing is rebuilt",
+      "exit_code": 0,
+      "stdout": "make: 'out.txt' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "b.txt"
+      ],
+      "description": "make the second prerequisite newer",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe runs again, still copying the first",
+      "exit_code": 0,
+      "stdout": "cp a.txt out.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

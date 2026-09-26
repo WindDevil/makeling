@@ -1,0 +1,72 @@
+{
+  "exercise": "02_quick_examples/10_build_clean_build",
+  "title": "Build, clean, build again",
+  "objective": "Complete the Makefile with a clean target that removes everything make created, so the same three recipes can run from scratch again.",
+  "reference": "Make clean",
+  "hint": "clean should delete every file the other rules produce, including the generated blah.c. After it runs, make must be able to rebuild the program from nothing.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first build runs all three recipes",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > blah.c # Runs first\ncc -c blah.c -o blah.o # Runs second\ncc blah.o -o blah # Runs third",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean leaves the directory as it found it",
+      "exit_code": 0,
+      "stdout": "rm -f blah blah.o blah.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "blah",
+        "blah.o",
+        "blah.c"
+      ]
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the same three recipes run again from a clean tree",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > blah.c # Runs first\ncc -c blah.c -o blah.o # Runs second\ncc blah.o -o blah # Runs third",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-x",
+        "blah"
+      ],
+      "description": "the rebuilt program is executable",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

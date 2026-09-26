@@ -1,0 +1,75 @@
+{
+  "exercise": "04_targets/04_all_builds_everything",
+  "title": "The all target builds everything",
+  "objective": "List one, two and three in the all rule so that a bare make builds all three files.",
+  "reference": "The all target",
+  "hint": "all is a normal target whose prerequisites are the other targets. Because it comes first it is what a bare make runs.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make builds every prerequisite of all",
+      "exit_code": 0,
+      "stdout": "touch one\ntouch two\ntouch three",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "one": "",
+        "two": "",
+        "three": ""
+      },
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a second run has nothing left to do",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one"
+      ],
+      "description": "a single target can still be asked for by name",
+      "exit_code": 0,
+      "stdout": "make: 'one' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean is not part of all, so it only runs when named",
+      "exit_code": 0,
+      "stdout": "rm -f one two three",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "one",
+        "two",
+        "three"
+      ]
+    }
+  ]
+}

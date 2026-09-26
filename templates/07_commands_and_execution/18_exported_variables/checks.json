@@ -1,0 +1,41 @@
+{
+  "exercise": "07_commands_and_execution/18_exported_variables",
+  "title": "Only exported variables reach the shell",
+  "objective": "Print a make variable and a shell variable side by side, and show that environment variables are make variables from the start.",
+  "reference": "Export, environments, and recursive make",
+  "hint": "A variable defined in the Makefile lives only inside make until you export it, which is what puts it in the environment of every recipe line. Variables that were already in the environment arrive as make variables automatically.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "all"
+      ],
+      "description": "export decides which variable the shell can see",
+      "exit_code": 0,
+      "stdout": "make variable one: [this will only work locally]\nshell variable one: []\nmake variable two: [we can run subcommands with this]\nshell variable two: [we can run subcommands with this]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "from_environment"
+      ],
+      "description": "the environment is imported before the Makefile runs",
+      "exit_code": 0,
+      "stdout": "make variable: [I am an environment variable]\nshell variable: [I am an environment variable]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {
+        "SHELL_ENV_VAR": "I am an environment variable"
+      },
+      "files": {},
+      "missing": []
+    }
+  ]
+}

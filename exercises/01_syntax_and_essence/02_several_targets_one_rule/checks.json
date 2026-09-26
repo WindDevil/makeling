@@ -1,0 +1,71 @@
+{
+  "exercise": "01_syntax_and_essence/02_several_targets_one_rule",
+  "title": "Several targets on one rule line",
+  "objective": "Write a single rule that applies to two target names, so that make can build either one of them.",
+  "reference": "Makefile Syntax",
+  "hint": "The targets are file names separated by spaces. Two names on the same rule line mean one recipe serves both targets.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "two"
+      ],
+      "description": "the second name on the rule line is a target too",
+      "exit_code": 0,
+      "stdout": "touch one two",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "two"
+      ],
+      "description": "the recipe created the file two",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "one"
+      ],
+      "description": "the same recipe created the file one as well",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "one"
+      ],
+      "description": "the first name refers to the very same rule",
+      "exit_code": 0,
+      "stdout": "make: 'one' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

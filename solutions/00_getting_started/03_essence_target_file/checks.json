@@ -1,0 +1,52 @@
+{
+  "exercise": "00_getting_started/03_essence_target_file",
+  "title": "A target and a file with the same name",
+  "objective": "Make the hello target create a file called hello, so that a second make reports it is already up to date.",
+  "reference": "The essence of Make",
+  "hint": "make compares the target's name with the filesystem. If a file called hello exists, the recipe is skipped; redirect the echo into that file.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first run executes the recipe",
+      "exit_code": 0,
+      "stdout": "echo \"Hello, World\" > hello",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "hello"
+      ],
+      "description": "the recipe created the file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the second run has nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'hello' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

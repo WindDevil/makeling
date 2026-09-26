@@ -1,0 +1,53 @@
+{
+  "exercise": "09_conditionals/13_makeflags_silent",
+  "title": "Detect silent mode",
+  "objective": "Branch on whether -s was passed: bare make echoes the command, make -s only prints the message.",
+  "reference": "$(MAKEFLAGS)",
+  "hint": "The letters in MAKEFLAGS carry no dash, so searching for -s never matches. Search for s on its own and compare the result with s.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "without -s make echoes the recipe line too",
+      "exit_code": 0,
+      "stdout": "echo \"echoing commands\"\nechoing commands",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-s"
+      ],
+      "description": "with -s the conditional takes the other branch",
+      "exit_code": 0,
+      "stdout": "silent mode",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-s"
+      ],
+      "description": "-s really suppressed the recipe echo",
+      "exit_code": 0,
+      "stdout": "echo \"silent mode\"",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

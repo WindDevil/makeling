@@ -1,0 +1,53 @@
+{
+  "exercise": "08_variables_pt2/08_command_line_beats_plain_assignment",
+  "title": "A plain assignment loses to the command line",
+  "objective": "Make the build mode a default that any value passed on the command line can replace, while a bare make still uses it.",
+  "reference": "Command line arguments and override",
+  "hint": "Values given on the command line win over every ordinary assignment in the Makefile. Drop the override keyword and the command line takes over again.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make uses the Makefile's value",
+      "exit_code": 0,
+      "stdout": "echo mode is debug\nmode is debug",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "mode=release"
+      ],
+      "description": "the command line replaces it",
+      "exit_code": 0,
+      "stdout": "echo mode is release\nmode is release",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "mode=fast"
+      ],
+      "description": "any command line value wins, not just one particular one",
+      "exit_code": 0,
+      "stdout": "mode is fast",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/13_wildcard_patsubst_and_pattern_rule",
+  "title": "Putting the three pieces together",
+  "objective": "Discover the sources with $(wildcard src/*.c), rewrite them into build/ names with $(patsubst), and let a pattern rule build each one into its own directory.",
+  "reference": "* Wildcard",
+  "hint": "The wildcard decides what exists right now, patsubst rewrites each discovered name into the name you want to build, and the pattern rule knows how to build any name of that shape.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "all"
+      ],
+      "description": "each object comes from the source with the same stem",
+      "exit_code": 0,
+      "stdout": "compile src/alpha.c into build/alpha.pack with stem alpha\ncompile src/beta.c into build/beta.pack with stem beta\nsources: src/alpha.c src/beta.c\nobjects: build/alpha.pack build/beta.pack",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "all"
+      ],
+      "description": "the second run has nothing to rebuild",
+      "exit_code": 0,
+      "stdout": "compile",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "build/alpha.pack"
+      ],
+      "description": "both objects were written into build/",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "clean"
+      ],
+      "description": "clean removes the whole build directory",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "build/alpha.pack"
+      ]
+    }
+  ]
+}

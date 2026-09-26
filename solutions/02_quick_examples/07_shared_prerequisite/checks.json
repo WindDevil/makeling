@@ -1,0 +1,52 @@
+{
+  "exercise": "02_quick_examples/07_shared_prerequisite",
+  "title": "A wider graph with a shared prerequisite",
+  "objective": "Build a report from two files that are both copied from the same base file, and confirm the order the recipes run in.",
+  "reference": "More quick examples",
+  "hint": "Prerequisites are worked through from left to right, so base.txt is made first for left.txt, and is already up to date by the time right.txt asks for it.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the shared file is built once, before either copy",
+      "exit_code": 0,
+      "stdout": "echo \"base\" > base.txt\ncp base.txt left.txt\ncp base.txt right.txt\ncat left.txt right.txt > report",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "report"
+      ],
+      "description": "the report holds both copies of the shared file",
+      "exit_code": 0,
+      "stdout": "base\nbase",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "nothing is out of date on a second run",
+      "exit_code": 0,
+      "stdout": "make: 'report' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

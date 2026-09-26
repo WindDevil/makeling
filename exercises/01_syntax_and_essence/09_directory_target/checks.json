@@ -1,0 +1,90 @@
+{
+  "exercise": "01_syntax_and_essence/09_directory_target",
+  "title": "When the target is a directory",
+  "objective": "Let make treat the existing directory out as the target's file, skipping the recipe until out/.keep becomes newer.",
+  "reference": "The essence of Make",
+  "hint": "A directory is a file as far as make is concerned. If out exists the recipe is skipped; list out/.keep as a prerequisite so make has a timestamp to compare against.",
+  "steps": [
+    {
+      "args": [
+        "touch",
+        "-t",
+        "201001010000",
+        "out/.keep"
+      ],
+      "description": "put the file inside the directory in the past",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202001010000",
+        "out"
+      ],
+      "description": "and the directory itself a newer one",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "out"
+      ],
+      "description": "the directory counts as an existing file",
+      "exit_code": 0,
+      "stdout": "make: 'out' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "-t",
+        "202101010000",
+        "out/.keep"
+      ],
+      "description": "now the prerequisite is newer than the directory",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "out"
+      ],
+      "description": "the out of date directory is rebuilt",
+      "exit_code": 0,
+      "stdout": "the directory target was out of date",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

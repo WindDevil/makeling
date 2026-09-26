@@ -1,0 +1,81 @@
+{
+  "exercise": "02_quick_examples/03_touching_an_intermediate_file",
+  "title": "Touching an intermediate file rebuilds part of the chain",
+  "objective": "Give blah.o its blah.c prerequisite so that touching either file rebuilds exactly as much as it has to.",
+  "reference": "More quick examples",
+  "hint": "Touching blah.c makes it newer than blah.o, so the object is recompiled and, being newer than blah, the program is relinked. Touching blah.o alone only relinks.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the object is compiled before the program is linked",
+      "exit_code": 0,
+      "stdout": "cc -c blah.c -o blah.o\ncc blah.o -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "blah.c"
+      ],
+      "description": "pretend the source was edited",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a newer source recompiles and the fresh object relinks",
+      "exit_code": 0,
+      "stdout": "cc -c blah.c -o blah.o\ncc blah.o -o blah",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "touch",
+        "blah.o"
+      ],
+      "description": "pretend only the object was touched",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a newer object relinks the program and runs nothing else",
+      "exit_code": 0,
+      "stdout": "cc blah.o -o blah",
+      "stdout_mode": "exact",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

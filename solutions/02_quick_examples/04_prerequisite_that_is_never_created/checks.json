@@ -1,0 +1,53 @@
+{
+  "exercise": "02_quick_examples/04_prerequisite_that_is_never_created",
+  "title": "A prerequisite that is never created",
+  "objective": "Make some_file depend on other_file, a target whose recipe never creates a file, so that both recipes run every single time.",
+  "reference": "More quick examples",
+  "hint": "make decides a target is out of date when a prerequisite is missing or newer than it. other_file stays missing forever, so some_file can never be up to date.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "other_file is built before the target that needs it",
+      "exit_code": 0,
+      "stdout": "echo \"This will always run, and runs first\"\nThis will always run, and runs first\necho \"This will always run, and runs second\"\nThis will always run, and runs second\ntouch some_file",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "some_file"
+      ],
+      "description": "the recipe created some_file",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both recipes run again even though some_file exists",
+      "exit_code": 0,
+      "stdout": "echo \"This will always run, and runs first\"\necho \"This will always run, and runs second\"",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

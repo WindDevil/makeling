@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/04_findstring",
+  "title": "Looking for a substring with $(findstring)",
+  "objective": "Ask whether the haystack contains the word quick, and whether it contains the word slow.",
+  "reference": "First Functions",
+  "hint": "$(findstring find,in) searches in for the text find and returns find itself when it is there, or the empty string when it is not. The arguments are (needle, haystack).",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the needle is echoed back when it is present",
+      "exit_code": 0,
+      "stdout": "found=[quick]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a single character works as well",
+      "exit_code": 0,
+      "stdout": "single=[o]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "an absent needle returns nothing",
+      "exit_code": 0,
+      "stdout": "missing=[]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

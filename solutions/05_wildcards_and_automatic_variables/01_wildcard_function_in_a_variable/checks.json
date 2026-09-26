@@ -1,0 +1,39 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/01_wildcard_function_in_a_variable",
+  "title": "$(wildcard) expands at parse time",
+  "objective": "Collect every .c file with $(wildcard *.c) and use the resulting list as the prerequisites of a target.",
+  "reference": "* Wildcard",
+  "hint": "The wildcard function is the safe way to use *: it runs while make reads the file and returns the matching names, separated by spaces.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "show"
+      ],
+      "description": "$(wildcard *.c) lists both source files, sorted",
+      "exit_code": 0,
+      "stdout": "target: show\nsources: alpha.c beta.c\nprereqs: alpha.c beta.c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "show"
+      ],
+      "description": "the target is named on its own line",
+      "exit_code": 0,
+      "stdout": "target: show",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/08_dollar_at_and_dollar_less",
+  "title": "$@ is the target, $< is the first prerequisite",
+  "objective": "Copy the first prerequisite onto the target while printing both $@ and $< from the recipe.",
+  "reference": "Automatic Variables",
+  "hint": "$@ is the name of the target being built and $< is the first prerequisite. $< is the one to use in a rule that has a single source file.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "greeting.txt"
+      ],
+      "description": "the recipe names the file it is building",
+      "exit_code": 0,
+      "stdout": "target = greeting.txt\nfirst prerequisite = message.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "greeting.txt"
+      ],
+      "description": "the copy really happened",
+      "exit_code": 0,
+      "stdout": "hello from message.txt",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "greeting.txt"
+      ],
+      "description": "once the target exists there is nothing to do",
+      "exit_code": 0,
+      "stdout": "make: 'greeting.txt' is up to date.",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

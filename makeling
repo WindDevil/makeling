@@ -1,0 +1,711 @@
+#!/usr/bin/env python3
+"""makeling: a small, dependency-free runner for the makeling exercises.
+
+The runner uses only the Python standard library.  Each exercise is a directory
+holding a ``Makefile`` and a ``checks.json`` contract.  To run one, the runner
+copies the directory into ``build/makeling/`` and replays the contract's steps
+there, comparing what ``make`` printed, what it exited with, and which files it
+left behind.
+
+Exercises are staged rather than run in place so that ``make`` never litters
+``exercises/`` with object files, and so that a multi-step contract (build,
+then rebuild and observe that nothing happens) sees a clean slate every time.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import platform
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+EXERCISES_DIR = ROOT / "exercises"
+SOLUTIONS_DIR = ROOT / "solutions"
+TEMPLATES_DIR = ROOT / "templates"
+BUILD_DIR = ROOT / "build" / "makeling"
+PROGRESS_FILE = ROOT / ".makeling" / "progress.json"
+
+STEP_TIMEOUT = 30.0
+
+# The output of every step is compared in a C locale, so that make's own
+# messages are the ones the checks were written against.
+BASE_ENV = {
+    "LC_ALL": "C",
+    "LANG": "C",
+    "LANGUAGE": "C",
+    "MAKEFLAGS": "",
+    "MFLAGS": "",
+    "MAKELEVEL": "",
+    "MAKE_TERMOUT": "",
+    "MAKE_TERMERR": "",
+}
+
+
+# --------------------------------------------------------------------------
+# Model
+# --------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class Step:
+    args: list[str]
+    description: str = ""
+    exit_code: int = 0
+    stdout: str | None = None
+    stdout_mode: str = "contains_lines"
+    stderr: str | None = None
+    stderr_mode: str = "contains"
+    env: dict[str, str] = field(default_factory=dict)
+    files: dict[str, str] = field(default_factory=dict)
+    missing: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class Exercise:
+    topic: str
+    slug: str
+    path: Path
+    title: str
+    objective: str
+    reference: str
+    hint: str
+    steps: list[Step]
+
+    @property
+    def ident(self) -> str:
+        return f"{self.topic}/{self.slug}"
+
+    @property
+    def solution_root(self) -> Path:
+        return SOLUTIONS_DIR / self.topic / self.slug
+
+    @property
+    def template_root(self) -> Path:
+        return TEMPLATES_DIR / self.topic / self.slug
+
+    def mtime_ns(self) -> int | None:
+        newest: int | None = None
+        for path in self.path.rglob("*"):
+            if not path.is_file():
+                continue
+            value = path.stat().st_mtime_ns
+            newest = value if newest is None else max(newest, value)
+        return newest
+
+
+# --------------------------------------------------------------------------
+# Presentation helpers
+# --------------------------------------------------------------------------
+
+
+def color(text: str, code: str) -> str:
+    if not sys.stdout.isatty() or os.environ.get("NO_COLOR"):
+        return text
+    return f"\033[{code}m{text}\033[0m"
+
+
+def green(text: str) -> str:
+    return color(text, "32")
+
+
+def red(text: str) -> str:
+    return color(text, "31")
+
+
+def yellow(text: str) -> str:
+    return color(text, "33")
+
+
+def cyan(text: str) -> str:
+    return color(text, "36")
+
+
+def dim(text: str) -> str:
+    return color(text, "2")
+
+
+# --------------------------------------------------------------------------
+# Discovery
+# --------------------------------------------------------------------------
+
+
+def load_exercise(directory: Path) -> Exercise | None:
+    document = directory / "checks.json"
+    if not document.is_file():
+        return None
+    try:
+        data = json.loads(document.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        print(red(f"{directory}: unreadable checks.json ({error})"))
+        return None
+
+    steps = [Step(**entry) for entry in data.get("steps", [])]
+    return Exercise(
+        topic=directory.parent.name,
+        slug=directory.name,
+        path=directory,
+        title=data.get("title", directory.name.replace("_", " ")),
+        objective=data.get("objective", ""),
+        reference=data.get("reference", ""),
+        hint=data.get("hint", "No hint available."),
+        steps=steps,
+    )
+
+
+def discover() -> list[Exercise]:
+    exercises: list[Exercise] = []
+    if not EXERCISES_DIR.is_dir():
+        return exercises
+    for directory in sorted(path for path in EXERCISES_DIR.glob("*/*") if path.is_dir()):
+        exercise = load_exercise(directory)
+        if exercise is not None:
+            exercises.append(exercise)
+    exercises.sort(key=lambda exercise: (exercise.topic, exercise.slug))
+    return exercises
+
+
+def load_progress() -> set[str]:
+    if not PROGRESS_FILE.is_file():
+        return set()
+    try:
+        data = json.loads(PROGRESS_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    return set(data.get("completed", []))
+
+
+def save_progress(completed: set[str]) -> None:
+    PROGRESS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    PROGRESS_FILE.write_text(
+        json.dumps({"completed": sorted(completed)}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def select(exercises: list[Exercise], needle: str) -> Exercise | None:
+    exact = [exercise for exercise in exercises if exercise.ident == needle]
+    if exact:
+        return exact[0]
+    matches = [
+        exercise
+        for exercise in exercises
+        if exercise.ident.endswith(f"/{needle}")
+        or exercise.slug == needle
+        or needle in exercise.ident
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        print(red(f"ambiguous exercise: {needle}"))
+        for exercise in matches:
+            print(f"  {exercise.ident}")
+    else:
+        print(red(f"unknown exercise: {needle}"))
+    return None
+
+
+def resolve(exercises: list[Exercise], needle: str | None) -> Exercise | None:
+    if needle is None:
+        completed = load_progress()
+        for exercise in exercises:
+            if exercise.ident not in completed:
+                return exercise
+        return None
+    return select(exercises, needle)
+
+
+# --------------------------------------------------------------------------
+# Running
+# --------------------------------------------------------------------------
+
+
+def normalise(text: str, stage: Path) -> str:
+    """Make output comparable across machines and directories."""
+    text = text.replace(str(stage), "<stage>")
+    lines = [line.rstrip() for line in text.splitlines()]
+    while lines and not lines[-1]:
+        lines.pop()
+    return "\n".join(lines)
+
+
+def compare(actual_text: str, expected: str, mode: str, stage: Path) -> bool:
+    actual = normalise(actual_text, stage)
+    wanted = normalise(expected, stage)
+    if mode == "exact":
+        return actual == wanted
+    if mode == "contains":
+        return wanted in actual
+    if mode == "not_contains":
+        return wanted not in actual
+    if mode == "regex":
+        return re.search(wanted, actual, re.MULTILINE) is not None
+    expected_lines = [line for line in wanted.splitlines() if line.strip()]
+    actual_lines = actual.splitlines()
+    if mode == "contains_lines":
+        return all(line in actual_lines for line in expected_lines)
+    if mode == "ordered_lines":
+        remaining = iter(actual_lines)
+        return all(any(line == want for line in remaining) for want in expected_lines)
+    raise ValueError(f"unknown match mode: {mode}")
+
+
+def show(label: str, text: str, expected: str | None = None) -> list[str]:
+    lines = [f"    {label}:"]
+    body = text if text.strip() else "(empty)"
+    for line in normalise(body, Path("/nonexistent")).splitlines() or [""]:
+        lines.append(f"      | {line}")
+    if expected is not None:
+        lines.append(f"    expected ({label}):")
+        for line in normalise(expected, Path("/nonexistent")).splitlines() or [""]:
+            lines.append(f"      | {line}")
+    return lines
+
+
+def stage_tree(source: Path, destination: Path) -> None:
+    shutil.rmtree(destination, ignore_errors=True)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, destination)
+
+
+def run_step(step: Step, stage: Path) -> list[str]:
+    """Run one step; return a list of human-readable problems (empty = passed)."""
+    executable = shutil.which(step.args[0])
+    if executable is None:
+        return [f"    {step.args[0]}: command not found on PATH"]
+
+    environment = os.environ.copy()
+    environment.update(BASE_ENV)
+    environment.update(step.env)
+
+    try:
+        result = subprocess.run(
+            step.args,
+            cwd=stage,
+            env=environment,
+            text=True,
+            errors="replace",
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=STEP_TIMEOUT,
+            check=False,
+        )
+    except subprocess.TimeoutExpired:
+        return [f"    timed out after {STEP_TIMEOUT:g}s: {' '.join(step.args)}"]
+    except OSError as error:
+        return [f"    could not run {' '.join(step.args)}: {error}"]
+
+    problems: list[str] = []
+    if result.returncode != step.exit_code:
+        problems.append(
+            f"    exit code: got {result.returncode}, want {step.exit_code}"
+        )
+    if step.stdout is not None and not compare(
+        result.stdout, step.stdout, step.stdout_mode, stage
+    ):
+        problems.append(f"    stdout did not match ({step.stdout_mode})")
+        problems.extend(show("stdout", result.stdout, step.stdout))
+    if step.stderr is not None and not compare(
+        result.stderr, step.stderr, step.stderr_mode, stage
+    ):
+        problems.append(f"    stderr did not match ({step.stderr_mode})")
+        problems.extend(show("stderr", result.stderr, step.stderr))
+
+    for name, content in step.files.items():
+        target = stage / name
+        if not target.exists():
+            problems.append(f"    missing file: {name}")
+            continue
+        actual = target.read_text(encoding="utf-8", errors="replace")
+        if not compare(actual, content, "exact", stage):
+            problems.append(f"    file {name} has unexpected contents")
+            problems.extend(show(f"{name}", actual, content))
+
+    for name in step.missing:
+        if (stage / name).exists():
+            problems.append(f"    file should not exist: {name}")
+
+    return problems
+
+
+def run_contract(exercise: Exercise, source: Path, verbose: bool = False) -> tuple[bool, list[str], Path]:
+    stage = BUILD_DIR / exercise.topic / exercise.slug
+    if not source.is_dir():
+        return False, [f"    missing tree: {source.relative_to(ROOT)}"], stage
+    stage_tree(source, stage)
+
+    report: list[str] = []
+    for index, step in enumerate(exercise.steps, start=1):
+        label = step.description or " ".join(step.args)
+        problems = run_step(step, stage)
+        if problems:
+            report.append(f"    step {index}: {label}")
+            report.extend(problems)
+            if verbose:
+                report.append(f"    working directory kept at {stage.relative_to(ROOT)}")
+            return False, report, stage
+        if verbose:
+            report.append(f"    step {index}: ok  {label}")
+    return True, report, stage
+
+
+# --------------------------------------------------------------------------
+# Commands
+# --------------------------------------------------------------------------
+
+
+def print_exercise(exercise: Exercise, completed: set[str], verbose: bool = False) -> None:
+    status = green("done") if exercise.ident in completed else yellow("todo")
+    print(f"[{status}] {cyan(exercise.ident)}  {exercise.title}")
+    if exercise.objective:
+        print(f"       {exercise.objective}")
+    if verbose and exercise.reference:
+        print(f"       reference: {exercise.reference}")
+
+
+def command_list(args: argparse.Namespace) -> int:
+    exercises = discover()
+    if not exercises:
+        print(red("no exercises found"))
+        return 1
+    completed = load_progress()
+    current = None
+    for exercise in exercises:
+        if args.topic and not exercise.topic.startswith(args.topic):
+            continue
+        if exercise.topic != current:
+            current = exercise.topic
+            print(f"\n{cyan(current)}")
+        print_exercise(exercise, completed, verbose=args.verbose)
+    done = sum(1 for exercise in exercises if exercise.ident in completed)
+    print(f"\n{done}/{len(exercises)} completed")
+    return 0
+
+
+def command_next(args: argparse.Namespace) -> int:
+    exercises = discover()
+    exercise = resolve(exercises, args.exercise)
+    if exercise is None:
+        print(green("All exercises are complete. Try `./makeling verify`."))
+        return 0
+    print_exercise(exercise, load_progress(), verbose=True)
+    return 0
+
+
+def command_run(args: argparse.Namespace) -> int:
+    exercises = discover()
+    if not exercises:
+        print(red("no exercises found"))
+        return 1
+
+    if args.all:
+        targets = [
+            exercise
+            for exercise in exercises
+            if not args.topic or exercise.topic.startswith(args.topic)
+        ]
+    else:
+        exercise = resolve(exercises, args.exercise)
+        if exercise is None:
+            print(green("All exercises are complete. Try `./makeling verify`."))
+            return 0
+        targets = [exercise]
+
+    completed = load_progress()
+    failures = 0
+    for exercise in targets:
+        print(f"\n{cyan('running')} {exercise.ident} - {exercise.title}")
+        passed, report, _stage = run_contract(exercise, exercise.path, args.verbose)
+        if passed:
+            completed.add(exercise.ident)
+            save_progress(completed)
+            print(green("  passed"))
+            if args.verbose:
+                for line in report:
+                    print(line)
+            continue
+        failures += 1
+        print(red("  failed"))
+        for line in report:
+            print(line)
+        if not args.continue_on_error:
+            break
+
+    if failures:
+        print(red(f"\n{failures} exercise(s) failed"))
+        return 1
+    print(green("\nall selected exercises passed"))
+    return 0
+
+
+def command_hint(args: argparse.Namespace) -> int:
+    exercise = select(discover(), args.exercise)
+    if exercise is None:
+        return 1
+    print(f"{cyan(exercise.ident)} - {exercise.title}")
+    print(f"objective: {exercise.objective}")
+    if exercise.reference:
+        print(f"reference: {exercise.reference}")
+    print(f"hint: {exercise.hint}")
+    if args.steps:
+        print("\nchecks:")
+        for index, step in enumerate(exercise.steps, start=1):
+            print(f"  {index}. {step.description or ' '.join(step.args)}")
+            print(dim(f"     $ {' '.join(step.args)}"))
+            if step.stdout is not None:
+                print(dim(f"     stdout must match ({step.stdout_mode}):"))
+                for line in step.stdout.strip("\n").splitlines():
+                    print(dim(f"       | {line}"))
+    return 0
+
+
+def command_solution(args: argparse.Namespace) -> int:
+    exercise = select(discover(), args.exercise)
+    if exercise is None:
+        return 1
+    if not exercise.solution_root.is_dir():
+        print(red(f"missing solution: {exercise.solution_root}"))
+        return 1
+    if args.apply:
+        stage_tree(exercise.solution_root, exercise.path)
+        print(green(f"applied solution to {exercise.path.relative_to(ROOT)}"))
+        return 0
+    for path in sorted(exercise.solution_root.rglob("*")):
+        if not path.is_file() or path.name == "checks.json":
+            continue
+        print(f"# ===== {path.relative_to(exercise.solution_root)} =====")
+        print(path.read_text(encoding="utf-8"), end="")
+    return 0
+
+
+def command_reset(args: argparse.Namespace) -> int:
+    exercise = select(discover(), args.exercise)
+    if exercise is None:
+        return 1
+    if not exercise.template_root.is_dir():
+        print(red(f"missing template: {exercise.template_root}"))
+        return 1
+    stage_tree(exercise.template_root, exercise.path)
+    completed = load_progress()
+    completed.discard(exercise.ident)
+    save_progress(completed)
+    print(green(f"reset {exercise.ident}"))
+    return 0
+
+
+def command_verify(args: argparse.Namespace) -> int:
+    exercises = discover()
+    if not exercises:
+        print(red("no exercises found"))
+        return 1
+    if args.exercise:
+        one = select(exercises, args.exercise)
+        if one is None:
+            return 1
+        exercises = [one]
+    elif args.topic:
+        exercises = [e for e in exercises if e.topic.startswith(args.topic)]
+
+    failures = 0
+    for exercise in exercises:
+        passed, report, _stage = run_contract(
+            exercise, exercise.solution_root, args.verbose
+        )
+        if passed:
+            print(f"{green('ok')}   {exercise.ident}")
+            continue
+        failures += 1
+        print(f"{red('FAIL')} {exercise.ident}")
+        for line in report:
+            print(line)
+
+    if failures:
+        print(red(f"\n{failures} solution(s) failed"))
+        return 1
+    print(green(f"\nall {len(exercises)} solutions passed"))
+    return 0
+
+
+def command_selftest(args: argparse.Namespace) -> int:
+    """Check that exercises start unsolved and that solutions pass."""
+    exercises = discover()
+    if args.topic:
+        exercises = [e for e in exercises if e.topic.startswith(args.topic)]
+    failures = 0
+    for exercise in exercises:
+        solved, solution_report, _stage = run_contract(
+            exercise, exercise.solution_root, True
+        )
+        if not solved:
+            failures += 1
+            print(f"{red('FAIL')} solution {exercise.ident}")
+            for line in solution_report:
+                print(line)
+            continue
+
+        passed, _report, _stage = run_contract(exercise, exercise.path)
+        if passed:
+            failures += 1
+            print(f"{red('FAIL')} exercise {exercise.ident} already passes")
+            continue
+        print(f"{green('ok')}   {exercise.ident}")
+
+    if failures:
+        print(red(f"\n{failures} selftest failure(s)"))
+        return 1
+    print(green(f"\nall {len(exercises)} exercises behave correctly"))
+    return 0
+
+
+def command_doctor(args: argparse.Namespace) -> int:
+    print(f"python:   {platform.python_version()}")
+    print(f"platform: {platform.platform()}")
+    print(f"root:     {ROOT}")
+    for tool in ("make", "cc", "gcc", "clang", "rm", "touch", "cat"):
+        path = shutil.which(tool)
+        print(f"{tool + ':':9s} {path or 'not found'}")
+    if shutil.which("make"):
+        version = subprocess.run(
+            ["make", "--version"], text=True, stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT, check=False,
+        ).stdout.splitlines()
+        print(f"make:     {version[0] if version else 'unknown'}")
+    exercises = discover()
+    print(f"exercises: {len(exercises)} in {len({e.topic for e in exercises})} topics")
+    return 0
+
+
+def command_watch(args: argparse.Namespace) -> int:
+    exercise = resolve(discover(), args.exercise)
+    if exercise is None:
+        return 1
+    print(f"watching {exercise.ident}; press Ctrl-C to stop")
+    last = None
+    while True:
+        mtime = exercise.mtime_ns()
+        if mtime != last:
+            last = mtime
+            print(f"\n{cyan('running')} {exercise.ident}")
+            passed, report, _stage = run_contract(exercise, exercise.path, True)
+            print(green("passed") if passed else red("failed"))
+            for line in report:
+                print(line)
+        time.sleep(0.5)
+
+
+def command_clean(args: argparse.Namespace) -> int:
+    if BUILD_DIR.exists():
+        shutil.rmtree(BUILD_DIR)
+        print(green(f"removed {BUILD_DIR.relative_to(ROOT)}"))
+    else:
+        print("nothing to clean")
+    return 0
+
+
+def command_generate(args: argparse.Namespace) -> int:
+    sys.path.insert(0, str(ROOT / "tools"))
+    import generate_exercises
+
+    argv: list[str] = []
+    if args.topic:
+        argv += ["--topic", args.topic]
+    return int(generate_exercises.main(argv))
+
+
+# --------------------------------------------------------------------------
+# Entry point
+# --------------------------------------------------------------------------
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="makeling",
+        description="Run and verify the makeling Makefile exercises.",
+    )
+    subparsers = parser.add_subparsers(dest="command")
+
+    listing = subparsers.add_parser("list", help="list every exercise")
+    listing.add_argument("--topic", help="only show topics starting with this")
+    listing.add_argument("--verbose", action="store_true")
+    listing.set_defaults(func=command_list)
+
+    nxt = subparsers.add_parser("next", help="show the next unsolved exercise")
+    nxt.add_argument("exercise", nargs="?")
+    nxt.set_defaults(func=command_next)
+
+    run = subparsers.add_parser("run", help="run an exercise against its checks")
+    run.add_argument("exercise", nargs="?")
+    run.add_argument("--all", action="store_true", help="run every exercise")
+    run.add_argument("--topic", help="with --all, restrict to one topic")
+    run.add_argument("--continue", dest="continue_on_error", action="store_true",
+                     help="keep going after a failure")
+    run.add_argument("--verbose", action="store_true")
+    run.set_defaults(func=command_run)
+
+    hint = subparsers.add_parser("hint", help="show the objective and a hint")
+    hint.add_argument("exercise")
+    hint.add_argument("--steps", action="store_true", help="also show the checks")
+    hint.set_defaults(func=command_hint)
+
+    solution = subparsers.add_parser("solution", help="show or apply the solution")
+    solution.add_argument("exercise")
+    solution.add_argument("--apply", action="store_true",
+                          help="copy the solution over the exercise")
+    solution.set_defaults(func=command_solution)
+
+    reset = subparsers.add_parser("reset", help="restore the original exercise")
+    reset.add_argument("exercise")
+    reset.set_defaults(func=command_reset)
+
+    verify = subparsers.add_parser("verify", help="run the solutions")
+    verify.add_argument("exercise", nargs="?")
+    verify.add_argument("--topic")
+    verify.add_argument("--verbose", action="store_true")
+    verify.set_defaults(func=command_verify)
+
+    selftest = subparsers.add_parser(
+        "selftest", help="check that exercises start unsolved and solutions pass"
+    )
+    selftest.add_argument("--topic")
+    selftest.set_defaults(func=command_selftest)
+
+    doctor = subparsers.add_parser("doctor", help="show toolchain information")
+    doctor.set_defaults(func=command_doctor)
+
+    watch = subparsers.add_parser("watch", help="re-run an exercise on change")
+    watch.add_argument("exercise", nargs="?")
+    watch.set_defaults(func=command_watch)
+
+    clean = subparsers.add_parser("clean", help="remove staged working copies")
+    clean.set_defaults(func=command_clean)
+
+    generate = subparsers.add_parser("generate", help="regenerate from the specs")
+    generate.add_argument("--topic")
+    generate.set_defaults(func=command_generate)
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    if not hasattr(args, "func"):
+        args = parser.parse_args(["list"])
+    try:
+        return int(args.func(args))
+    except KeyboardInterrupt:
+        print("\ninterrupted")
+        return 130
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,60 @@
+{
+  "exercise": "08_variables_pt2/10_environment_wins_with_dash_e",
+  "title": "make -e lets the environment win",
+  "objective": "Keep the Makefile's value in charge by default, let the environment take over when make runs with -e, and check that even then the command line still wins.",
+  "reference": "Command line arguments and override",
+  "hint": "?= would hand the win to the environment always, because an exported variable already counts as defined. A plain = plus -e is the way to make the switch happen only when asked.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the Makefile beats the environment by default",
+      "exit_code": 0,
+      "stdout": "echo mode is makefile\nmode is makefile",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {
+        "mode": "environment"
+      },
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-e"
+      ],
+      "description": "-e flips the precedence",
+      "exit_code": 0,
+      "stdout": "echo mode is environment\nmode is environment",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {
+        "mode": "environment"
+      },
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-e",
+        "mode=command line"
+      ],
+      "description": "the command line outranks the environment even under -e",
+      "exit_code": 0,
+      "stdout": "echo mode is command line\nmode is command line",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {
+        "mode": "environment"
+      },
+      "files": {},
+      "missing": []
+    }
+  ]
+}

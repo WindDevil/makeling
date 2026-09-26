@@ -1,0 +1,51 @@
+{
+  "exercise": "10_functions/02_subst_spaces_and_commas",
+  "title": "Replacing spaces and commas",
+  "objective": "Turn the list a b c into the single word a,b,c by replacing every space with a comma.",
+  "reference": "First Functions",
+  "hint": "Neither a comma nor a space is easy to write as an argument, so build them first: comma := , and space := $(empty) $(empty). Adding extra spaces around an argument makes them part of the string that is searched for or inserted.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the list is joined with commas",
+      "exit_code": 0,
+      "stdout": "joined=[a,b,c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "extra spaces around the arguments are inserted too",
+      "exit_code": 0,
+      "stdout": "spaced=[a , b , c]",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe prints the joined list",
+      "exit_code": 0,
+      "stdout": "a,b,c",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

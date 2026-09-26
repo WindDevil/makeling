@@ -1,0 +1,38 @@
+{
+  "exercise": "09_conditionals/12_makeflags_detecting_i",
+  "title": "Detect the -i flag through $(MAKEFLAGS)",
+  "objective": "Print the message when the user passed -i, and stay quiet otherwise, by searching $(MAKEFLAGS) for the letter.",
+  "reference": "$(MAKEFLAGS)",
+  "hint": "MAKEFLAGS is a string of single letters, one per flag, without the leading dash. $(findstring i,$(MAKEFLAGS)) returns i when the flag is present and the empty string when it is not, so ifneq (,$(findstring ...)) is the test to write.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a bare make finds no i",
+      "exit_code": 0,
+      "stdout": "echo \"no i in MAKEFLAGS\"\nno i in MAKEFLAGS",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-i"
+      ],
+      "description": "make -i puts an i into MAKEFLAGS",
+      "exit_code": 0,
+      "stdout": "echo \"i was passed to MAKEFLAGS\"\ni was passed to MAKEFLAGS",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

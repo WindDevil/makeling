@@ -1,0 +1,41 @@
+{
+  "exercise": "06_fancy_rules/07_static_pattern_stem",
+  "title": "The stem goes into the prerequisite pattern",
+  "objective": "Turn a list of .txt files into .raw ones with a static pattern rule, and print the stem that %.txt matched.",
+  "reference": "Static Pattern Rules",
+  "hint": "$* is the stem: for alpha.txt matched by %.txt it is alpha, and the same stem replaces the % in the prerequisite pattern %.raw.  The rule needs both pattern lines to line up.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the stem is substituted into the prereq pattern",
+      "exit_code": 0,
+      "stdout": "target alpha.txt from prereq alpha.raw (stem alpha)\ntarget beta.txt from prereq beta.raw (stem beta)",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "alpha.txt"
+      ],
+      "description": "each target was copied from its own prerequisite",
+      "exit_code": 0,
+      "stdout": "alpha",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {
+        "alpha.txt": "alpha",
+        "beta.txt": "beta"
+      },
+      "missing": []
+    }
+  ]
+}

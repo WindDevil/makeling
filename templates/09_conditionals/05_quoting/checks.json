@@ -1,0 +1,37 @@
+{
+  "exercise": "09_conditionals/05_quoting",
+  "title": "Quotes in an ifeq comparison",
+  "objective": "Write the comparisons so that quoting both sides matches and quoting only one side does not.",
+  "reference": "Conditional if/else",
+  "hint": "Inside ifeq (...) the two arguments are compared as text, so a quote is just another character: ('ok',\"ok\") never matches, because 'ok' and \"ok\" are different strings. Quote both sides or neither.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "only the balanced comparisons match",
+      "exit_code": 0,
+      "stdout": "plain comparison matches\nquoting both sides matches\nthe space separated quoted form works\na quote is a literal character",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a single quoted side is not equal to an unquoted one",
+      "exit_code": 0,
+      "stdout": "mixed quotes match",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

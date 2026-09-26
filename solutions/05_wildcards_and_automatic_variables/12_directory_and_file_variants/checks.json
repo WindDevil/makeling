@@ -1,0 +1,55 @@
+{
+  "exercise": "05_wildcards_and_automatic_variables/12_directory_and_file_variants",
+  "title": "The D and F variants of the automatic variables",
+  "objective": "Print $(@D), $(@F), $(<D), $(<F), $(^D) and $(^F) for a target that lives in a subdirectory.",
+  "reference": "Automatic Variables",
+  "hint": "Every automatic variable that holds file names has a D variant for the directory part and an F variant for the file part. A name with no directory gives . as its D part, which is exactly what mkdir -p $(@D) needs.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "out/report.txt"
+      ],
+      "description": "D strips the file part, F strips the directory part",
+      "exit_code": 0,
+      "stdout": "at: D=[out] F=[report.txt]\nlt: D=[src] F=[one.txt]\nall: D=[src src] F=[one.txt two.txt]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "out/report.txt"
+      ],
+      "description": "mkdir -p $(@D) created out/ and the recipe wrote into it",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "orphan.txt"
+      ],
+      "description": "a target in the current directory has . as its D part",
+      "exit_code": 0,
+      "stdout": "orphan D=[.] F=[orphan.txt]",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

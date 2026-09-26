@@ -1,0 +1,37 @@
+{
+  "exercise": "09_conditionals/04_both_sides_expanded",
+  "title": "ifeq expands both arguments",
+  "objective": "Compare two variables whose values are themselves variable references, so that the branch is taken.",
+  "reference": "Conditional if/else",
+  "hint": "ifeq expands its two arguments before comparing them, so a variable that holds a reference to another one is followed. Writing the argument without $(...) compares it as literal text.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both sides expand to chocolate",
+      "exit_code": 0,
+      "stdout": "echo \"left and right are both expanded\"\nleft and right are both expanded",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the else branch is skipped",
+      "exit_code": 0,
+      "stdout": "the two sides differ",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

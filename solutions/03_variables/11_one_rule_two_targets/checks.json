@@ -1,0 +1,69 @@
+{
+  "exercise": "03_variables/11_one_rule_two_targets",
+  "title": "One rule, several targets",
+  "objective": "Write a single rule for f1.o and f2.o and let $@ name the output of each run.",
+  "reference": "Automatic Variables",
+  "hint": "When a rule lists several targets, make runs the recipe once per target with $@ set to that target. That is what lets the same recipe build both files.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the recipe runs once per target",
+      "exit_code": 0,
+      "stdout": "echo \"building f1.o\"\nbuilding f1.o\ntouch f1.o\necho \"building f2.o\"\nbuilding f2.o\ntouch f2.o",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "f1.o"
+      ],
+      "description": "the first target was written to disk",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "test",
+        "-f",
+        "f2.o"
+      ],
+      "description": "so was the second",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "both files exist, so there is nothing left to do",
+      "exit_code": 0,
+      "stdout": "make: Nothing to be done for 'all'.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

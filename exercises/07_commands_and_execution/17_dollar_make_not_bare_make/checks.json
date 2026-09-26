@@ -1,0 +1,70 @@
+{
+  "exercise": "07_commands_and_execution/17_dollar_make_not_bare_make",
+  "title": "Use $(MAKE), never a bare make",
+  "objective": "Show what breaks when a recipe calls make instead of $(MAKE): the second make loses the flags and make -n no longer descends.",
+  "reference": "Recursive use of make",
+  "hint": "make only runs a recipe line itself (rather than merely printing it) under -n when the line mentions $(MAKE), and it hands its flags to the sub-make through MAKEFLAGS. Replace the bare make with $(MAKE).",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "-n"
+      ],
+      "description": "-n descends into the sub-make but builds nothing",
+      "exit_code": 0,
+      "stdout": "echo \"top level, MAKELEVEL=0\"\necho \"top level flags: [n]\"\nmake -C sub\nmake[1]: Entering directory '<stage>/sub'\necho \"sub make, MAKELEVEL=1\"\ntouch built.txt\nmake[1]: Leaving directory '<stage>/sub'",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": [
+        "sub/built.txt"
+      ]
+    },
+    {
+      "args": [
+        "make",
+        "-s"
+      ],
+      "description": "-s reaches the sub-make too, so it stays quiet",
+      "exit_code": 0,
+      "stdout": "top level, MAKELEVEL=0\nsub make, MAKELEVEL=1",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "-s"
+      ],
+      "description": "a silenced sub-make prints no directory lines",
+      "exit_code": 0,
+      "stdout": "Entering directory",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "a normal run recurses as well",
+      "exit_code": 0,
+      "stdout": "sub make, MAKELEVEL=1",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

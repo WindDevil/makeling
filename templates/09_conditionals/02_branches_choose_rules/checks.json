@@ -1,0 +1,55 @@
+{
+  "exercise": "09_conditionals/02_branches_choose_rules",
+  "title": "A conditional chooses which rules exist",
+  "objective": "Let the conditional decide which rule the Makefile contains, so that make debug builds when MODE is debug and make release builds when MODE is release.",
+  "reference": "Conditional if/else",
+  "hint": "Conditionals are not recipe text: they decide which lines of the file make reads at all. Put the ifeq around the whole rules, so that the target that is not selected does not exist.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "debug"
+      ],
+      "description": "MODE is debug, so the debug rule exists",
+      "exit_code": 0,
+      "stdout": "echo \"building debug\"\nbuilding debug",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "release"
+      ],
+      "description": "the release rule was never parsed, so it is unknown",
+      "exit_code": 2,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": "No rule to make target 'release'",
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make",
+        "MODE=release",
+        "release"
+      ],
+      "description": "a command line MODE selects the other rule",
+      "exit_code": 0,
+      "stdout": "echo \"building release\"\nbuilding release",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

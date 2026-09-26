@@ -1,0 +1,67 @@
+{
+  "exercise": "02_quick_examples/02_delete_a_source_reruns_everything",
+  "title": "Deleting a source re-runs the whole chain",
+  "objective": "Keep the three rules in place, then watch what happens when the generated blah.c is deleted: every recipe runs again.",
+  "reference": "More quick examples",
+  "hint": "blah.o must list blah.c as a prerequisite, or make never notices that the file is gone. Only a prerequisite makes make look at a file that is missing.",
+  "steps": [
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the first build runs all three recipes",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > blah.c # Runs first\ncc -c blah.c -o blah.o # Runs second\ncc blah.o -o blah # Runs third",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "rm",
+        "-f",
+        "blah.c"
+      ],
+      "description": "throw the generated source away",
+      "exit_code": 0,
+      "stdout": null,
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "make regenerates blah.c, recompiles and relinks",
+      "exit_code": 0,
+      "stdout": "echo \"int main() { return 0; }\" > blah.c # Runs first\ncc -c blah.c -o blah.o # Runs second\ncc blah.o -o blah # Runs third",
+      "stdout_mode": "ordered_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "make"
+      ],
+      "description": "the rebuild is complete, so a third run is quiet",
+      "exit_code": 0,
+      "stdout": "make: 'blah' is up to date.",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}

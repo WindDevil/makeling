@@ -1,0 +1,69 @@
+{
+  "exercise": "12_cookbook/06_dependency_flags",
+  "title": "-MMD -MP write the dependency files",
+  "objective": "Add -MMD -MP to CPPFLAGS so that every compile also writes a .d file listing the headers it read.",
+  "reference": "Makefile Cookbook",
+  "hint": "-MMD makes the compiler drop a dependency file next to each object as a side effect of the compile. -MP adds a phony target for every header, so that deleting a header does not break make.",
+  "steps": [
+    {
+      "args": [
+        "make",
+        "objects"
+      ],
+      "description": "every compile carries the dependency flags",
+      "exit_code": 0,
+      "stdout": "-MMD -MP",
+      "stdout_mode": "contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "build/src/main.c.d"
+      ],
+      "description": "-MP wrote a phony target for each header main.c uses",
+      "exit_code": 0,
+      "stdout": "src/util/greet.h:\nsrc/moduleA/thing.h:",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "build/src/moduleA/thing.c.d"
+      ],
+      "description": "each object gets a dependency file of its own",
+      "exit_code": 0,
+      "stdout": "src/moduleA/detail.h:",
+      "stdout_mode": "contains_lines",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    },
+    {
+      "args": [
+        "cat",
+        "build/src/main.c.d"
+      ],
+      "description": "-MMD keeps system headers out of the dependency file",
+      "exit_code": 0,
+      "stdout": "stdio.h",
+      "stdout_mode": "not_contains",
+      "stderr": null,
+      "stderr_mode": "contains",
+      "env": {},
+      "files": {},
+      "missing": []
+    }
+  ]
+}
