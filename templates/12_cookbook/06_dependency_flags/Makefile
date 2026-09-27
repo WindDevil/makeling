@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/06_dependency_flags
+# makefiling exercise: 12_cookbook/06_dependency_flags
 # title: -MMD -MP write the dependency files
 # objective: Add -MMD -MP to CPPFLAGS so that every compile also writes a .d file listing the headers it read.
 # reference: Makefile Cookbook

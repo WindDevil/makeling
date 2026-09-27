@@ -7,7 +7,7 @@ Text functions: substitution references, ``$(subst)``, ``$(foreach)``, ``$(if)``
 Run an exercise with:
 
 ```sh
-./makeling run 10_functions/01_subst
+./makefiling run 10_functions/01_subst
 ```
 
 | Exercise | Objective | Tutorial section |

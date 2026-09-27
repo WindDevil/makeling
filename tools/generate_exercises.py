@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate makeling exercises, solutions, templates, and documentation.
+"""Generate makefiling exercises, solutions, templates, and documentation.
 
 The generated files are checked into the repository.  Keeping the generator
 around makes it easy to add an exercise consistently:
@@ -8,7 +8,7 @@ around makes it easy to add an exercise consistently:
 
 Every exercise spec carries the correct Makefile.  The learner's copy is made
 by applying the spec's ``breaks`` replacements, which guarantees that the
-exercise and the solution can never drift apart.  ``./makeling selftest``
+exercise and the solution can never drift apart.  ``./makefiling selftest``
 enforces the matching invariant: an exercise must fail before it is solved and
 its solution must pass.
 
@@ -245,7 +245,7 @@ TOPIC_BY_NAME = {entry["topic"]: entry for entry in TOPICS}
 
 def header(spec: ExerciseSpec, comment: str = "#") -> str:
     lines = [
-        f"{comment} makeling exercise: {spec.ident}",
+        f"{comment} makefiling exercise: {spec.ident}",
         f"{comment} title: {spec.title}",
         f"{comment} objective: {spec.objective}",
         f"{comment} reference: {spec.reference}",
@@ -289,7 +289,7 @@ def topic_readme(specs: list[ExerciseSpec], entry: dict[str, object]) -> str:
         "Run an exercise with:",
         "",
         "```sh",
-        f"./makeling run {topic}/{specs[0].slug}",
+        f"./makefiling run {topic}/{specs[0].slug}",
         "```",
         "",
         "| Exercise | Objective | Tutorial section |",
@@ -312,10 +312,10 @@ def curriculum(specs: list[ExerciseSpec]) -> str:
     lines = [
         "# Curriculum: makefiletutorial.com, section by section",
         "",
-        "This map turns every section of "
-        "[makefiletutorial.com](https://makefiletutorial.com/) into runnable",
+        "This map turns the tutorial's main hands-on sections into runnable",
         "exercises.  Each exercise names the tutorial section it drills in its",
-        "`reference` field, so the two can be read side by side.",
+        "`reference` field, so the two can be read side by side. Background-only",
+        "sections are linked from the topic README without forcing a fake check.",
         "",
         f"Total exercises: **{len(specs)}** across **{len(by_topic)}** topics.",
         "",

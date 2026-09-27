@@ -22,13 +22,15 @@ jobs:
         run: |
           make --version
           python3 --version
-          ./makeling doctor
+          ./makefiling doctor
       - name: Verify every solution
-        run: ./makeling verify
+        run: ./makefiling verify
       - name: Verify exercises start unsolved
-        run: ./makeling selftest
+        run: ./makefiling selftest
       - name: Check generated files
         run: python3 tools/generate_exercises.py --check
+      - name: Run CLI regression tests
+        run: make test
       - name: Configure CMake
         run: cmake --preset default
       - name: Run CTest

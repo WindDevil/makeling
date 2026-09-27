@@ -7,7 +7,7 @@ The full project Makefile from the end of the tutorial: source discovery, out-of
 Run an exercise with:
 
 ```sh
-./makeling run 12_cookbook/01_find_sources
+./makefiling run 12_cookbook/01_find_sources
 ```
 
 | Exercise | Objective | Tutorial section |

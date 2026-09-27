@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/10_static_pattern_filter_out
+# makefiling exercise: 06_fancy_rules/10_static_pattern_filter_out
 # title: Dropping targets with $(filter-out ...)
 # objective: Build only the objects that are not test.o, using $(filter-out) in front of a static pattern rule.
 # reference: Static Pattern Rules and Filter

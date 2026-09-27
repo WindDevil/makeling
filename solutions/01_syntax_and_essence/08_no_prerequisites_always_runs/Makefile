@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/08_no_prerequisites_always_runs
+# makefiling exercise: 01_syntax_and_essence/08_no_prerequisites_always_runs
 # title: A target with no file always runs
 # objective: Write a target that has no prerequisites and creates no file, and confirm that make runs it every time.
 # reference: The essence of Make

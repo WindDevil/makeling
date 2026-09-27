@@ -1,4 +1,4 @@
-# makeling exercise: 00_getting_started/01_first_rule
+# makefiling exercise: 00_getting_started/01_first_rule
 # title: The simplest Makefile
 # objective: Write a rule that prints Hello, World when make runs.
 # reference: Running the Examples

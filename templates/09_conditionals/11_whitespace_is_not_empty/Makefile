@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/11_whitespace_is_not_empty
+# makefiling exercise: 09_conditionals/11_whitespace_is_not_empty
 # title: A value of only whitespace is not empty
 # objective: Show that ifdef is true for a variable whose value is one space, while ifeq only sees it as empty once it is stripped.
 # reference: Check if a variable is defined

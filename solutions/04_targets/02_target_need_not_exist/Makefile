@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/02_target_need_not_exist
+# makefiling exercise: 04_targets/02_target_need_not_exist
 # title: A target need not exist on disk
 # objective: Make report depend on data.txt so that the data file is generated first, even though report itself is never created.
 # reference: Targets

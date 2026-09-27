@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/06_shellflags
+# makefiling exercise: 07_commands_and_execution/06_shellflags
 # title: .SHELLFLAGS decides how the shell is called
 # objective: Make a recipe line stop at its first failing command by adding -e to .SHELLFLAGS, and see what the default -c does instead.
 # reference: Default Shell

@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/09_static_pattern_filter
+# makefiling exercise: 06_fancy_rules/09_static_pattern_filter
 # title: Picking targets with $(filter ...)
 # objective: Use $(filter) to give .o files and .result files their own static pattern rules, so that each kind is built from the right source.
 # reference: Static Pattern Rules and Filter

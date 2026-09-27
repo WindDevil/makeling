@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/01_subst
+# makefiling exercise: 10_functions/01_subst
 # title: Replace text with $(subst)
 # objective: Use $(subst from,to,text) to turn the sentence "I am not superman" into '"I am "totally" superman"'.
 # reference: First Functions

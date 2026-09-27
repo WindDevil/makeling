@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/07_link_executable
+# makefiling exercise: 12_cookbook/07_link_executable
 # title: The final build step
 # objective: Link the objects into $(BUILD_DIR)/$(TARGET_EXEC) with $(CXX) $(OBJS) -o $@.
 # reference: Makefile Cookbook

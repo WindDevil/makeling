@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/12_pattern_rule_no_prereq
+# makefiling exercise: 06_fancy_rules/12_pattern_rule_no_prereq
 # title: A pattern rule with no prerequisites
 # objective: Add a %.c rule that has no prerequisite pattern, so make can always create a missing .c file -- empty.
 # reference: Pattern Rules

@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/03_include_optional
+# makefiling exercise: 11_other_features/03_include_optional
 # title: An include that may not exist yet
 # objective: Read deps.mk when it is there and carry on when it is not, so a fresh checkout still builds.
 # reference: Include Makefiles

@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/04_both_sides_expanded
+# makefiling exercise: 09_conditionals/04_both_sides_expanded
 # title: ifeq expands both arguments
 # objective: Compare two variables whose values are themselves variable references, so that the branch is taken.
 # reference: Conditional if/else

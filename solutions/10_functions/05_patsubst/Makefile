@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/05_patsubst
+# makefiling exercise: 10_functions/05_patsubst
 # title: Rewriting words with $(patsubst)
 # objective: Turn a.o b.o l.a c.o into a.c b.c l.a c.c, and turn the two src/ paths into build/ paths, with %.o and %.c patterns.
 # reference: String Substitution

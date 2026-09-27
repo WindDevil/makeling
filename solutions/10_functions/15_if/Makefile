@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/15_if
+# makefiling exercise: 10_functions/15_if
 # title: Choosing with $(if)
 # objective: Produce then! for a condition that expands to something, else! for one that expands to nothing, and use the two-argument form too.
 # reference: The if function

@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/02_branches_choose_rules
+# makefiling exercise: 09_conditionals/02_branches_choose_rules
 # title: A conditional chooses which rules exist
 # objective: Let the conditional decide which rule the Makefile contains, so that make debug builds when MODE is debug and make release builds when MODE is release.
 # reference: Conditional if/else

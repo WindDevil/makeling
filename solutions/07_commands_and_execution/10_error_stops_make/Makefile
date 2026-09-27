@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/10_error_stops_make
+# makefiling exercise: 07_commands_and_execution/10_error_stops_make
 # title: make gives up at the first failing command
 # objective: Run a command that fails and confirm that make stops right there: the rest of the recipe and the other target must not run.
 # reference: Error handling with -k, -i, and -

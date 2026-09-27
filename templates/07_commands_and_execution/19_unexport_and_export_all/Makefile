@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/19_unexport_and_export_all
+# makefiling exercise: 07_commands_and_execution/19_unexport_and_export_all
 # title: A bare export, and unexport to undo it
 # objective: Export every variable at once with an argumentless export, then keep one of them out of the environment with unexport.
 # reference: Export, environments, and recursive make

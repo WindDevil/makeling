@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/11_pattern_rule_compile
+# makefiling exercise: 06_fancy_rules/11_pattern_rule_compile
 # title: A pattern rule of your own
 # objective: Write a %.o: %.c pattern rule whose recipe uses $< and $@, and see it applied to every matching target.
 # reference: Pattern Rules

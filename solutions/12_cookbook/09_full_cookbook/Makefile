@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/09_full_cookbook
+# makefiling exercise: 12_cookbook/09_full_cookbook
 # title: The whole cookbook Makefile
 # objective: Assemble the complete cookbook Makefile: sources, objects, dependency files, include flags, both compile rules, the link step and clean.
 # reference: Makefile Cookbook

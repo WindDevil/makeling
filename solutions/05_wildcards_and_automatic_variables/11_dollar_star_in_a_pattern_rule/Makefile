@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/11_dollar_star_in_a_pattern_rule
+# makefiling exercise: 05_wildcards_and_automatic_variables/11_dollar_star_in_a_pattern_rule
 # title: $* in a pattern rule is the stem
 # objective: Write a pattern rule that copies %.txt to %.backup and prints the stem it matched.
 # reference: Automatic Variables

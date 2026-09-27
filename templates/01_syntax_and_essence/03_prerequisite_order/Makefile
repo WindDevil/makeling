@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/03_prerequisite_order
+# makefiling exercise: 01_syntax_and_essence/03_prerequisite_order
 # title: Prerequisites are built left to right
 # objective: Order the prerequisites of the all target so that make builds one, then two, then three.
 # reference: Makefile Syntax

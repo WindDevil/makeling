@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/05_quoting
+# makefiling exercise: 09_conditionals/05_quoting
 # title: Quotes in an ifeq comparison
 # objective: Write the comparisons so that quoting both sides matches and quoting only one side does not.
 # reference: Conditional if/else

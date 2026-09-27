@@ -7,7 +7,7 @@ Implicit rules, static pattern rules, pattern rules, and double-colon rules: the
 Run an exercise with:
 
 ```sh
-./makeling run 06_fancy_rules/01_implicit_link_rule
+./makefiling run 06_fancy_rules/01_implicit_link_rule
 ```
 
 | Exercise | Objective | Tutorial section |

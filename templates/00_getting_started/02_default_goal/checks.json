@@ -48,5 +48,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 2,
+    "goal": "理解默认目标和显式目标的区别。",
+    "prediction": "裸 make 和 make goodbye 会分别选择哪条规则？",
+    "hints": [
+      "没有命令行目标时，make 选择读到的第一个目标。",
+      "移动整条规则时，目标名和它的 recipe 要一起移动。",
+      "让 hello 规则出现在 goodbye 之前。"
+    ],
+    "explanation": "裸 make 只构建第一个目标；显式写出 goodbye 才会选择 goodbye。"
+  }
 }

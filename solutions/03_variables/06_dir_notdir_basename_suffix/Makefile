@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/06_dir_notdir_basename_suffix
+# makefiling exercise: 03_variables/06_dir_notdir_basename_suffix
 # title: Taking a file name apart
 # objective: Apply $(dir), $(notdir), $(basename) and $(suffix) to one variable holding a list of paths.
 # reference: Variables

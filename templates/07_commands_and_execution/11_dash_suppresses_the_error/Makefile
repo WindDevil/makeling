@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/11_dash_suppresses_the_error
+# makefiling exercise: 07_commands_and_execution/11_dash_suppresses_the_error
 # title: A leading - tolerates one command's failure
 # objective: Prefix a failing command with - so make prints the error, carries on with the recipe, and still reports the run as a success.
 # reference: Error handling with -k, -i, and -

@@ -7,7 +7,7 @@ A first end-to-end build: several targets, real prerequisites between them, and 
 Run an exercise with:
 
 ```sh
-./makeling run 02_quick_examples/01_three_step_chain
+./makefiling run 02_quick_examples/01_three_step_chain
 ```
 
 | Exercise | Objective | Tutorial section |

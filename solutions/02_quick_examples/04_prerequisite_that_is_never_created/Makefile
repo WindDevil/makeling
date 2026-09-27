@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/04_prerequisite_that_is_never_created
+# makefiling exercise: 02_quick_examples/04_prerequisite_that_is_never_created
 # title: A prerequisite that is never created
 # objective: Make some_file depend on other_file, a target whose recipe never creates a file, so that both recipes run every single time.
 # reference: More quick examples

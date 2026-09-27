@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/13_keep_going_flag
+# makefiling exercise: 07_commands_and_execution/13_keep_going_flag
 # title: make -k keeps going but still fails
 # objective: Build three targets where the first one fails, and tell make -k and make -i apart.
 # reference: Error handling with -k, -i, and -

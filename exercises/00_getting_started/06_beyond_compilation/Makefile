@@ -1,4 +1,4 @@
-# makeling exercise: 00_getting_started/06_beyond_compilation
+# makefiling exercise: 00_getting_started/06_beyond_compilation
 # title: Make is not only for compilers
 # objective: Chain two non-compilation targets so that make builds a report file before printing it.
 # reference: Why do Makefiles exist?

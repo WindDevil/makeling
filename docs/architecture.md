@@ -1,6 +1,6 @@
 # 架构
 
-`makeling` 由四个互相独立的层次组成：
+`makefiling` 由四个互相独立的层次组成：
 
 ```text
 规格层 (tools/specs_*.py)
@@ -17,10 +17,10 @@
 契约层 (每个练习目录里的 checks.json)
         │
         ▼
-运行层 (./makeling)
+运行层 (./makefiling)
         │
         ├── 发现练习
-        ├── 隔离编排到 build/makeling/
+        ├── 隔离编排到 build/makefiling/
         ├── 重放契约中的每一步
         ├── 记录进度
         └── verify / selftest
@@ -32,7 +32,7 @@
 由一个很小的断言头文件驱动。Makefile 练习没有这个便利：被测的对象是
 **make 本身的行为**——它打印什么、以什么退出码结束、留下了哪些文件。
 
-因此 `makeling` 把每个练习的验收条件抽出来，写成一个数据文件：
+因此 `makefiling` 把每个练习的验收条件抽出来，写成一个数据文件：
 
 ```text
 exercises/<topic>/<slug>/checks.json
@@ -54,7 +54,8 @@ exercises/<topic>/<slug>/checks.json
 
 - 修改正确内容时，初始练习自动同步。
 - 参考答案和练习的验收条件完全一致。
-- `./makeling selftest` 可以自动检查「初始失败、答案通过」这一不变量。
+- `./makefiling selftest` 可以自动检查「仓库中的原始模板失败、答案通过」这一不变量，
+  不会读取学习者当前正在编辑的 `exercises/` 副本。
 - 初始练习一定会失败，因为 `breaks` 至少替换掉一处；如果某次替换恰好
   没让任何检查失败，`selftest` 会报错。
 
@@ -72,44 +73,49 @@ python3 tools/generate_exercises.py --topic 03_variables
 
 ## 运行器
 
-`./makeling` 是一个零依赖 Python CLI。它的主要命令：
+`./makefiling` 是一个零依赖 Python CLI。它的主要命令：
 
 | 命令 | 作用 |
 | --- | --- |
-| `list` | 按专题列出练习和完成状态 |
-| `next` | 显示下一个未完成练习 |
+| `start` | 进入 20 题基础路线 |
+| `list [--basic]` | 按专题列出练习和完成状态 |
+| `next [--basic]` | 显示下一个未完成练习 |
 | `run [exercise]` | 在隔离目录里运行练习并核对契约 |
-| `run --all` | 按顺序运行所有练习 |
-| `hint` | 显示目标、参考小节和提示 |
-| `hint --steps` | 同时打印这个练习的全部检查步骤 |
+| `run --all/--basic` | 按顺序运行一组练习 |
+| `hint [--level 1..3]` | 显示分级提示和第一性原理问题 |
+| `hint --steps` | 同时打印这个练习的完整检查契约 |
 | `solution` | 打印或应用参考答案 |
 | `reset` | 从 `templates/` 恢复初始练习 |
 | `watch` | 文件变化后自动重跑 |
 | `verify [exercise]` | 运行全部（或指定）参考答案 |
-| `selftest` | 检查全部练习初始失败、答案通过 |
+| `selftest` | 检查不可变的原始模板失败、答案通过 |
 | `doctor` | 打印 Python 和 make 等工具链信息 |
-| `clean` | 删除 `build/makeling/` |
+| `clean` | 删除 `build/makefiling/` |
 
-进度保存在 `.makeling/progress.json`，该文件已被 `.gitignore` 忽略。
+进度保存在 `.makefiling/progress.json`，该文件已被 `.gitignore` 忽略。
 
 ## 隔离编排
 
 运行器**不在** `exercises/` 里直接跑 make。每次运行都会把练习目录复制到
 
 ```text
-build/makeling/<topic>/<slug>/
+build/makefiling/<topic>/<slug>/run-<随机后缀>/
 ```
 
 再在那里执行契约中的步骤。这样做解决了三个问题：
 
 - 学习者的 `exercises/` 目录不会被 `make` 产生的 `.o`、可执行文件、
-  中间文件污染，`git status` 始终干净。
+  中间文件污染；git 只会看到学习者对练习文件本身的编辑。
 - 契约可以包含「第一次运行」和「第二次运行」，因为每次运行都从干净的
   副本开始，不会受上一次运行的残留影响。
 - 顺序执行的多个步骤之间又确实共享状态（构建之后重新构建），这正是
   表达增量行为所需要的。
+- 每次运行使用独立的临时目录，因此 `verify`、`selftest` 和多个终端可以
+  并行运行，不会互相删除 staging 目录。
 
-失败时运行器会打印被保留的工作目录路径，可以直接进去手工复现。
+失败时运行器会打印被保留的工作目录路径、失败步骤和可复制的重试命令，
+并在检测到 `missing separator` 时指出 recipe 必须使用真正的 TAB。成功的
+临时目录也会保留到 `./makefiling clean`，便于观察生成的文件。
 
 ## 时间戳
 
@@ -211,5 +217,5 @@ hello:
 Python 会把 `\t` 转义成真正的 TAB。同理，Makefile 里需要的字面反斜杠
 （例如续行）要写成 `\\`。
 
-如果写错成四个空格，make 会报 `missing separator`，`./makeling verify`
+如果写错成四个空格，make 会报 `missing separator`，`./makefiling verify`
 会立刻失败——错误不会静默通过。

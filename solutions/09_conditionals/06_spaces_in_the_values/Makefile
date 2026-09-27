@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/06_spaces_in_the_values
+# makefiling exercise: 09_conditionals/06_spaces_in_the_values
 # title: Commas separate, spaces do not
 # objective: Compare a value that itself contains a space, and rely on the space after the comma being ignored.
 # reference: Conditional if/else

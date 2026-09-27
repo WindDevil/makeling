@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/10_addprefix_addsuffix_join
+# makefiling exercise: 10_functions/10_addprefix_addsuffix_join
 # title: Building new names with $(addprefix), $(addsuffix) and $(join)
 # objective: Turn the two names main util into object files, then put them under src/, and pair the prefixes src/ and build/ with two files.
 # reference: First Functions

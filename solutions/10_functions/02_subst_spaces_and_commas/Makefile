@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/02_subst_spaces_and_commas
+# makefiling exercise: 10_functions/02_subst_spaces_and_commas
 # title: Replacing spaces and commas
 # objective: Turn the list a b c into the single word a,b,c by replacing every space with a comma.
 # reference: First Functions

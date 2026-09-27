@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/12_makeflags_detecting_i
+# makefiling exercise: 09_conditionals/12_makeflags_detecting_i
 # title: Detect the -i flag through $(MAKEFLAGS)
 # objective: Print the message when the user passed -i, and stay quiet otherwise, by searching $(MAKEFLAGS) for the letter.
 # reference: $(MAKEFLAGS)

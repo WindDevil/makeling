@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/12_phony_conventional_targets
+# makefiling exercise: 11_other_features/12_phony_conventional_targets
 # title: all, clean and install are phony
 # objective: Declare the conventional targets phony so a file named install and a directory named clean cannot shadow them.
 # reference: .phony

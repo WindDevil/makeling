@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/01_rule_anatomy
+# makefiling exercise: 01_syntax_and_essence/01_rule_anatomy
 # title: The anatomy of a rule
 # objective: Write a rule whose target is report.txt, whose prerequisite is notes.txt, and whose recipe builds the report in two commands.
 # reference: Makefile Syntax

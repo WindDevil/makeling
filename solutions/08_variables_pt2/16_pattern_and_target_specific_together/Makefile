@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/16_pattern_and_target_specific_together
+# makefiling exercise: 08_variables_pt2/16_pattern_and_target_specific_together
 # title: Target-specific beats pattern-specific
 # objective: Let a pattern give every .o file a mode, then give one of them its own value, and leave a third target with neither.
 # reference: Pattern-specific variables

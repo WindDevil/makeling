@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/04_cancel_pattern_rule
+# makefiling exercise: 06_fancy_rules/04_cancel_pattern_rule
 # title: Cancelling the built-in compile rule
 # objective: Cancel make's built-in %.o: %.c rule with an empty pattern rule, so that only the object files you build by hand can exist.
 # reference: Implicit Rules

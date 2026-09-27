@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/10_multiline_variable
+# makefiling exercise: 11_other_features/10_multiline_variable
 # title: A variable that spans lines
 # objective: Continue the SOURCES variable onto a second line, so the list works both as prerequisites and as a value.
 # reference: Multiline

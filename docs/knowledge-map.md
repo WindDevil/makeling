@@ -1,6 +1,6 @@
 # Knowledge map
 
-This map lists the GNU Make knowledge areas `makeling` covers and points at the
+This map lists the GNU Make knowledge areas `makefiling` covers and points at the
 topic that drills each one.  It is the checklist to read after finishing a
 topic, and the list to consult when adding new exercises.
 
@@ -98,7 +98,7 @@ The curriculum itself, exercise by exercise, is in
 
 ## Related topics deliberately left out
 
-The tutorial does not cover them, so neither does `makeling`:
+The tutorial does not cover them, so neither does `makefiling`:
 
 - Automake, CMake and the other generators that emit Makefiles.
 - Non-GNU make implementations (BSD make, nmake) beyond knowing they exist.

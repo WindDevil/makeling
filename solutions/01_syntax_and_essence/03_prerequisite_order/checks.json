@@ -52,5 +52,16 @@
       },
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 9,
+    "goal": "观察 make 按依赖顺序遍历图。",
+    "prediction": "all: one two three 时，三个 recipe 的输出顺序是什么？",
+    "hints": [
+      "all 的前置条件就是构建顺序的入口。",
+      "把 one、two、three 按期望顺序写在冒号右侧。",
+      "recipe 的输出顺序能帮助你验证依赖图。"
+    ],
+    "explanation": "make 会先处理前置条件，再回到目标；同层前置条件按书写顺序访问。"
+  }
 }

@@ -7,7 +7,7 @@ The shape of a rule, the role of targets, prerequisites and recipes, and the fil
 Run an exercise with:
 
 ```sh
-./makeling run 01_syntax_and_essence/01_rule_anatomy
+./makefiling run 01_syntax_and_essence/01_rule_anatomy
 ```
 
 | Exercise | Objective | Tutorial section |

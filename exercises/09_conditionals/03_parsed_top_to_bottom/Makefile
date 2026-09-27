@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/03_parsed_top_to_bottom
+# makefiling exercise: 09_conditionals/03_parsed_top_to_bottom
 # title: The conditional is decided while the file is read
 # objective: Assign MODE before the conditional that tests it, so that a bare make reports the debug build.
 # reference: Conditional if/else

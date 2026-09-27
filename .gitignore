@@ -6,7 +6,7 @@
 # ci.yml checks that no exercise file is ignored, so the rule cannot come back
 # by accident.
 /build/
-/.makeling/
+/.makefiling/
 /.ref/
 compile_commands.json
 __pycache__/

@@ -69,5 +69,16 @@
         "some_file"
       ]
     }
-  ]
+  ],
+  "lesson": {
+    "order": 15,
+    "goal": "用 clean 把构建产物恢复到可重建状态。",
+    "prediction": "clean 运行两次时，第二次应该失败还是成功？",
+    "hints": [
+      "clean 通常不产生名为 clean 的文件。",
+      "rm -f 在文件不存在时也保持成功。",
+      "clean 是动作目标，不是构建产物。"
+    ],
+    "explanation": "clean 负责删除产物；幂等的清理命令可以安全重复执行。"
+  }
 }

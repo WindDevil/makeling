@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/14_half_built_target
+# makefiling exercise: 07_commands_and_execution/14_half_built_target
 # title: A failed recipe leaves a half-built target
 # objective: Fail a recipe after it has written part of its output, and see that make keeps the partial file and treats it as finished.
 # reference: Interrupting or killing make

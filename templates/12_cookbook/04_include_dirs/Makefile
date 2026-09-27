@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/04_include_dirs
+# makefiling exercise: 12_cookbook/04_include_dirs
 # title: Every folder in src is an include directory
 # objective: Collect ./src and its subdirectories with $(shell find ... -type d) and prefix each one with -I.
 # reference: Makefile Cookbook

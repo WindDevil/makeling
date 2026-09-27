@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/17_call_template
+# makefiling exercise: 10_functions/17_call_template
 # title: A template that builds a list
 # objective: Use $(call) to turn the names main util into the object files src/main.o src/util.o, and let a pattern rule build them.
 # reference: The call function

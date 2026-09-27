@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/09_ifdef_does_not_expand
+# makefiling exercise: 09_conditionals/09_ifdef_does_not_expand
 # title: ifdef looks at the text, ifeq at the value
 # objective: Show both sides of the trap: an empty variable and an undefined one compare equal, while ifdef still calls foo set.
 # reference: Check if a variable is defined

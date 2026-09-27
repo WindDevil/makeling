@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/06_four_step_chain
+# makefiling exercise: 02_quick_examples/06_four_step_chain
 # title: A four-step chain
 # objective: Extend the build with a fourth rule, so that blah.c is copied from source.txt, which is itself written by a recipe.
 # reference: More quick examples

@@ -52,5 +52,16 @@
         "some_file"
       ]
     }
-  ]
+  ],
+  "lesson": {
+    "order": 17,
+    "goal": "用变量给同一组文件命名。",
+    "prediction": "$(files) 出现在目标行和 recipe 中时，make 会如何展开？",
+    "hints": [
+      "变量定义形如 files := file1 file2。",
+      "some_file 应把 files 放在冒号右侧。",
+      "recipe 中也可以直接写 $(files)。"
+    ],
+    "explanation": "变量先展开成文本；在依赖列表中，它会成为多个文件名。"
+  }
 }

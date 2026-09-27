@@ -7,7 +7,7 @@ The directives and special targets that finish a real Makefile: ``include``, ``v
 Run an exercise with:
 
 ```sh
-./makeling run 11_other_features/01_include_variables
+./makefiling run 11_other_features/01_include_variables
 ```
 
 | Exercise | Objective | Tutorial section |

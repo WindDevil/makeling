@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/16_call_basics
+# makefiling exercise: 10_functions/16_call_basics
 # title: Writing a function with $(call)
 # objective: Report the name of the called variable and its parameters with $(0), $(1) and $(2), and make a template that repeats its first parameter three times.
 # reference: The call function

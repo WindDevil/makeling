@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/08_ifdef_and_ifndef
+# makefiling exercise: 09_conditionals/08_ifdef_and_ifndef
 # title: ifdef and ifndef
 # objective: Report that foo is defined even though its value is a reference to the empty variable bar, and that bar itself is not.
 # reference: Check if a variable is defined

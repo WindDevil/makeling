@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/11_nothing_to_do_vs_up_to_date
+# makefiling exercise: 01_syntax_and_essence/11_nothing_to_do_vs_up_to_date
 # title: Nothing to be done versus up to date
 # objective: Use a target with no recipe so make reports nothing to be done, and a target whose file exists so make reports it is up to date.
 # reference: The essence of Make

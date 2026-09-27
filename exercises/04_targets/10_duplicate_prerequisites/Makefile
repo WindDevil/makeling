@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/10_duplicate_prerequisites
+# makefiling exercise: 04_targets/10_duplicate_prerequisites
 # title: The same prerequisite twice
 # objective: Make the inspect recipe print the deduplicated list with $^ and every mention of the repeated prerequisite with $+.
 # reference: Automatic Variables

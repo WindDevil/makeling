@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/13_makeflags_silent
+# makefiling exercise: 09_conditionals/13_makeflags_silent
 # title: Detect silent mode
 # objective: Branch on whether -s was passed: bare make echoes the command, make -s only prints the message.
 # reference: $(MAKEFLAGS)

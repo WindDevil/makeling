@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/09_a_file_named_clean
+# makefiling exercise: 02_quick_examples/09_a_file_named_clean
 # title: A file called clean stops the recipe
 # objective: Make clean run even though the directory contains a stray file with the same name as the target.
 # reference: Make clean

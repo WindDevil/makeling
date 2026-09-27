@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/11_phony_all
+# makefiling exercise: 04_targets/11_phony_all
 # title: Stray files that shadow the aggregate
 # objective: Declare all, one and two phony so that files of those names do not stop make from running the recipes.
 # reference: .phony

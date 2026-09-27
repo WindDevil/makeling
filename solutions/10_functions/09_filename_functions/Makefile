@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/09_filename_functions
+# makefiling exercise: 10_functions/09_filename_functions
 # title: Splitting file names apart
 # objective: Take src/a.c src/b.h apart into directories, file names, suffixes and stems.
 # reference: First Functions

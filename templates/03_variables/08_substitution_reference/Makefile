@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/08_substitution_reference
+# makefiling exercise: 03_variables/08_substitution_reference
 # title: Substituting one suffix for another
 # objective: Turn a list of object files into the matching source list with the $(var:suffix=replacement) shorthand.
 # reference: String Substitution

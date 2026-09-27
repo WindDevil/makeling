@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/11_phony_file_conflict
+# makefiling exercise: 11_other_features/11_phony_file_conflict
 # title: A phony target is never up to date
 # objective: Declare clean phony so that the file named clean, created by some_file, cannot stop the clean rule from running.
 # reference: .phony

@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/03_quotes_are_characters
+# makefiling exercise: 03_variables/03_quotes_are_characters
 # title: Quotes in a value are just characters
 # objective: Assign a quoted string to a variable and see that make keeps the quote characters while the shell uses them.
 # reference: Variables

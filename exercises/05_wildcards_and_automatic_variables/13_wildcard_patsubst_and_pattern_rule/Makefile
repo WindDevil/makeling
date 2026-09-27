@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/13_wildcard_patsubst_and_pattern_rule
+# makefiling exercise: 05_wildcards_and_automatic_variables/13_wildcard_patsubst_and_pattern_rule
 # title: Putting the three pieces together
 # objective: Discover the sources with $(wildcard src/*.c), rewrite them into build/ names with $(patsubst), and let a pattern rule build each one into its own directory.
 # reference: * Wildcard

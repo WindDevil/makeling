@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/17_dollar_make_not_bare_make
+# makefiling exercise: 07_commands_and_execution/17_dollar_make_not_bare_make
 # title: Use $(MAKE), never a bare make
 # objective: Show what breaks when a recipe calls make instead of $(MAKE): the second make loses the flags and make -n no longer descends.
 # reference: Recursive use of make

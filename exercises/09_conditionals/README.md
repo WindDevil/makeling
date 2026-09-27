@@ -7,7 +7,7 @@ Choosing what a Makefile contains at parse time: ``ifeq`` and friends, testing f
 Run an exercise with:
 
 ```sh
-./makeling run 09_conditionals/01_ifeq_else
+./makefiling run 09_conditionals/01_ifeq_else
 ```
 
 | Exercise | Objective | Tutorial section |

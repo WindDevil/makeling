@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/02_silencing_a_whole_target
+# makefiling exercise: 07_commands_and_execution/02_silencing_a_whole_target
 # title: Silencing a target, or the whole run
 # objective: Keep one target's commands out of the output with .SILENT, and compare that with make -s, which silences everything.
 # reference: Command Echoing/Silencing

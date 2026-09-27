@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/20_export_across_recursion
+# makefiling exercise: 07_commands_and_execution/20_export_across_recursion
 # title: Exporting a variable to a sub-make
 # objective: Let the Makefile in sub/ see a variable that only the top-level Makefile defines, by exporting it before the recursive call.
 # reference: Export, environments, and recursive make

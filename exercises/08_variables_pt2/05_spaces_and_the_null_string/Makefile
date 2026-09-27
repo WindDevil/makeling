@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/05_spaces_and_the_null_string
+# makefiling exercise: 08_variables_pt2/05_spaces_and_the_null_string
 # title: Spaces at the ends of an assignment
 # objective: Build a value that ends in three spaces and a variable holding exactly one space, using the empty variable as the trick.
 # reference: Flavors and modification

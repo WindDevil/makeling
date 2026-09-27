@@ -55,5 +55,16 @@
         "some_file"
       ]
     }
-  ]
+  ],
+  "lesson": {
+    "order": 19,
+    "goal": "理解 .PHONY 如何声明动作目标。",
+    "prediction": "目录里已经有一个叫 clean 的文件时，make clean 会删除产物吗？",
+    "hints": [
+      "make 默认把目标名当作可能存在的文件。",
+      ".PHONY: clean 告诉 make clean 永远不是文件。",
+      "把 .PHONY 声明放在 clean 规则前后都可以。"
+    ],
+    "explanation": ".PHONY 目标不参与文件时间戳判断，每次被请求都会执行。"
+  }
 }

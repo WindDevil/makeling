@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/06_vpath_headers
+# makefiling exercise: 11_other_features/06_vpath_headers
 # title: Finding a prerequisite in another directory
 # objective: Use vpath so that blah.h, which only exists in headers/, is found as a prerequisite of some_binary.
 # reference: The vpath Directive

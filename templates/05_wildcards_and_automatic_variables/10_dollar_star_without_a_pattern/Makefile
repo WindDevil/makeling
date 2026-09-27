@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/10_dollar_star_without_a_pattern
+# makefiling exercise: 05_wildcards_and_automatic_variables/10_dollar_star_without_a_pattern
 # title: $* in an explicit rule is the target minus a known suffix
 # objective: Print $* for a target ending in .o, for a target ending in .txt and for a target with no suffix at all.
 # reference: Automatic Variables

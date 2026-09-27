@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/12_directory_and_file_variants
+# makefiling exercise: 05_wildcards_and_automatic_variables/12_directory_and_file_variants
 # title: The D and F variants of the automatic variables
 # objective: Print $(@D), $(@F), $(<D), $(<F), $(^D) and $(^F) for a target that lives in a subdirectory.
 # reference: Automatic Variables

@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/12_realpath_and_abspath
+# makefiling exercise: 10_functions/12_realpath_and_abspath
 # title: $(realpath) needs the file, $(abspath) does not
 # objective: Show that realpath resolves a name that exists on disk while abspath gives an absolute path for any name at all.
 # reference: First Functions

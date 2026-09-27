@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/04_a_value_passed_to_a_program
+# makefiling exercise: 03_variables/04_a_value_passed_to_a_program
 # title: Passing $(files) to a program
 # objective: Feed the value of a variable to printf and see that make splits it into words unless the expansion is quoted.
 # reference: Variables

@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/01_implicit_link_rule
+# makefiling exercise: 06_fancy_rules/01_implicit_link_rule
 # title: make compiles and links without a recipe
 # objective: Ask for an executable called blah without writing a single recipe, and let make's built-in C rules do the compiling and the linking.
 # reference: Implicit Rules

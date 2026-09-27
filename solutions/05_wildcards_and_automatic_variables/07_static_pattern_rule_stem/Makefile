@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/07_static_pattern_rule_stem
+# makefiling exercise: 05_wildcards_and_automatic_variables/07_static_pattern_rule_stem
 # title: The stem in a static pattern rule
 # objective: Use $(targets): %.out: %.raw so that each target is matched by the target pattern and the stem is substituted into the prerequisite pattern.
 # reference: % Wildcard

@@ -48,5 +48,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 3,
+    "goal": "观察目标名如何对应磁盘上的文件。",
+    "prediction": "第一次 make 后，第二次 make 为什么不再执行 echo？",
+    "hints": [
+      "make 通过文件系统判断 hello 是否已经存在。",
+      "recipe 必须真的创建名为 hello 的文件。",
+      "把 echo 的输出重定向到 hello。"
+    ],
+    "explanation": "目标文件存在且没有更晚的前置条件时，make 认为目标已经最新。"
+  }
 }

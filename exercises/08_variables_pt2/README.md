@@ -7,7 +7,7 @@ Recursive versus simply expanded variables, overriding from the command line, ``
 Run an exercise with:
 
 ```sh
-./makeling run 08_variables_pt2/01_recursive_vs_simply_expanded
+./makefiling run 08_variables_pt2/01_recursive_vs_simply_expanded
 ```
 
 | Exercise | Objective | Tutorial section |

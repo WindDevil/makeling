@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/14_first_prerequisite_only
+# makefiling exercise: 03_variables/14_first_prerequisite_only
 # title: $< is the first prerequisite
 # objective: Copy the first of two prerequisites into the target while still reporting all of them.
 # reference: Automatic Variables

@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/01_three_step_chain
+# makefiling exercise: 02_quick_examples/01_three_step_chain
 # title: Generate, compile, link
 # objective: Build blah in three steps: blah from blah.o, blah.o from blah.c, and a rule that creates blah.c itself.
 # reference: More quick examples

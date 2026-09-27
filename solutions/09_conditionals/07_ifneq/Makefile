@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/07_ifneq
+# makefiling exercise: 09_conditionals/07_ifneq
 # title: ifneq runs when the values differ
 # objective: Use ifneq to choose the architecture message, for both the file's value of arch and an override on the command line.
 # reference: Conditional if/else

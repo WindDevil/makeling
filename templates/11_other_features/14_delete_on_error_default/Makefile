@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/14_delete_on_error_default
+# makefiling exercise: 11_other_features/14_delete_on_error_default
 # title: Without DELETE_ON_ERROR the target stays
 # objective: Turn the declaration off to see make's default: a rule that fails leaves its half written target on disk.
 # reference: .delete_on_error

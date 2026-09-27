@@ -7,7 +7,7 @@ The ``*`` and ``%`` wildcards, when each one is expanded, and the full set of au
 Run an exercise with:
 
 ```sh
-./makeling run 05_wildcards_and_automatic_variables/01_wildcard_function_in_a_variable
+./makefiling run 05_wildcards_and_automatic_variables/01_wildcard_function_in_a_variable
 ```
 
 | Exercise | Objective | Tutorial section |

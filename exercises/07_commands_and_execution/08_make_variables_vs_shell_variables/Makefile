@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/08_make_variables_vs_shell_variables
+# makefiling exercise: 07_commands_and_execution/08_make_variables_vs_shell_variables
 # title: A make variable is not a shell variable
 # objective: Give the shell a variable of its own in a recipe line, and see why $(...) and $$... are not interchangeable.
 # reference: Double dollar sign

@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/02_generate_source_with_rule
+# makefiling exercise: 06_fancy_rules/02_generate_source_with_rule
 # title: A rule that writes the C source
 # objective: Let make create blah.c with a rule of your own, then watch the built-in rules compile and link it using CFLAGS.
 # reference: Implicit Rules

@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/07_vpath_clear
+# makefiling exercise: 11_other_features/07_vpath_clear
 # title: Clearing a stale search path
 # objective: Forget the old headers directory before adding the new one, so that blah.h resolves to the file in new/.
 # reference: The vpath Directive

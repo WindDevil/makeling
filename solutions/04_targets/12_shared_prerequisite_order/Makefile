@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/12_shared_prerequisite_order
+# makefiling exercise: 04_targets/12_shared_prerequisite_order
 # title: all builds a shared prerequisite once
 # objective: Give one and two the same prerequisite base so that make builds base first and only once.
 # reference: The all target

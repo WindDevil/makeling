@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/01_a_list_in_a_variable
+# makefiling exercise: 03_variables/01_a_list_in_a_variable
 # title: A list stored in a variable
 # objective: Keep the file names in a variable and use the same variable as the prerequisite list and inside the recipe.
 # reference: Variables

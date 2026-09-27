@@ -1,4 +1,4 @@
-# makeling exercise: 00_getting_started/05_which_makefile
+# makefiling exercise: 00_getting_started/05_which_makefile
 # title: Which file does make read?
 # objective: Give GNUmakefile and Makefile different default goals and confirm which one a bare make picks up.
 # reference: Running the Examples

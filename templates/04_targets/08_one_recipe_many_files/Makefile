@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/08_one_recipe_many_files
+# makefiling exercise: 04_targets/08_one_recipe_many_files
 # title: One recipe that produces several files
 # objective: Make a single recipe create both first.part and second.part for the bundle target.
 # reference: Multiple targets

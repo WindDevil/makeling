@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/16_recursive_make
+# makefiling exercise: 07_commands_and_execution/16_recursive_make
 # title: Calling the Makefile in a subdirectory
 # objective: Have the top-level Makefile build the project in sub/ by asking $(MAKE) to read that directory's Makefile.
 # reference: Recursive use of make

@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/02_object_paths
+# makefiling exercise: 12_cookbook/02_object_paths
 # title: Prepending the build directory
 # objective: Turn the source list into the object list the cookbook uses: $(BUILD_DIR)/./src/hello.cpp.o.
 # reference: Makefile Cookbook

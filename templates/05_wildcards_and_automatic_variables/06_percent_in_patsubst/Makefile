@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/06_percent_in_patsubst
+# makefiling exercise: 05_wildcards_and_automatic_variables/06_percent_in_patsubst
 # title: % matches a stem, and the stem is substituted back
 # objective: Turn a list of .c names into .o names with $(patsubst %.c,%.o,...) and with the $(list:%.c=%.o) shorthand.
 # reference: % Wildcard

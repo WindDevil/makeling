@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/06_multiple_targets_one_rule
+# makefiling exercise: 04_targets/06_multiple_targets_one_rule
 # title: Several targets on one rule line
 # objective: Put f1.o and f2.o on a single rule line and confirm that the recipe runs once for each target.
 # reference: Multiple targets

@@ -51,5 +51,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 5,
+    "goal": "知道 make 如何选择 Makefile。",
+    "prediction": "目录中同时存在 GNUmakefile 和 Makefile 时，裸 make 读取谁？",
+    "hints": [
+      "GNU Make 有固定的文件名搜索顺序。",
+      "make -f 文件名可以跳过默认搜索。",
+      "让两个文件输出不同文本，再用三条检查命令比较。"
+    ],
+    "explanation": "GNUmakefile 的优先级高于 makefile 和 Makefile；-f 可以显式指定。"
+  }
 }

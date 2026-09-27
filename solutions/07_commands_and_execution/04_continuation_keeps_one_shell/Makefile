@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/04_continuation_keeps_one_shell
+# makefiling exercise: 07_commands_and_execution/04_continuation_keeps_one_shell
 # title: Shell state survives across a line continuation
 # objective: Show that a shell variable set on one line is gone by the next, and keep it alive by continuing the recipe line with a backslash.
 # reference: Command Execution

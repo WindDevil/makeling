@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/03_appending_recursive_vs_simply_expanded
+# makefiling exercise: 08_variables_pt2/03_appending_recursive_vs_simply_expanded
 # title: Appending to a recursive and to a simply expanded variable
 # objective: Append the same text to both flavours of variable, then change the variable they both refer to, and show that only the recursive one follows the change.
 # reference: Flavors and modification

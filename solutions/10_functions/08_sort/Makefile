@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/08_sort
+# makefiling exercise: 10_functions/08_sort
 # title: $(sort) sorts and removes duplicates
 # objective: Merge the two lists of sources into one alphabetical list without repeating a.c, and count the result.
 # reference: First Functions

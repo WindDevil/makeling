@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/07_shared_recipe_per_target
+# makefiling exercise: 04_targets/07_shared_recipe_per_target
 # title: One recipe writes each target
 # objective: Let a single recipe build both red.txt and blue.txt by writing to $@, so each target gets its own file.
 # reference: Multiple targets

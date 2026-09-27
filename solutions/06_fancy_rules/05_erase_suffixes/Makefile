@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/05_erase_suffixes
+# makefiling exercise: 06_fancy_rules/05_erase_suffixes
 # title: Erasing make's built-in suffix rules
 # objective: Empty the suffix list so make forgets how to compile and link C sources, and see that only explicit recipes are left.
 # reference: Implicit Rules

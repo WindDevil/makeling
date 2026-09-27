@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/06_static_pattern_objects
+# makefiling exercise: 06_fancy_rules/06_static_pattern_objects
 # title: One static pattern rule for a list of objects
 # objective: Replace three hand-written object rules with a single static pattern rule over $(objects), and link them into a program.
 # reference: Static Pattern Rules

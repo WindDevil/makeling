@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/03_dependency_files
+# makefiling exercise: 12_cookbook/03_dependency_files
 # title: One dependency file per object
 # objective: Derive the .d files from the object list with the suffix-only substitution $(OBJS:.o=.d).
 # reference: Makefile Cookbook

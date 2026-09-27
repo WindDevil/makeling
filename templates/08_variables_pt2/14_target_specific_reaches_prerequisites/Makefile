@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/14_target_specific_reaches_prerequisites
+# makefiling exercise: 08_variables_pt2/14_target_specific_reaches_prerequisites
 # title: The variable reaches the prerequisites too
 # objective: Declare the variable on all so that the target it depends on inherits it, while the same target built on its own does not.
 # reference: Target-specific variables

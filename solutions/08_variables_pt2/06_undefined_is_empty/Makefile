@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/06_undefined_is_empty
+# makefiling exercise: 08_variables_pt2/06_undefined_is_empty
 # title: An undefined variable is an empty string
 # objective: Append a variable that nothing defines to a flag list, and confirm it contributes nothing until a value is supplied.
 # reference: Flavors and modification

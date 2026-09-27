@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/13_target_specific_variable
+# makefiling exercise: 08_variables_pt2/13_target_specific_variable
 # title: A variable that belongs to one target
 # objective: Give the all target its own flavour without letting the other target see it.
 # reference: Target-specific variables

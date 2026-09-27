@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/07_shared_prerequisite
+# makefiling exercise: 02_quick_examples/07_shared_prerequisite
 # title: A wider graph with a shared prerequisite
 # objective: Build a report from two files that are both copied from the same base file, and confirm the order the recipes run in.
 # reference: More quick examples

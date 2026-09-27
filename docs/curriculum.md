@@ -1,8 +1,9 @@
 # Curriculum: makefiletutorial.com, section by section
 
-This map turns every section of [makefiletutorial.com](https://makefiletutorial.com/) into runnable
+This map turns the tutorial's main hands-on sections into runnable
 exercises.  Each exercise names the tutorial section it drills in its
-`reference` field, so the two can be read side by side.
+`reference` field, so the two can be read side by side. Background-only
+sections are linked from the topic README without forcing a fake check.
 
 Total exercises: **177** across **13** topics.
 

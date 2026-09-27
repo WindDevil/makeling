@@ -7,7 +7,7 @@ Why Makefiles exist, what people use instead, which flavour of make you are runn
 Run an exercise with:
 
 ```sh
-./makeling run 00_getting_started/01_first_rule
+./makefiling run 00_getting_started/01_first_rule
 ```
 
 | Exercise | Objective | Tutorial section |

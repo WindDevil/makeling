@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/13_the_stem_variable
+# makefiling exercise: 03_variables/13_the_stem_variable
 # title: $* is the stem
 # objective: Print $* for a target that ends in a known suffix and for one that does not.
 # reference: Automatic Variables

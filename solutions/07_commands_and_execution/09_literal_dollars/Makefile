@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/09_literal_dollars
+# makefiling exercise: 07_commands_and_execution/09_literal_dollars
 # title: Dollars that must survive into the shell
 # objective: Print a literal dollar sign, a command substitution and a loop variable by doubling the dollars make would otherwise eat.
 # reference: Double dollar sign

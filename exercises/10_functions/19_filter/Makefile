@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/19_filter
+# makefiling exercise: 10_functions/19_filter
 # title: Selecting words with $(filter)
 # objective: Keep only the .o files from obj_files, then keep the .o and .result files, then keep every C source and header.
 # reference: The filter function

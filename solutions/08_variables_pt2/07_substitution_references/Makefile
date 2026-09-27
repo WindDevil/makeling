@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/07_substitution_references
+# makefiling exercise: 08_variables_pt2/07_substitution_references
 # title: Substitution references
 # objective: Turn a list of object files into the matching source files with the suffix shorthand and with the explicit pattern form.
 # reference: Flavors and modification

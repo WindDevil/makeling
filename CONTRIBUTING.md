@@ -1,6 +1,6 @@
 # Contributing
 
-感谢你愿意改进 `makeling`。这个项目的核心原则是：
+感谢你愿意改进 `makefiling`。这个项目的核心原则是：
 
 1. 练习必须能用系统自带的 `make` 独立运行，不依赖第三方工具。
 2. 初始状态必须失败；参考答案必须通过。
@@ -39,8 +39,8 @@ target: prereq
 
 ```sh
 python3 tools/generate_exercises.py
-./makeling verify
-./makeling selftest
+./makefiling verify
+./makefiling selftest
 python3 tools/generate_exercises.py --check
 make check-tracked
 ```
@@ -70,7 +70,7 @@ Python 会把它变成真正的 TAB。Makefile 里需要的字面反斜杠要写
 
 `breaks` 是 `(正确片段, 初始片段)` 的列表，生成器把它们依次应用在正确
 内容上，得到学习者看到的初始版本。至少要有一次替换，而且替换之后必须
-让**至少一个**检查步骤失败——`./makeling selftest` 会强制检查这一点。
+让**至少一个**检查步骤失败——`./makefiling selftest` 会强制检查这一点。
 
 要改辅助文件（例如子目录里的 Makefile、C 源码）时用 `file_breaks`：
 
@@ -148,8 +148,8 @@ print(bad)"
 
 ```sh
 python3 tools/generate_exercises.py --topic 03_variables
-./makeling verify   --topic 03_variables
-./makeling selftest --topic 03_variables
+./makefiling verify   --topic 03_variables
+./makefiling selftest --topic 03_variables
 ```
 
 `--topic` 只会导入对应的那一个规格文件，因此多个专题可以并行编写。

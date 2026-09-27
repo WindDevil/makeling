@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/20_filter_out
+# makefiling exercise: 10_functions/20_filter_out
 # title: Removing words with $(filter-out)
 # objective: Drop the headers from files, drop everything starting with test from objects, and nest the two ideas to keep only the objects that are left.
 # reference: The filter function

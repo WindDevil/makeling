@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/13_delete_on_error
+# makefiling exercise: 11_other_features/13_delete_on_error
 # title: Delete the target of a failed rule
 # objective: Switch on DELETE_ON_ERROR so that a rule which fails halfway leaves no half written target behind.
 # reference: .delete_on_error

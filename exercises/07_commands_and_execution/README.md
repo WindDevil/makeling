@@ -7,7 +7,7 @@ How make prints and runs recipes: echoing and silencing, the shell it uses, ``$$
 Run an exercise with:
 
 ```sh
-./makeling run 07_commands_and_execution/01_silencing_one_line
+./makefiling run 07_commands_and_execution/01_silencing_one_line
 ```
 
 | Exercise | Objective | Tutorial section |

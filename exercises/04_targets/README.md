@@ -7,7 +7,7 @@ Targets as file names, the conventional ``all`` target, and rules that build mor
 Run an exercise with:
 
 ```sh
-./makeling run 04_targets/01_target_is_a_name
+./makefiling run 04_targets/01_target_is_a_name
 ```
 
 | Exercise | Objective | Tutorial section |

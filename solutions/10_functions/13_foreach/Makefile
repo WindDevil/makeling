@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/13_foreach
+# makefiling exercise: 10_functions/13_foreach
 # title: Looping with $(foreach)
 # objective: Append an exclamation mark to each word of who are you, producing who! are! you!
 # reference: The foreach function

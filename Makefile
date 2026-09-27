@@ -1,35 +1,38 @@
-# makeling - a Makefile tutorial you can run.
+# makefiling - a Makefile tutorial you can run.
 #
 # This Makefile is itself part of the teaching material, so it follows the
 # advice the tutorial gives: one variable per tool, .PHONY for every target
 # that is not a file, and a self-documenting help target.
 
 PYTHON   ?= python3
-MAKELING ?= ./makeling
+MAKEFILING ?= ./makefiling
 
 .DEFAULT_GOAL := help
 
-.PHONY: help list run next verify selftest generate check-generated check-tracked doctor clean format lint
+.PHONY: help start list run next verify selftest generate check-generated check-tracked doctor clean format lint test
 
 help: ## Show this help
-	@printf '%s\n' 'makeling targets:'
+	@printf '%s\n' 'makefiling targets:'
 	@grep -hE '^[a-zA-Z0-9_-]+:.*?## ' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  make %-17s %s\n", $$1, $$2}'
 
 list: ## List every exercise and its progress
-	$(MAKELING) list
+	$(MAKEFILING) list
+
+start: ## Start the guided beginner route
+	$(MAKEFILING) start
 
 run: ## Run the next unsolved exercise
-	$(MAKELING) run
+	$(MAKEFILING) run
 
 next: ## Show the next unsolved exercise
-	$(MAKELING) next
+	$(MAKEFILING) next
 
 verify: ## Run every solution against its checks
-	$(MAKELING) verify
+	$(MAKEFILING) verify
 
-selftest: ## Check that every exercise starts unsolved and every solution passes
-	$(MAKELING) selftest
+selftest: ## Check original templates fail and every solution passes
+	$(MAKEFILING) selftest
 
 generate: ## Regenerate exercises from tools/specs_*.py
 	$(PYTHON) tools/generate_exercises.py
@@ -38,7 +41,7 @@ check-generated: ## Fail if the generated files are stale
 	$(PYTHON) tools/generate_exercises.py --check
 
 doctor: ## Print the detected toolchain
-	$(MAKELING) doctor
+	$(MAKEFILING) doctor
 
 check-tracked: ## Fail if an exercise file would be missing from a clone
 	@ignored=$$(git ls-files --others --ignored --exclude-standard \
@@ -58,7 +61,7 @@ check-tracked: ## Fail if an exercise file would be missing from a clone
 	echo 'every file under exercises/, solutions/ and templates/ is committed'
 
 clean: ## Remove staged working copies
-	$(MAKELING) clean
+	$(MAKEFILING) clean
 
 format: ## Run clang-format over the C files, if it is installed
 	@if command -v clang-format >/dev/null 2>&1; then \
@@ -69,7 +72,10 @@ format: ## Run clang-format over the C files, if it is installed
 	fi
 
 lint: ## Byte-compile the tooling and validate every checks.json
-	$(PYTHON) -m compileall -q tools $(MAKELING)
+	$(PYTHON) -m compileall -q tools $(MAKEFILING)
 	@find . -name checks.json -not -path './build/*' -print0 \
 		| xargs -0 -n1 $(PYTHON) -m json.tool > /dev/null
 	@echo 'tooling compiles and every checks.json parses'
+
+test: ## Run focused CLI regression tests
+	$(PYTHON) -m unittest discover -s tests -v

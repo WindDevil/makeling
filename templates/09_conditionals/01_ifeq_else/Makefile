@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/01_ifeq_else
+# makefiling exercise: 09_conditionals/01_ifeq_else
 # title: Pick a recipe line with ifeq/else
 # objective: Branch on the value of foo so that make prints the matching message for both the file's value and an override on the command line.
 # reference: Conditional if/else

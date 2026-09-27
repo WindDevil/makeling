@@ -97,5 +97,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 4,
+    "goal": "用前置条件表达“源文件变化后需要重建”。",
+    "prediction": "只修改 blah.c 后，make 会不会再次执行 cc？",
+    "hints": [
+      "在目标名后面的冒号右侧列出它依赖的文件。",
+      "blah 应该依赖 blah.c。",
+      "make 比较目标和前置条件的修改时间。"
+    ],
+    "explanation": "目标不存在，或任一前置条件比目标更新时，make 才执行 recipe。"
+  }
 }

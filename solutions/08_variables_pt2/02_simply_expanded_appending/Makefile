@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/02_simply_expanded_appending
+# makefiling exercise: 08_variables_pt2/02_simply_expanded_appending
 # title: A variable cannot be extended from itself with =
 # objective: Extend one variable with its own old value plus a suffix, so that make prints the combined value instead of refusing to run.
 # reference: Flavors and modification

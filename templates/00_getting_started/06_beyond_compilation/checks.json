@@ -65,5 +65,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 6,
+    "goal": "把 make 看成依赖图执行器，而不只是编译器包装器。",
+    "prediction": "make report 时，summary.txt 和 report 的顺序是什么？",
+    "hints": [
+      "report 的 recipe 会读取 summary.txt，所以 report 应依赖它。",
+      "summary.txt 又依赖 names.txt。",
+      "把依赖关系写在冒号右侧，recipe 只负责动作。"
+    ],
+    "explanation": "make 先递归构建前置条件，再执行目标 recipe；任何命令都可以成为 recipe。"
+  }
 }

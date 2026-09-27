@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/09_multiline_recipe
+# makefiling exercise: 11_other_features/09_multiline_recipe
 # title: A recipe line that continues
 # objective: Break one long shell command over two lines with a backslash so that the shell still receives it as a single command.
 # reference: Multiline

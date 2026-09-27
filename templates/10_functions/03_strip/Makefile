@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/03_strip
+# makefiling exercise: 10_functions/03_strip
 # title: Cleaning up whitespace with $(strip)
 # objective: Normalise the messy variable into a b c: no leading, trailing or repeated whitespace left.
 # reference: First Functions

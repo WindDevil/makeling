@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/09_all_and_clean
+# makefiling exercise: 04_targets/09_all_and_clean
 # title: all first, clean last
 # objective: Keep all as the first rule and clean at the bottom, so that a bare make builds and make all clean builds then removes.
 # reference: The all target

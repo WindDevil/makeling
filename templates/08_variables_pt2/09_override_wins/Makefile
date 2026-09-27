@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/09_override_wins
+# makefiling exercise: 08_variables_pt2/09_override_wins
 # title: override beats the command line
 # objective: Force one variable to keep the Makefile's own value no matter what the command line says, while the variable next to it is still replaceable.
 # reference: Command line arguments and override

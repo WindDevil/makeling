@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/15_single_colon_warning
+# makefiling exercise: 06_fancy_rules/15_single_colon_warning
 # title: What a single colon does instead
 # objective: Repeat the target with single colons and confirm what make says: it warns and keeps only the last recipe.
 # reference: Double-Colon Rules

@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/02_parens_or_braces
+# makefiling exercise: 03_variables/02_parens_or_braces
 # title: $(x) and ${x} mean the same thing
 # objective: Expand the same variable three ways: with parentheses, with braces, and with the bare $x form.
 # reference: Variables

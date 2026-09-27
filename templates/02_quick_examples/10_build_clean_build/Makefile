@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/10_build_clean_build
+# makefiling exercise: 02_quick_examples/10_build_clean_build
 # title: Build, clean, build again
 # objective: Complete the Makefile with a clean target that removes everything make created, so the same three recipes can run from scratch again.
 # reference: Make clean

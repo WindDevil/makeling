@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/01_find_sources
+# makefiling exercise: 12_cookbook/01_find_sources
 # title: Discovering the sources with find
 # objective: Let make collect every C and C++ file under ./src with $(shell find ...), leaving the patterns quoted.
 # reference: Makefile Cookbook

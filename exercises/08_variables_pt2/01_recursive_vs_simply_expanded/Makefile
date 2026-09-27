@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/01_recursive_vs_simply_expanded
+# makefiling exercise: 08_variables_pt2/01_recursive_vs_simply_expanded
 # title: Recursive and simply expanded variables
 # objective: Assign one variable from another before that other variable exists, then define it: = picks up the new value, := keeps the one it saw at assignment time.
 # reference: Flavors and modification

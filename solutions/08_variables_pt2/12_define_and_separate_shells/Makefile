@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/12_define_and_separate_shells
+# makefiling exercise: 08_variables_pt2/12_define_and_separate_shells
 # title: Each line of a command list is its own shell
 # objective: Keep a one-line variable that exports and prints in a single shell, and a define block that exports and prints in two, and show which one actually prints the value.
 # reference: List of commands and define

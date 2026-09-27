@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/21_command_line_variables
+# makefiling exercise: 07_commands_and_execution/21_command_line_variables
 # title: Variables on the command line, and several goals
 # objective: Give MODE a default in the Makefile, override it with make MODE=..., and ask for several goals in one run.
 # reference: Arguments to make

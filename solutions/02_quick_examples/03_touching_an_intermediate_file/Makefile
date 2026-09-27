@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/03_touching_an_intermediate_file
+# makefiling exercise: 02_quick_examples/03_touching_an_intermediate_file
 # title: Touching an intermediate file rebuilds part of the chain
 # objective: Give blah.o its blah.c prerequisite so that touching either file rebuilds exactly as much as it has to.
 # reference: More quick examples

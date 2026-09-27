@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/18_exported_variables
+# makefiling exercise: 07_commands_and_execution/18_exported_variables
 # title: Only exported variables reach the shell
 # objective: Print a make variable and a shell variable side by side, and show that environment variables are make variables from the start.
 # reference: Export, environments, and recursive make

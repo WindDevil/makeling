@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/14_foreach_paths
+# makefiling exercise: 10_functions/14_foreach_paths
 # title: Building a list of paths with $(foreach)
 # objective: Map the module names auth cart order to build/auth.o build/cart.o build/order.o using a single foreach.
 # reference: The foreach function

@@ -79,5 +79,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 7,
+    "goal": "拆开一条规则的目标、前置条件和 recipe。",
+    "prediction": "make report.txt 会先检查 notes.txt，还是直接运行两条命令？",
+    "hints": [
+      "规则头的形式是 target: prerequisites。",
+      "两条 recipe 可以连续写在同一个目标下面。",
+      "第二条命令也必须以 TAB 开头。"
+    ],
+    "explanation": "目标行描述依赖关系，缩进的每一行才属于 recipe。"
+  }
 }

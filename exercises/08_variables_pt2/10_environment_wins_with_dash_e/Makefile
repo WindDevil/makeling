@@ -1,4 +1,4 @@
-# makeling exercise: 08_variables_pt2/10_environment_wins_with_dash_e
+# makefiling exercise: 08_variables_pt2/10_environment_wins_with_dash_e
 # title: make -e lets the environment win
 # objective: Keep the Makefile's value in charge by default, let the environment take over when make runs with -e, and check that even then the command line still wins.
 # reference: Command line arguments and override

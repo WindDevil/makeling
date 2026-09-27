@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/10_empty_means_stripped
+# makefiling exercise: 09_conditionals/10_empty_means_stripped
 # title: Check whether a variable is empty
 # objective: Use the $(strip) idiom to recognise that foo holds only a space, and still detect a variable that was never given a value.
 # reference: Check if a variable is empty

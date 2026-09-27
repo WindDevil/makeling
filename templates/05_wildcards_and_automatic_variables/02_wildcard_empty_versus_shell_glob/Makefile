@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/02_wildcard_empty_versus_shell_glob
+# makefiling exercise: 05_wildcards_and_automatic_variables/02_wildcard_empty_versus_shell_glob
 # title: $(wildcard) is empty when nothing matches
 # objective: Show that $(wildcard *.dat) expands to nothing while a shell that globs *.dat in a recipe leaves the pattern as it is.
 # reference: * Wildcard

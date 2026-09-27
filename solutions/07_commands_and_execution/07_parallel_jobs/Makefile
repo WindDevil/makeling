@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/07_parallel_jobs
+# makefiling exercise: 07_commands_and_execution/07_parallel_jobs
 # title: make -j runs the goals as parallel jobs
 # objective: Ask make for two jobs at once with -j2 and read the flags it hands to the recipe: the -j2 and the jobserver behind it.
 # reference: Arguments to make

@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/02_delete_a_source_reruns_everything
+# makefiling exercise: 02_quick_examples/02_delete_a_source_reruns_everything
 # title: Deleting a source re-runs the whole chain
 # objective: Keep the three rules in place, then watch what happens when the generated blah.c is deleted: every recipe runs again.
 # reference: More quick examples

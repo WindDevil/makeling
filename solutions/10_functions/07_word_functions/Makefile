@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/07_word_functions
+# makefiling exercise: 10_functions/07_word_functions
 # title: Counting and picking words
 # objective: Report how many words names holds, then pick out its first, last, second and middle words.
 # reference: First Functions

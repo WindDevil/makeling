@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/12_target_directory_and_file
+# makefiling exercise: 03_variables/12_target_directory_and_file
 # title: $(@D) and $(@F)
 # objective: Build a file inside a directory that does not exist yet, using $(@D) for the directory and $(@F) for the file name.
 # reference: Automatic Variables

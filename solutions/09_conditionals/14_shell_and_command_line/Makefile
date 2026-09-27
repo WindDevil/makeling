@@ -1,4 +1,4 @@
-# makeling exercise: 09_conditionals/14_shell_and_command_line
+# makefiling exercise: 09_conditionals/14_shell_and_command_line
 # title: A conditional fed by $(shell)
 # objective: Probe the filesystem with $(shell) and pick the value with ifeq, letting the probed file name come from the command line.
 # reference: Conditional if/else

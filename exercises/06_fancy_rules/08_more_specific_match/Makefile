@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/08_more_specific_match
+# makefiling exercise: 06_fancy_rules/08_more_specific_match
 # title: explicit rules win over pattern rules
 # objective: Keep the explicit rule for all.c so that it is written by hand, while the %.c pattern rule touches an empty file for the rest.
 # reference: Static Pattern Rules

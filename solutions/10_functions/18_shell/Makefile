@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/18_shell
+# makefiling exercise: 10_functions/18_shell
 # title: $(shell) runs at expansion time
 # objective: Make snapshot capture the value of who as it is when the variable is defined, so it stays first even though who becomes second afterwards.
 # reference: The shell function

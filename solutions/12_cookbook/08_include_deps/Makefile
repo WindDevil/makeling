@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/08_include_deps
+# makefiling exercise: 12_cookbook/08_include_deps
 # title: -include the generated dependency files
 # objective: Pull the .d files into the Makefile with -include, so that touching a header recompiles only the objects that include it.
 # reference: Makefile Cookbook

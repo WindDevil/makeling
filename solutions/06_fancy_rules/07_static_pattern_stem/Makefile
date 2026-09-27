@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/07_static_pattern_stem
+# makefiling exercise: 06_fancy_rules/07_static_pattern_stem
 # title: The stem goes into the prerequisite pattern
 # objective: Turn a list of .txt files into .raw ones with a static pattern rule, and print the stem that %.txt matched.
 # reference: Static Pattern Rules

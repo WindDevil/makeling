@@ -71,5 +71,16 @@
         "three"
       ]
     }
-  ]
+  ],
+  "lesson": {
+    "order": 20,
+    "goal": "用 all 作为一个聚合目标。",
+    "prediction": "裸 make 时，all 的三个前置条件会不会全部构建？",
+    "hints": [
+      "all 是普通目标，只是约定俗成的总入口。",
+      "把 one、two、three 都列为 all 的前置条件。",
+      "让 all 成为文件中的第一个目标。"
+    ],
+    "explanation": "all 本身可以没有 recipe；它通过前置条件聚合多个独立目标。"
+  }
 }

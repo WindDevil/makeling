@@ -1,4 +1,4 @@
-# makeling exercise: 11_other_features/04_include_generated
+# makefiling exercise: 11_other_features/04_include_generated
 # title: Make rebuilds a makefile it includes
 # objective: Give make a rule for version.mk and include it, so the version file is generated on the first run and reread.
 # reference: Include Makefiles

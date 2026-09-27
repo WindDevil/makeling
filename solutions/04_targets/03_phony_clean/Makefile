@@ -1,4 +1,4 @@
-# makeling exercise: 04_targets/03_phony_clean
+# makefiling exercise: 04_targets/03_phony_clean
 # title: A file that shadows clean
 # objective: Declare clean phony so that the stray file called clean does not make make skip the recipe.
 # reference: Make clean

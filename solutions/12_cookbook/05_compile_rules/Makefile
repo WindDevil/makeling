@@ -1,4 +1,4 @@
-# makeling exercise: 12_cookbook/05_compile_rules
+# makefiling exercise: 12_cookbook/05_compile_rules
 # title: The compile rules for C and C++
 # objective: Write the two pattern rules that compile every source into $(BUILD_DIR), creating the object's directory first.
 # reference: Makefile Cookbook

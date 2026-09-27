@@ -1,4 +1,4 @@
-# makeling exercise: 07_commands_and_execution/05_the_default_shell_is_sh
+# makefiling exercise: 07_commands_and_execution/05_the_default_shell_is_sh
 # title: The shell is the SHELL variable
 # objective: Look at which program runs your recipe lines, and change it by giving make a different SHELL.
 # reference: Default Shell

@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/04_findstring
+# makefiling exercise: 10_functions/04_findstring
 # title: Looking for a substring with $(findstring)
 # objective: Ask whether the haystack contains the word quick, and whether it contains the word slow.
 # reference: First Functions

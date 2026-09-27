@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/03_star_in_a_variable_stays_literal
+# makefiling exercise: 05_wildcards_and_automatic_variables/03_star_in_a_variable_stays_literal
 # title: A bare * in a variable is not a wildcard
 # objective: Contrast thing_wrong := *.o with thing_right := $(wildcard *.o) and observe what make does with each one as a prerequisite.
 # reference: * Wildcard

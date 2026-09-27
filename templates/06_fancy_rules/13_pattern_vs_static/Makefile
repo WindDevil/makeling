@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/13_pattern_vs_static
+# makefiling exercise: 06_fancy_rules/13_pattern_vs_static
 # title: Pattern rules cover targets you never listed
 # objective: Replace the two hand-listed targets with a pattern rule, so that extra.out is built as well even though no rule names it.
 # reference: Pattern Rules

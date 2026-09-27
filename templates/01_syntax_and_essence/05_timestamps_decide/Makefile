@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/05_timestamps_decide
+# makefiling exercise: 01_syntax_and_essence/05_timestamps_decide
 # title: Timestamps decide whether to rebuild
 # objective: Give blah a prerequisite so that touching blah.c rebuilds it, while an older blah.c is ignored.
 # reference: The essence of Make

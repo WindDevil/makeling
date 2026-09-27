@@ -1,4 +1,4 @@
-# makeling exercise: 03_variables/10_only_the_newer_prerequisites
+# makefiling exercise: 03_variables/10_only_the_newer_prerequisites
 # title: $? lists only what is out of date
 # objective: Make one of two prerequisites newer than the target and watch $? shrink while $^ stays the same.
 # reference: Automatic Variables

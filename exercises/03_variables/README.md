@@ -7,7 +7,7 @@ Assigning to variables, expanding them in targets and recipes, the quoting rules
 Run an exercise with:
 
 ```sh
-./makeling run 03_variables/01_a_list_in_a_variable
+./makefiling run 03_variables/01_a_list_in_a_variable
 ```
 
 | Exercise | Objective | Tutorial section |

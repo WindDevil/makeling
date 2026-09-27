@@ -1,4 +1,4 @@
-# makeling exercise: 02_quick_examples/05_several_goals_on_one_line
+# makefiling exercise: 02_quick_examples/05_several_goals_on_one_line
 # title: Several goals on one command line
 # objective: Ask make for two targets at once and see that it builds them left to right, while a bare make still builds only the first.
 # reference: More quick examples

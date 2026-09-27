@@ -68,5 +68,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 16,
+    "goal": "完整体验 build → clean → build。",
+    "prediction": "清理后再次构建，哪些 recipe 会重新执行？",
+    "hints": [
+      "clean 必须删除这组练习创建的所有产物。",
+      "先构建一次，再清理，再观察第三次。",
+      "如果有文件残留，make 会把它当作已有目标。"
+    ],
+    "explanation": "clean 删除目标后，下一次 make 会重新走完整依赖链。"
+  }
 }

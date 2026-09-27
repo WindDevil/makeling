@@ -1,4 +1,4 @@
-# makeling exercise: 05_wildcards_and_automatic_variables/08_dollar_at_and_dollar_less
+# makefiling exercise: 05_wildcards_and_automatic_variables/08_dollar_at_and_dollar_less
 # title: $@ is the target, $< is the first prerequisite
 # objective: Copy the first prerequisite onto the target while printing both $@ and $< from the recipe.
 # reference: Automatic Variables

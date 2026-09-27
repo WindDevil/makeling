@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/06_every_prerequisite_counts
+# makefiling exercise: 01_syntax_and_essence/06_every_prerequisite_counts
 # title: Every prerequisite is checked
 # objective: Declare both parts as prerequisites of combined.txt so that touching either one rebuilds it.
 # reference: The essence of Make

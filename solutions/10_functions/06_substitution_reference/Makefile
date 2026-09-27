@@ -1,4 +1,4 @@
-# makeling exercise: 10_functions/06_substitution_reference
+# makefiling exercise: 10_functions/06_substitution_reference
 # title: The $(text:pattern=replacement) shorthand
 # objective: Express the same rewrite twice: once with the % shorthand and once with the suffix-only shorthand.
 # reference: String Substitution

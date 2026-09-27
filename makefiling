@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""makeling: a small, dependency-free runner for the makeling exercises.
+"""makefiling: a small, dependency-free runner for the makefiling exercises.
 
 The runner uses only the Python standard library.  Each exercise is a directory
 holding a ``Makefile`` and a ``checks.json`` contract.  To run one, the runner
-copies the directory into ``build/makeling/`` and replays the contract's steps
+copies the directory into ``build/makefiling/`` and replays the contract's steps
 there, comparing what ``make`` printed, what it exited with, and which files it
 left behind.
 
@@ -15,6 +15,8 @@ then rebuild and observe that nothing happens) sees a clean slate every time.
 from __future__ import annotations
 
 import argparse
+import difflib
+import fcntl
 import json
 import os
 import platform
@@ -23,6 +25,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -31,8 +34,8 @@ ROOT = Path(__file__).resolve().parent
 EXERCISES_DIR = ROOT / "exercises"
 SOLUTIONS_DIR = ROOT / "solutions"
 TEMPLATES_DIR = ROOT / "templates"
-BUILD_DIR = ROOT / "build" / "makeling"
-PROGRESS_FILE = ROOT / ".makeling" / "progress.json"
+BUILD_DIR = ROOT / "build" / "makefiling"
+PROGRESS_FILE = ROOT / ".makefiling" / "progress.json"
 
 STEP_TIMEOUT = 30.0
 
@@ -86,6 +89,7 @@ class Exercise:
     reference: str
     hint: str
     steps: list[Step]
+    lesson: dict = field(default_factory=dict)
 
     @property
     def ident(self) -> str:
@@ -99,14 +103,17 @@ class Exercise:
     def template_root(self) -> Path:
         return TEMPLATES_DIR / self.topic / self.slug
 
-    def mtime_ns(self) -> int | None:
-        newest: int | None = None
+    def fingerprint(self) -> tuple:
+        """Detect edits, additions and deletions, including older auxiliary files."""
+        files = []
         for path in self.path.rglob("*"):
-            if not path.is_file():
-                continue
-            value = path.stat().st_mtime_ns
-            newest = value if newest is None else max(newest, value)
-        return newest
+            try:
+                if path.is_file():
+                    stat = path.stat()
+                    files.append((str(path.relative_to(self.path)), stat.st_mtime_ns, stat.st_size))
+            except FileNotFoundError:
+                continue  # Editors may replace files atomically during a scan.
+        return tuple(sorted(files))
 
 
 # --------------------------------------------------------------------------
@@ -165,14 +172,16 @@ def load_exercise(directory: Path) -> Exercise | None:
         reference=data.get("reference", ""),
         hint=data.get("hint", "No hint available."),
         steps=steps,
+        lesson=data.get("lesson", {}),
     )
 
 
-def discover() -> list[Exercise]:
+def discover(root: Path | None = None) -> list[Exercise]:
+    root = EXERCISES_DIR if root is None else root
     exercises: list[Exercise] = []
-    if not EXERCISES_DIR.is_dir():
+    if not root.is_dir():
         return exercises
-    for directory in sorted(path for path in EXERCISES_DIR.glob("*/*") if path.is_dir()):
+    for directory in sorted(path for path in root.glob("*/*") if path.is_dir()):
         exercise = load_exercise(directory)
         if exercise is not None:
             exercises.append(exercise)
@@ -192,10 +201,40 @@ def load_progress() -> set[str]:
 
 def save_progress(completed: set[str]) -> None:
     PROGRESS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    PROGRESS_FILE.write_text(
-        json.dumps({"completed": sorted(completed)}, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8",
+                                     dir=PROGRESS_FILE.parent, delete=False) as output:
+        temporary = Path(output.name)
+        try:
+            output.write(json.dumps({"completed": sorted(completed)}, indent=2) + "\n")
+            output.close()
+            temporary.replace(PROGRESS_FILE)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+
+def record_result(exercise: Exercise, passed: bool) -> None:
+    """Serialize read/modify/write so concurrent runs cannot lose progress."""
+    PROGRESS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with (PROGRESS_FILE.parent / "progress.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        completed = load_progress()
+        if passed:
+            completed.add(exercise.ident)
+        else:
+            completed.discard(exercise.ident)
+        save_progress(completed)
+
+
+def filter_exercises(exercises: list[Exercise], topic: str | None = None,
+                     basic: bool = False) -> list[Exercise]:
+    if basic:
+        exercises = sorted((e for e in exercises if e.lesson),
+                           key=lambda e: e.lesson["order"])
+    if topic:
+        exercises = [e for e in exercises if e.topic.startswith(topic)]
+    if not exercises:
+        print(red(f"no exercises found for topic: {topic}" if topic else "no exercises found"))
+    return exercises
 
 
 def select(exercises: list[Exercise], needle: str) -> Exercise | None:
@@ -217,6 +256,9 @@ def select(exercises: list[Exercise], needle: str) -> Exercise | None:
             print(f"  {exercise.ident}")
     else:
         print(red(f"unknown exercise: {needle}"))
+        suggestions = difflib.get_close_matches(needle, [e.ident for e in exercises], n=3, cutoff=0.35)
+        if suggestions:
+            print("Did you mean:\n  " + "\n  ".join(suggestions))
     return None
 
 
@@ -265,14 +307,16 @@ def compare(actual_text: str, expected: str, mode: str, stage: Path) -> bool:
     raise ValueError(f"unknown match mode: {mode}")
 
 
-def show(label: str, text: str, expected: str | None = None) -> list[str]:
+def show(label: str, text: str, expected: str | None = None,
+         stage: Path | None = None) -> list[str]:
+    normalisation_stage = stage or Path("/nonexistent")
     lines = [f"    {label}:"]
     body = text if text.strip() else "(empty)"
-    for line in normalise(body, Path("/nonexistent")).splitlines() or [""]:
+    for line in normalise(body, normalisation_stage).splitlines() or [""]:
         lines.append(f"      | {line}")
     if expected is not None:
         lines.append(f"    expected ({label}):")
-        for line in normalise(expected, Path("/nonexistent")).splitlines() or [""]:
+        for line in normalise(expected, normalisation_stage).splitlines() or [""]:
             lines.append(f"      | {line}")
     return lines
 
@@ -307,11 +351,18 @@ def age_staged_files(stage: Path) -> None:
             os.utime(path, (stamp, stamp))
 
 
-def run_step(step: Step, stage: Path) -> list[str]:
+def run_step(step: Step, stage: Path, output: list[str] | None = None) -> list[str]:
     """Run one step; return a list of human-readable problems (empty = passed)."""
-    executable = shutil.which(step.args[0])
+    command = step.args[0]
+    if "/" in command:
+        candidate = Path(command)
+        if not candidate.is_absolute():
+            candidate = stage / candidate
+        executable = str(candidate) if candidate.is_file() and os.access(candidate, os.X_OK) else None
+    else:
+        executable = shutil.which(command)
     if executable is None:
-        return [f"    {step.args[0]}: command not found on PATH"]
+        return [f"    {command}: command not found or not executable"]
 
     environment = os.environ.copy()
     environment.update(BASE_ENV)
@@ -340,52 +391,81 @@ def run_step(step: Step, stage: Path) -> list[str]:
         problems.append(
             f"    exit code: got {result.returncode}, want {step.exit_code}"
         )
-    if step.stdout is not None and not compare(
+    stdout_mismatch = step.stdout is not None and not compare(
         result.stdout, step.stdout, step.stdout_mode, stage
-    ):
+    )
+    if stdout_mismatch:
         problems.append(f"    stdout did not match ({step.stdout_mode})")
-        problems.extend(show("stdout", result.stdout, step.stdout))
-    if step.stderr is not None and not compare(
+        problems.extend(show("stdout", result.stdout, step.stdout, stage))
+    stderr_mismatch = step.stderr is not None and not compare(
         result.stderr, step.stderr, step.stderr_mode, stage
-    ):
+    )
+    if stderr_mismatch:
         problems.append(f"    stderr did not match ({step.stderr_mode})")
-        problems.extend(show("stderr", result.stderr, step.stderr))
+        problems.extend(show("stderr", result.stderr, step.stderr, stage))
 
     for name, content in step.files.items():
         target = stage / name
         if not target.exists():
             problems.append(f"    missing file: {name}")
             continue
+        if not target.is_file():
+            problems.append(f"    expected a file, found a directory: {name}")
+            continue
         actual = target.read_text(encoding="utf-8", errors="replace")
         if not compare(actual, content, "exact", stage):
             problems.append(f"    file {name} has unexpected contents")
-            problems.extend(show(f"{name}", actual, content))
+            problems.extend(show(f"{name}", actual, content, stage))
 
     for name in step.missing:
         if (stage / name).exists():
             problems.append(f"    file should not exist: {name}")
 
+    # Unasserted stderr still contains the most useful diagnostic on failure.
+    if problems:
+        if result.stdout and not stdout_mismatch:
+            problems.extend(show("stdout", result.stdout, stage=stage))
+        if result.stderr and not stderr_mismatch:
+            problems.extend(show("stderr", result.stderr, stage=stage))
+        if "missing separator" in result.stderr:
+            problems.append("    提示：检查命令行开头的缩进；recipe 需要真正的 Tab，而不是空格。")
+    elif output is not None:
+        if result.stdout:
+            output.extend(show("stdout", result.stdout, stage=stage))
+        if result.stderr:
+            output.extend(show("stderr", result.stderr, stage=stage))
+
     return problems
 
 
 def run_contract(exercise: Exercise, source: Path, verbose: bool = False) -> tuple[bool, list[str], Path]:
-    stage = BUILD_DIR / exercise.topic / exercise.slug
+    parent = BUILD_DIR / exercise.topic / exercise.slug
     if not source.is_dir():
-        return False, [f"    missing tree: {source.relative_to(ROOT)}"], stage
-    stage_tree(source, stage)
+        return False, [f"    missing tree: {source.relative_to(ROOT)}"], parent
+    parent.mkdir(parents=True, exist_ok=True)
+    stage = Path(tempfile.mkdtemp(prefix="run-", dir=parent))
+    shutil.copytree(source, stage, dirs_exist_ok=True)
+    age_staged_files(stage)
 
     report: list[str] = []
     for index, step in enumerate(exercise.steps, start=1):
         label = step.description or " ".join(step.args)
-        problems = run_step(step, stage)
+        output: list[str] = []
+        problems = run_step(step, stage, output if verbose else None)
         if problems:
             report.append(f"    step {index}: {label}")
             report.extend(problems)
-            if verbose:
-                report.append(f"    working directory kept at {stage.relative_to(ROOT)}")
+            report.append(f"    working directory kept at {stage.relative_to(ROOT)}")
+            command = shlex.join(["env", *[f"{k}={v}" for k, v in {**BASE_ENV, **step.env}.items()], *step.args])
+            report.append(f"    inspect: cd {shlex.quote(str(stage))}")
+            report.append(f"    retry this step: {command}")
+            report.append("    注意：这里保留的是失败后的状态。重新运行 makefiling 可从干净副本重放全部步骤。")
             return False, report, stage
         if verbose:
             report.append(f"    step {index}: ok  {label}")
+            report.extend(output)
+    if verbose:
+        report.append(f"    working directory kept at {stage.relative_to(ROOT)}")
     return True, report, stage
 
 
@@ -403,16 +483,46 @@ def print_exercise(exercise: Exercise, completed: set[str], verbose: bool = Fals
         print(f"       reference: {exercise.reference}")
 
 
+def show_learning_task(exercise: Exercise) -> None:
+    print(f"修改文件：{exercise.path.relative_to(ROOT)}/Makefile（以及题目要求的辅助文件）")
+    if exercise.lesson:
+        print(f"目标：{exercise.lesson['goal']}")
+        print(f"先预测：{exercise.lesson['prediction']}")
+    else:
+        print(f"objective: {exercise.objective}")
+    print(f"提示：./makefiling hint {exercise.ident}")
+
+
+def show_success(exercise: Exercise, basic: bool = False) -> None:
+    if exercise.lesson:
+        print(f"理解检查：{exercise.lesson['explanation']}")
+    print("下一题：./makefiling next" + (" --basic" if basic else ""))
+
+
+def completed_message(basic: bool = False) -> None:
+    if basic:
+        print(green("基础路线已完成。请用 docs/first-project.md 的小项目检验能否独立运用。"))
+    else:
+        print(green("All exercises are complete. 用 ./makefiling run --all 复查你的解答。"))
+
+
+def command_start(args: argparse.Namespace) -> int:
+    args.basic = True
+    args.topic = None
+    args.exercise = None
+    print("欢迎来到 makefiling。先完成 20 题基础路线，再按需要学习进阶专题。")
+    print("学习方式：预测会发生什么 → 修改文件 → 观察结果 → 解释原因。")
+    print("基础模型与路线：docs/basics.md；小项目：docs/first-project.md\n")
+    return command_next(args)
+
+
 def command_list(args: argparse.Namespace) -> int:
-    exercises = discover()
+    exercises = filter_exercises(discover(), args.topic, args.basic)
     if not exercises:
-        print(red("no exercises found"))
         return 1
     completed = load_progress()
     current = None
     for exercise in exercises:
-        if args.topic and not exercise.topic.startswith(args.topic):
-            continue
         if exercise.topic != current:
             current = exercise.topic
             print(f"\n{cyan(current)}")
@@ -423,46 +533,52 @@ def command_list(args: argparse.Namespace) -> int:
 
 
 def command_next(args: argparse.Namespace) -> int:
-    exercises = discover()
+    exercises = filter_exercises(discover(), args.topic, args.basic)
+    if not exercises:
+        return 1
     exercise = resolve(exercises, args.exercise)
     if exercise is None:
-        print(green("All exercises are complete. Try `./makeling verify`."))
+        if args.exercise is not None:
+            return 1
+        completed_message(args.basic)
         return 0
     print_exercise(exercise, load_progress(), verbose=True)
+    show_learning_task(exercise)
+    print(f"运行：./makefiling run {exercise.ident}" + (" --basic" if args.basic else ""))
+    print(f"保存后自动检查：./makefiling watch {exercise.ident}" + (" --basic" if args.basic else ""))
     return 0
 
 
 def command_run(args: argparse.Namespace) -> int:
-    exercises = discover()
+    exercises = filter_exercises(discover(), args.topic, args.basic)
     if not exercises:
-        print(red("no exercises found"))
         return 1
 
     if args.all:
-        targets = [
-            exercise
-            for exercise in exercises
-            if not args.topic or exercise.topic.startswith(args.topic)
-        ]
+        targets = exercises
     else:
         exercise = resolve(exercises, args.exercise)
         if exercise is None:
-            print(green("All exercises are complete. Try `./makeling verify`."))
+            if args.exercise is not None:
+                return 1
+            completed_message(args.basic)
             return 0
         targets = [exercise]
 
-    completed = load_progress()
     failures = 0
     for exercise in targets:
         print(f"\n{cyan('running')} {exercise.ident} - {exercise.title}")
+        if not args.all:
+            show_learning_task(exercise)
         passed, report, _stage = run_contract(exercise, exercise.path, args.verbose)
+        record_result(exercise, passed)
         if passed:
-            completed.add(exercise.ident)
-            save_progress(completed)
             print(green("  passed"))
             if args.verbose:
                 for line in report:
                     print(line)
+            if not args.all:
+                show_success(exercise, args.basic)
             continue
         failures += 1
         print(red("  failed"))
@@ -479,23 +595,47 @@ def command_run(args: argparse.Namespace) -> int:
 
 
 def command_hint(args: argparse.Namespace) -> int:
-    exercise = select(discover(), args.exercise)
-    if exercise is None:
+    exercises = filter_exercises(discover(), basic=args.basic)
+    if not exercises:
         return 1
+    exercise = resolve(exercises, args.exercise)
+    if exercise is None:
+        if args.exercise is not None:
+            return 1
+        completed_message(args.basic)
+        return 0
     print(f"{cyan(exercise.ident)} - {exercise.title}")
     print(f"objective: {exercise.objective}")
     if exercise.reference:
         print(f"reference: {exercise.reference}")
-    print(f"hint: {exercise.hint}")
+    if exercise.lesson:
+        print(f"先预测：{exercise.lesson['prediction']}")
+        for index, hint in enumerate(exercise.lesson['hints'][:args.level], 1):
+            print(f"提示 {index}：{hint}")
+        if args.level < 3:
+            print(f"需要更具体的提示：./makefiling hint {exercise.ident} --level {args.level + 1}")
+    else:
+        print(f"hint: {exercise.hint}")
     if args.steps:
         print("\nchecks:")
         for index, step in enumerate(exercise.steps, start=1):
             print(f"  {index}. {step.description or ' '.join(step.args)}")
-            print(dim(f"     $ {' '.join(step.args)}"))
-            if step.stdout is not None:
-                print(dim(f"     stdout must match ({step.stdout_mode}):"))
-                for line in step.stdout.strip("\n").splitlines():
+            print(dim(f"     $ {shlex.join(step.args)}"))
+            print(f"     expected exit code: {step.exit_code}")
+            if step.env:
+                print(f"     environment: {shlex.join([f'{k}={v}' for k, v in step.env.items()])}")
+            for label, content, mode in (("stdout", step.stdout, step.stdout_mode),
+                                         ("stderr", step.stderr, step.stderr_mode)):
+                if content is not None:
+                    print(f"     {label} must match ({mode}):")
+                    for line in content.strip("\n").splitlines() or ["(empty)"]:
+                        print(dim(f"       | {line}"))
+            for name, content in step.files.items():
+                print(f"     file {name} must contain (normalized exact):")
+                for line in content.strip("\n").splitlines() or ["(empty)"]:
                     print(dim(f"       | {line}"))
+            for name in step.missing:
+                print(f"     must not exist: {name}")
     return 0
 
 
@@ -508,7 +648,9 @@ def command_solution(args: argparse.Namespace) -> int:
         return 1
     if args.apply:
         stage_tree(exercise.solution_root, exercise.path)
+        record_result(exercise, False)
         print(green(f"applied solution to {exercise.path.relative_to(ROOT)}"))
+        print(f"读懂改动后运行 ./makefiling run {exercise.ident} 验证；应用答案本身不计为通过。")
         return 0
     for path in sorted(exercise.solution_root.rglob("*")):
         if not path.is_file() or path.name == "checks.json":
@@ -526,25 +668,20 @@ def command_reset(args: argparse.Namespace) -> int:
         print(red(f"missing template: {exercise.template_root}"))
         return 1
     stage_tree(exercise.template_root, exercise.path)
-    completed = load_progress()
-    completed.discard(exercise.ident)
-    save_progress(completed)
+    record_result(exercise, False)
     print(green(f"reset {exercise.ident}"))
     return 0
 
 
 def command_verify(args: argparse.Namespace) -> int:
-    exercises = discover()
+    exercises = filter_exercises(discover(SOLUTIONS_DIR), args.topic)
     if not exercises:
-        print(red("no exercises found"))
         return 1
     if args.exercise:
         one = select(exercises, args.exercise)
         if one is None:
             return 1
         exercises = [one]
-    elif args.topic:
-        exercises = [e for e in exercises if e.topic.startswith(args.topic)]
 
     failures = 0
     for exercise in exercises:
@@ -567,10 +704,10 @@ def command_verify(args: argparse.Namespace) -> int:
 
 
 def command_selftest(args: argparse.Namespace) -> int:
-    """Check that exercises start unsolved and that solutions pass."""
-    exercises = discover()
-    if args.topic:
-        exercises = [e for e in exercises if e.topic.startswith(args.topic)]
+    """Check immutable templates and solutions, independent of learner edits."""
+    exercises = filter_exercises(discover(SOLUTIONS_DIR), args.topic)
+    if not exercises:
+        return 1
     failures = 0
     for exercise in exercises:
         solved, solution_report, _stage = run_contract(
@@ -583,11 +720,16 @@ def command_selftest(args: argparse.Namespace) -> int:
                 print(line)
             continue
 
-        passed, _report, _stage = run_contract(exercise, exercise.path)
+        if not (exercise.template_root / "checks.json").is_file():
+            failures += 1
+            print(f"{red('FAIL')} missing template {exercise.ident}")
+            continue
+        passed, _report, stage = run_contract(exercise, exercise.template_root)
         if passed:
             failures += 1
-            print(f"{red('FAIL')} exercise {exercise.ident} already passes")
+            print(f"{red('FAIL')} template {exercise.ident} already passes")
             continue
+        shutil.rmtree(stage)  # This failure is expected; no diagnostic tree needed.
         print(f"{green('ok')}   {exercise.ident}")
 
     if failures:
@@ -616,20 +758,36 @@ def command_doctor(args: argparse.Namespace) -> int:
 
 
 def command_watch(args: argparse.Namespace) -> int:
-    exercise = resolve(discover(), args.exercise)
-    if exercise is None:
+    exercises = filter_exercises(discover(), args.topic, args.basic)
+    if not exercises:
         return 1
+    exercise = resolve(exercises, args.exercise)
+    if exercise is None:
+        if args.exercise is not None:
+            return 1
+        completed_message(args.basic)
+        return 0
     print(f"watching {exercise.ident}; press Ctrl-C to stop")
+    show_learning_task(exercise)
     last = None
     while True:
-        mtime = exercise.mtime_ns()
-        if mtime != last:
-            last = mtime
+        fingerprint = exercise.fingerprint()
+        if fingerprint != last:
+            last = fingerprint
+            refreshed = load_exercise(exercise.path)
+            if refreshed is None:
+                record_result(exercise, False)
+                time.sleep(0.5)
+                continue
+            exercise = refreshed
             print(f"\n{cyan('running')} {exercise.ident}")
             passed, report, _stage = run_contract(exercise, exercise.path, True)
+            record_result(exercise, passed)
             print(green("passed") if passed else red("failed"))
             for line in report:
                 print(line)
+            if passed:
+                show_success(exercise, args.basic)
         time.sleep(0.5)
 
 
@@ -659,31 +817,42 @@ def command_generate(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="makeling",
-        description="Run and verify the makeling Makefile exercises.",
+        prog="makefiling",
+        description="Run and verify the makefiling Makefile exercises.",
     )
     subparsers = parser.add_subparsers(dest="command")
+
+    start = subparsers.add_parser("start", help="start the guided beginner path")
+    start.set_defaults(func=command_start)
 
     listing = subparsers.add_parser("list", help="list every exercise")
     listing.add_argument("--topic", help="only show topics starting with this")
     listing.add_argument("--verbose", action="store_true")
+    listing.add_argument("--basic", action="store_true", help="follow the 20-lesson beginner path")
     listing.set_defaults(func=command_list)
 
     nxt = subparsers.add_parser("next", help="show the next unsolved exercise")
     nxt.add_argument("exercise", nargs="?")
+    nxt.add_argument("--topic")
+    nxt.add_argument("--basic", action="store_true")
     nxt.set_defaults(func=command_next)
 
     run = subparsers.add_parser("run", help="run an exercise against its checks")
-    run.add_argument("exercise", nargs="?")
-    run.add_argument("--all", action="store_true", help="run every exercise")
-    run.add_argument("--topic", help="with --all, restrict to one topic")
+    selection = run.add_mutually_exclusive_group()
+    selection.add_argument("exercise", nargs="?")
+    selection.add_argument("--all", action="store_true", help="run every exercise")
+    run.add_argument("--topic", help="restrict to one topic")
+    run.add_argument("--basic", action="store_true")
     run.add_argument("--continue", dest="continue_on_error", action="store_true",
                      help="keep going after a failure")
     run.add_argument("--verbose", action="store_true")
     run.set_defaults(func=command_run)
 
     hint = subparsers.add_parser("hint", help="show the objective and a hint")
-    hint.add_argument("exercise")
+    hint.add_argument("exercise", nargs="?")
+    hint.add_argument("--basic", action="store_true")
+    hint.add_argument("--level", type=int, choices=(1, 2, 3), default=1,
+                      help="progressively reveal beginner hints")
     hint.add_argument("--steps", action="store_true", help="also show the checks")
     hint.set_defaults(func=command_hint)
 
@@ -704,7 +873,7 @@ def build_parser() -> argparse.ArgumentParser:
     verify.set_defaults(func=command_verify)
 
     selftest = subparsers.add_parser(
-        "selftest", help="check that exercises start unsolved and solutions pass"
+        "selftest", help="check original templates fail and solutions pass"
     )
     selftest.add_argument("--topic")
     selftest.set_defaults(func=command_selftest)
@@ -714,6 +883,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     watch = subparsers.add_parser("watch", help="re-run an exercise on change")
     watch.add_argument("exercise", nargs="?")
+    watch.add_argument("--topic")
+    watch.add_argument("--basic", action="store_true")
     watch.set_defaults(func=command_watch)
 
     clean = subparsers.add_parser("clean", help="remove staged working copies")
@@ -736,6 +907,10 @@ def main(argv: list[str] | None = None) -> int:
     except KeyboardInterrupt:
         print("\ninterrupted")
         return 130
+    except BrokenPipeError:
+        # Commands such as `makefiling list | head` should end quietly.
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())
+        return 0
 
 
 if __name__ == "__main__":

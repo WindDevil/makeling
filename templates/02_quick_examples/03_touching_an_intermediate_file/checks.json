@@ -116,5 +116,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 14,
+    "goal": "观察只重建受影响的链段。",
+    "prediction": "只更新 blah.o 时，blah.c 会重新编译吗？",
+    "hints": [
+      "blah.o 必须声明 blah.c 依赖。",
+      "最终目标 blah 依赖 blah.o。",
+      "比较每次输出，找出没有重新执行的 recipe。"
+    ],
+    "explanation": "增量构建只执行从过期节点到最终目标所需的那部分 recipe。"
+  }
 }

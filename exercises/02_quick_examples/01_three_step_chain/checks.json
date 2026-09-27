@@ -49,5 +49,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 13,
+    "goal": "构建一个三层依赖链。",
+    "prediction": "从空目录构建 blah 时，blah.c、blah.o、blah 的顺序是什么？",
+    "hints": [
+      "最终目标 blah 依赖 blah.o，blah.o 依赖 blah.c。",
+      "每一层都需要一条规则。",
+      "从最终目标向下画箭头，再按反方向执行。"
+    ],
+    "explanation": "Make 递归走完整条依赖链，再从最底层开始执行 recipe。"
+  }
 }

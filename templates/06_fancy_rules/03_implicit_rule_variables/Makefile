@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/03_implicit_rule_variables
+# makefiling exercise: 06_fancy_rules/03_implicit_rule_variables
 # title: The variables behind the built-in rule
 # objective: Set CC, CFLAGS and CPPFLAGS so the built-in compile rule builds blah.o with exactly those flags, and read the command with make -n.
 # reference: Implicit Rules

@@ -1,4 +1,4 @@
-# makeling exercise: 01_syntax_and_essence/02_several_targets_one_rule
+# makefiling exercise: 01_syntax_and_essence/02_several_targets_one_rule
 # title: Several targets on one rule line
 # objective: Write a single rule that applies to two target names, so that make can build either one of them.
 # reference: Makefile Syntax

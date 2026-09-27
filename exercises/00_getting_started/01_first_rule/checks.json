@@ -34,5 +34,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 1,
+    "goal": "让 make 执行一条最简单的 recipe。",
+    "prediction": "运行 make 会读取哪个目标？终端会先显示命令，还是只显示命令的输出？",
+    "hints": [
+      "规则由目标行和 recipe 组成：hello: 下一行才是要执行的命令。",
+      "recipe 行必须以真正的 TAB 开头。",
+      "把 echo 命令放在 hello: 下方，并用 TAB 缩进。"
+    ],
+    "explanation": "make 默认构建第一个目标；recipe 会先被回显，再交给 shell 执行。"
+  }
 }

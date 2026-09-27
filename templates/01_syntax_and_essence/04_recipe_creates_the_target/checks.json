@@ -48,5 +48,16 @@
       "files": {},
       "missing": []
     }
-  ]
+  ],
+  "lesson": {
+    "order": 10,
+    "goal": "让 recipe 创建它声明的目标文件。",
+    "prediction": "如果 recipe 创建 hello，第二次 make 会发生什么？",
+    "hints": [
+      "目标是否最新取决于同名文件是否存在。",
+      "把两行文本写入 hello，而不是只打印到终端。",
+      "可以用 echo 和 >、>> 组合写文件。"
+    ],
+    "explanation": "recipe 的副作用必须和目标名一致，否则 make 每次都只能再次尝试。"
+  }
 }

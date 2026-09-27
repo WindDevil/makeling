@@ -1,4 +1,4 @@
-# makeling exercise: 06_fancy_rules/16_double_colon_prereqs
+# makefiling exercise: 06_fancy_rules/16_double_colon_prereqs
 # title: Each double-colon rule is checked on its own
 # objective: Give each :: rule its own prerequisite and its own recipe, so that make rebuilds only the rule whose prerequisite changed.
 # reference: Double-Colon Rules
